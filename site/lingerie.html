@@ -5,7 +5,7 @@
 <meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>لانجري — بيـوري Purey</title>
-<meta name="description" content="لانجري بالجملة من بيـوري، طرابلس — 56 قطعة. اطلب على واتساب.">
+<meta name="description" content="لانجري بالجملة من بيـوري، طرابلس — 59 قطعة. اطلب على واتساب.">
 <link rel="icon" href="img/favicon.png">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Markazi+Text:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,300;1,400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&display=swap">
 <style>
@@ -60,46 +60,526 @@ nav a{transition:color .15s}
 nav a:hover{color:var(--wine)}
 @media (max-width:760px){ .top{grid-template-columns:auto 1fr} .tagline{display:none} }
 
-/* ── hero ───────────────────────────────────────────────────────────── */
-/* Studio cut-outs, not a lifestyle shot, so the hero is a lit blush backdrop
-   with the sets standing on it; multiply melts their white ground away. */
-.hero{
-  position:relative; border-radius:26px; overflow:hidden; aspect-ratio:1275/667; max-width:100%;
-  background:
-    radial-gradient(55% 80% at 30% 62%, #faf1ed 0%, rgba(250,241,237,0) 72%),
-    linear-gradient(135deg,#eedcd7 0%,#e4cbc7 55%,#d8bbb7 100%);
+/* Three contiguous campaign photographs, each with its own mobile framing. */
+.page{--hero-pink:#a20c4d}
+.page:has(.site-head--campaign){--hero-pink:#550f25}
+.campaigns{background:#39101c}
+.campaign{
+  position:relative;isolation:isolate;display:grid;align-items:center;overflow:hidden;
+  min-height:clamp(530px,57vw,900px);color:#fff6ed;
+  background:var(--campaign-wall);padding:clamp(36px,6vw,104px);
 }
-.hero-pics{position:absolute; inset-inline-end:3%; top:6%; bottom:0; width:58%; display:flex; align-items:flex-end; justify-content:center}
-.hero-pics img{height:86%; width:34%; object-fit:contain; object-position:center bottom; mix-blend-mode:multiply; margin-inline:-2.5%}
-.hero-pics img:nth-child(2){height:100%; width:38%; position:relative; z-index:1}
-.hero-copy{position:absolute; inset-inline-start:0; bottom:0; width:46%; text-align:start; padding:0 clamp(18px,3vw,46px) clamp(22px,3.6vw,52px)}
-.hero h1{
-  font-family:var(--f-script); font-weight:400; color:var(--wine); margin:0;
-  font-size:clamp(34px,4.9vw,76px); line-height:1.45;
-  display:inline-block; padding-inline-end:clamp(10px,3vw,40px);
-  border-bottom:1px solid rgba(17,17,17,.4);
+.campaign picture,.campaign img{position:absolute;inset:0;width:100%;height:100%;z-index:-2}
+.campaign img{object-fit:cover;object-position:var(--desktop-crop,center)}
+.campaign-satin{
+  --campaign-wall:#430e20;--desktop-crop:center 42%;
+  min-height:max(620px,calc(100svh - 37.5px));padding-block-start:100px;
 }
-.hero .sub{color:var(--ink-2); font-weight:400; font-size:clamp(14px,1.35vw,19px); line-height:1.7; margin:14px 0 0}
-.hero .go{display:inline-flex; align-items:center; gap:8px; margin-top:16px; color:var(--ink); font-family:var(--f-serif); font-size:clamp(16px,1.6vw,22px); border-bottom:1px solid rgba(17,17,17,.4); padding-bottom:2px; transition:color .15s, border-color .15s}
-.hero .go:hover{color:var(--wine); border-color:var(--wine)}
+.campaign-satin::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(to bottom,#20070c3b,transparent 21%);
+}
+.campaign-noir{
+  --campaign-wall:#e1c9ad;--desktop-crop:center top;
+  --cta-paper:#39121e;--cta-ink:#fff6ed;--cta-hover:#591a30;
+  color:#36141b;
+}
+.campaign-bridal{--campaign-wall:#d5a98c;--desktop-crop:center 12%;min-height:clamp(550px,65vw,1050px)}
+.campaign-copy{
+  display:grid;width:fit-content;justify-self:start;gap:12px;
+}
+.campaign-bridal .campaign-copy{margin-inline-start:23%;translate:0 33%}
+.campaign-noir .campaign-copy{margin-inline-start:16%;translate:0 60%}
+@media (prefers-reduced-motion:no-preference){
+  .campaign-copy-visible{animation:campaign-copy-enter .6s ease-out both}
+  @keyframes campaign-copy-enter{from{opacity:.72;transform:translateY(12px)}to{opacity:1;transform:none}}
+}
+.campaign-title{
+  /* Only the button contributes to the copy block's intrinsic inline size. */
+  contain:inline-size;min-inline-size:0;
+  margin:0;color:inherit;text-align:center;font:500 clamp(22px,2vw,30px)/1.24 var(--f-sans);
+  text-wrap:balance;
+}
+.campaign-satin .campaign-title{font-size:clamp(24px,2.1vw,32px);white-space:nowrap}
+.campaign-noir .campaign-title,.campaign-bridal .campaign-title{font-size:clamp(31px,2.6vw,40px)}
+.campaign-action,.pill,.btn,.add,.quick-shop,.product-zoom,.ai-cta{
+  display:inline-flex;align-items:center;justify-content:center;width:fit-content;
+  flex:none;align-self:start;justify-self:start;padding-inline:22px;white-space:nowrap;
+}
+.campaign-action{
+  gap:19px;min-height:58px;padding:12px 28px;border-radius:100px;
+  background:#fff6ed;color:#39121e;border:1px solid #fff6ed;
+  transition:background-color .22s,border-color .22s,box-shadow .22s;
+  font:500 clamp(18px,1.56vw,23px)/1.4 var(--f-sans);
+}
+.campaign-action .campaign-butterfly{
+  position:static;inset:auto;z-index:auto;width:34px;height:auto;flex:none;
+  object-fit:contain;object-position:center;transform:none;translate:none;mask-image:none;
+}
+.campaign-action:is(:hover,:focus-visible){
+  background:#efdfd4;border-color:#efdfd4;
+}
+.campaign-action:focus-visible{outline:2px solid #39121e;outline-offset:4px}
+@media (max-width:700px){
+  .campaign{
+    min-height:clamp(565px,146vw,830px);
+    padding-inline:clamp(15px,4.7vw,25px);
+  }
+  .campaign-satin{
+    min-height:max(565px,calc(100svh - 32px));
+    align-items:start;padding-block-start:clamp(105px,13svh,128px);
+  }
+  .campaign-noir{align-items:start;padding-block-start:clamp(62px,7svh,81px)}
+  .campaign-bridal{align-items:end;padding-block-end:clamp(25px,5svh,44px)}
+  .campaign img{object-position:center}
+  .campaign-satin picture img{object-position:84% center}
+  .campaign-noir img{
+    object-position:right top;transform:scale(1.12);transform-origin:right top;
+  }
+  .campaign-bridal img{object-position:center top}
+  .campaign-bridal::before{
+    content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+    background:linear-gradient(to top,#2610159e,transparent 32%);
+  }
+  .campaign-satin::before{
+    background:linear-gradient(to bottom,#21081160,transparent 31%);
+  }
+  .campaign-noir .campaign-copy{margin-inline-start:0;translate:none}
+  .campaign-bridal .campaign-copy{margin-inline-start:clamp(12px,6vw,36px);translate:none}
+  .campaign-copy{gap:10px}
+  .campaign-satin .campaign-title{font-size:clamp(21px,5.95vw,27px)}
+  .campaign-noir .campaign-title,.campaign-bridal .campaign-title{font-size:clamp(26px,6.6vw,33px)}
+  .campaign-action{min-height:54px;padding-inline:24px;gap:14px}
+  .campaign-action .campaign-butterfly{width:29px}
+}
+@media (max-width:360px){
+  .campaign-satin{--campaign-wall:#160507}
+  .campaign-satin picture img{
+    object-position:85% center;translate:0 78px;
+    mask-image:linear-gradient(transparent,#000 12%);
+  }
+}
+@media (min-width:701px){
+  .campaign-satin{--desktop-crop:center top}
+  .campaign-satin picture img{translate:0 clamp(38px,5vw,82px);mask-image:linear-gradient(transparent,#000 8%)}
+  .campaign-satin{--campaign-wall:#150505}
+}
+@media (min-width:921px){
+  .campaign-satin picture img{translate:0 clamp(115px,11.5vw,185px)}
+}
+#best + .campaign-gallery{margin-block-start:clamp(20px,2.5vw,36px)}
+/* Homepage collection lookbook */
+.campaign-gallery{
+  background:#f2e8dd;color:#491827;padding:clamp(15px,1.9vw,28px) 0 0;
+  scroll-margin-top:72px;
+}
+.gallery-title{
+  margin:0 0 clamp(12px,1.6vw,22px);padding-inline:clamp(18px,2.4vw,36px);
+  font:400 clamp(24px,2.45vw,38px)/1.25 var(--f-sans);
+}
+.lookbook{
+  display:grid;gap:8px;grid-template-columns:repeat(24,minmax(0,1fr));
+  grid-template-rows:repeat(10,clamp(49px,5.35vw,115px));
+}
+.lookbook-tile{
+  position:relative;isolation:isolate;overflow:hidden;display:block;min-width:0;
+  color:#fff8ef;background:#43232a;
+}
+.lookbook-lingerie{grid-area:1 / 1 / 8 / 14;--crop:50% 12%;--mobile-crop:49% 15%}
+.lookbook-satin{grid-area:1 / 14 / 7 / 25;--crop:50% 16%;--mobile-crop:50% 14%}
+.lookbook-robes{grid-area:7 / 14 / 11 / 25;--crop:49% 13%;--mobile-crop:54% 15%}
+.lookbook-cotton{grid-area:8 / 1 / 11 / 6;--crop:44% 37%;--mobile-crop:50% 35%}
+.lookbook-sets{grid-area:8 / 6 / 11 / 10;--crop:51% 38%;--mobile-crop:50% 41%}
+.lookbook-lavermo{grid-area:8 / 10 / 11 / 14;--crop:48% 52%;--mobile-crop:47% 51%}
+.lookbook-tile img,.lookbook-tile::before,.lookbook-tile::after{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+.lookbook-tile img{
+  object-fit:cover;object-position:var(--crop,center);
+  transition:transform 650ms cubic-bezier(.22,.67,.28,1);
+}
+.lookbook-tile::before,.lookbook-tile::after{content:"";pointer-events:none;z-index:1}
+.lookbook-tile::before{background:#220c15;opacity:0;transition:opacity 650ms ease}
+.lookbook-tile::after{
+  background:linear-gradient(to top,#211117c4,#21111746 24%,transparent 48%);
+}
+.lookbook-copy{
+  position:absolute;z-index:2;inset-inline:clamp(24px,2vw,32px);
+  inset-block-end:clamp(24px,2.05vw,32px);
+}
+.lookbook-name{
+  display:block;width:fit-content;font:400 clamp(17px,1.68vw,30px)/1.25 var(--f-sans);
+  transition:transform 650ms cubic-bezier(.22,.67,.28,1);
+}
+.lookbook-lingerie .lookbook-name{font-size:clamp(30px,3.35vw,56px)}
+.lookbook-satin .lookbook-name{font-size:clamp(25px,2.7vw,45px)}
+.lookbook-robes .lookbook-name{font-size:clamp(21px,2.13vw,36px)}
+.lookbook-name bdi{font:500 1.12em/1 var(--f-latin-script)}
+.lookbook-cta{
+  position:absolute;inset-block-start:calc(100% + 2px);inset-inline-start:0;
+  display:inline-flex;width:fit-content;opacity:0;transform:translateY(5px);white-space:nowrap;
+  font:400 clamp(11px,.94vw,14px)/1.25 var(--f-sans);
+  transition:transform 650ms cubic-bezier(.22,.67,.28,1),opacity .35s ease;
+}
+.lookbook-tile .lavermo-limited{
+  z-index:3;background:#ead1a7;color:#542437;top:19px;right:-37px;width:130px;min-height:22px;font-size:10px;
+}
+.lookbook-tile:focus-visible{outline:2px solid #fff8ef;outline-offset:-5px}
+.lookbook-tile:focus-visible .lookbook-name{transform:translateY(-7px)}
+.lookbook-tile:focus-visible .lookbook-cta{opacity:1;transform:none}
+@media (hover:hover) and (pointer:fine){
+  .lookbook-tile:hover img{transform:scale(1.035)}
+  .lookbook-tile:hover::before{opacity:.13}
+  .lookbook-tile:hover .lookbook-name{transform:translateY(-7px)}
+  .lookbook-tile:hover .lookbook-cta{opacity:1;transform:none}
+}
 @media (max-width:760px){
-  .hero{aspect-ratio:auto; height:auto; display:flex; flex-direction:column}
-  .hero-pics{position:relative; inset:auto; width:100%; height:62vw; margin-top:18px}
-  .hero-copy{position:relative; width:100%; padding-top:14px}
+  .campaign-gallery{scroll-margin-top:60px}
+  .lookbook{grid-template-columns:repeat(12,minmax(0,1fr));grid-template-rows:none;gap:8px}
+  .lookbook .lookbook-tile{grid-area:auto;grid-column:span 5;min-height:clamp(198px,58vw,355px)}
+  .lookbook .lookbook-lingerie,.lookbook .lookbook-satin{grid-column:1/-1}
+  .lookbook .lookbook-lingerie{aspect-ratio:5/6}
+  .lookbook .lookbook-satin{aspect-ratio:1.05}
+  .lookbook .lookbook-robes,.lookbook .lookbook-sets{grid-column:span 7}
+  .lookbook .lookbook-sets,.lookbook .lookbook-lavermo{min-height:clamp(175px,51vw,325px)}
+  .lookbook-tile img{object-position:var(--mobile-crop,center)}
+  .lookbook-copy{inset-inline:clamp(16px,4.9vw,24px);inset-block-end:24px}
+  .lookbook-name{font-size:clamp(16px,4.25vw,25px)}
+  .lookbook-lingerie .lookbook-name{font-size:clamp(26px,6.7vw,44px)}
+  .lookbook-satin .lookbook-name{font-size:clamp(23px,5.8vw,37px)}
+  .lookbook-robes .lookbook-name{font-size:clamp(18px,4.65vw,28px)}
+}
+/* ── navigation + category pages ────────────────────────────────────── */
+nav a[aria-current="page"]{color:var(--wine)}
+/* ── site header ─────────────────────────────────────────────────────── */
+.page{overflow:clip;margin-block:0}
+.page:has(.site-head--campaign){max-width:none}
+.announce{display:block; background:var(--wine); color:#f6e9e8; text-align:center; font:400 13px/1.5 var(--f-sans); padding:9px var(--pad); transition:color .15s}
+.announce:hover{color:#fff}
+.announce bdi{font-weight:500}
+.site-head{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.95); -webkit-backdrop-filter:saturate(1.2) blur(10px); backdrop-filter:saturate(1.2) blur(10px); transition:box-shadow .3s}
+.site-head.scrolled{box-shadow:0 12px 30px -20px rgba(60,12,20,.4)}
+.hbar{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding-block:18px 14px; transition:padding .3s}
+.site-head.scrolled .hbar{padding-block:9px 7px}
+.h-start{justify-self:start; display:flex; align-items:center; gap:14px}
+.h-loc{display:inline-flex; align-items:center; gap:8px; font:400 13.5px/1 var(--f-sans); color:var(--ink-2); transition:color .15s}
+.h-loc:hover{color:var(--wine)}
+.h-loc svg,.h-icons svg,.menu-btn svg{width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
+.site-head .logo{justify-self:center}
+.site-head .logo img{height:clamp(54px,5vw,72px); width:auto; display:block; transition:height .3s}
+.site-head.scrolled .logo img{height:42px}
+.h-icons{justify-self:end; display:flex; align-items:center; gap:clamp(14px,1.6vw,22px)}
+.h-icons a,.h-icons button,.menu-btn{display:grid; place-items:center; color:var(--ink); background:none; border:0; padding:4px; cursor:pointer; transition:color .15s}
+.h-icons a:hover,.h-icons button:hover,.menu-btn:hover{color:var(--wine)}
+.h-icons .sep{width:1px; height:22px; background:rgba(17,17,17,.14)}
+.menu-btn{display:none}
+.mainnav{display:flex; justify-content:center; flex-wrap:nowrap; gap:clamp(20px,3vw,50px); padding:0; margin:0; border-top:1px solid rgba(17,17,17,.08); font:inherit}
+.mainnav a{position:relative; padding:15px 2px 16px; font:500 clamp(16.5px,1.3vw,19px)/1 var(--f-serif); color:var(--ink); white-space:nowrap; transition:color .2s}
+.mainnav a::after{content:""; position:absolute; left:50%; right:50%; bottom:9px; height:1px; background:var(--wine); transition:left .3s cubic-bezier(.2,.7,.2,1), right .3s cubic-bezier(.2,.7,.2,1)}
+.mainnav a:hover,.mainnav a[aria-current="page"]{color:var(--wine)}
+.mainnav a:hover::after,.mainnav a[aria-current="page"]::after{left:0; right:0}
+@media (min-width:921px){
+  .hbar{grid-template-columns:minmax(0,1fr) auto;padding-block:14px 10px;column-gap:24px;row-gap:7px}
+  .h-start{display:none}
+  .site-head .logo{grid-column:1/-1;grid-row:1}
+  .mainnav{grid-column:1;grid-row:2;justify-content:flex-start;gap:clamp(10px,1.75vw,30px);border:0}
+  .mainnav a{font:600 clamp(13px,1.25vw,17px)/1.1 var(--f-sans);padding:12px 1px}
+  .mainnav a::after{bottom:5px}
+  .h-icons{grid-column:2;grid-row:2}
+}
+@media (max-width:920px){
+  .h-loc,.h-icons .hide-m,.h-icons .sep,.mainnav{display:none}
+  .menu-btn{display:grid}
+  .site-head .logo img{height:49px}
+}
+.site-head--campaign{
+  position:relative;height:0;overflow:visible;background:transparent;color:#fff;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.site-head--campaign .hbar{
+  position:relative;grid-template-columns:1fr auto 1fr;
+  gap:4px 20px;max-width:none;margin:0;padding:8px clamp(18px,4vw,66px) 2px;transition:background-color .24s,color .24s;
+}
+.site-head--campaign .logo{grid-column:1/-1;grid-row:1;color:inherit}
+.campaign-wordmark{
+  display:flex;align-items:center;gap:.11em;
+  font:600 18vw/.78 var(--f-latin-script);letter-spacing:.08em;
+}
+.site-head--campaign .logo .campaign-icon{
+  height:.59em;width:auto;flex:none;filter:brightness(0) invert(1);
+}
+.site-head--campaign .mainnav{
+  grid-column:1/3;grid-row:2;justify-content:flex-start;align-items:center;gap:clamp(20px,3.25vw,54px);
+}
+.site-head--campaign .mainnav a,.mega-trigger{
+  padding:12px 0;color:inherit;font:500 clamp(18px,1.55vw,23px)/1.3 var(--f-sans);
+}
+.site-head--campaign .mainnav a::after{background:currentColor}
+.site-head--campaign .h-icons{grid-column:3;grid-row:2;gap:clamp(7px,1vw,14px)}
+.site-head--campaign .h-icons :is(a,button),.site-head--campaign .menu-btn{
+  color:inherit;padding:0;min-width:40px;min-height:44px;
+}
+.site-head--campaign .h-icons .sep{display:none}
+.mega-trigger,.editorial-drawer button{background:none;border:0;color:inherit;cursor:pointer;font-family:inherit}
+.mega-trigger[aria-expanded="true"]{text-decoration:underline;text-underline-offset:7px}
+.mega-panel{
+  position:absolute;inset-inline:0;top:100%;background:#fff;
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1.2vw,18px);
+  padding:22px clamp(18px,4vw,66px) 30px;
+}
+.site-head--campaign.is-mega-open .hbar{background:#fff;color:#111}
+.site-head--campaign.is-mega-open .campaign-icon{filter:brightness(0)}
+@media (min-width:921px) and (hover:hover) and (pointer:fine){
+  .site-head--campaign .hbar:hover{background:#fff;color:#111}
+  .site-head--campaign .hbar:hover .campaign-icon{filter:brightness(0)}
 }
 
-/* ── clients strip ──────────────────────────────────────────────────── */
-.strip{display:flex; justify-content:center; align-items:center; gap:clamp(10px,1.4vw,20px); overflow:hidden; padding-block:4px}
-.th{flex:none; width:clamp(62px,6.1vw,88px); aspect-ratio:88/103; border-radius:clamp(16px,1.6vw,23px); font-size:10px; transition:width .3s, aspect-ratio .3s}
-.th.big{width:clamp(118px,11.7vw,168px); aspect-ratio:1; border-radius:24px; font-size:12px}
-.t1{background:linear-gradient(160deg,#cdbfb3,#8f7461)} .t2{background:linear-gradient(160deg,#6b4f43,#2e211c)}
-.t3{background:linear-gradient(160deg,#d8d4d7,#9c9499)} .t4{background:linear-gradient(160deg,#4b4545,#1f1c1c)}
-.t5{background:linear-gradient(160deg,#e2b8ad,#b07a6c)} .t6{background:linear-gradient(160deg,#c9c3c0,#7f7671)}
-.t7{background:linear-gradient(160deg,#a9b6bd,#5d6e78)}
-.arrows{display:flex; justify-content:center; gap:58px; margin-top:clamp(30px,4vw,66px)}
-.arrows button{background:none; border:0; padding:6px; cursor:pointer; color:var(--ink)}
-.arrows button:hover{color:var(--wine)}
+.mega-panel[hidden],.editorial-drawer [hidden]{display:none}
+.site-head--campaign .mega-panel a,.drawer-collections a{position:relative;display:block;padding:0;color:#fff6ed;font-size:13px}
+.mega-panel a::after{content:none}
+.mega-panel img,.drawer-collections img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.74)}
+.mega-panel a span,.drawer-collections a span{
+  position:absolute;inset-inline:10px;bottom:10px;text-shadow:0 1px 5px #110507;
+}
+.site-head--campaign .mega-panel a{color:#111;font-size:clamp(14px,1.4vw,21px)}
+.mega-panel img{filter:none}
+.mega-panel a span{position:static;display:block;margin-top:8px;text-shadow:none}
+.mega-panel small,.drawer-collections small{display:block;font-size:11px}
+.site-head--campaign :focus-visible,.editorial-drawer :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+dialog.sheet.editorial-drawer{
+  position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;
+  padding:24px;color:#fff6ed;background:transparent;border-radius:0;overflow:auto;
+}
+.editorial-drawer::backdrop{background:#39121eba;backdrop-filter:blur(9px)}
+.editorial-drawer .drawer-controls{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.editorial-drawer .drawer-controls button{min-height:44px;font-size:17px}
+.drawer-main{display:grid;justify-items:start;gap:24px;margin-top:clamp(44px,12vh,120px)}
+.drawer-main :is(a,button){padding:0;font-size:clamp(27px,7vw,42px);font-weight:500}
+.drawer-collections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:24px}
+@media(prefers-reduced-motion:no-preference){
+  .mega-panel:not([hidden]),.editorial-drawer[open],.editorial-drawer [data-menu-view]:not([hidden]){
+    animation:editorial-menu-in .28s ease both;
+  }
+  @keyframes editorial-menu-in{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:none}}
+}
+@media (max-width:920px){
+  .site-head--campaign .hbar{padding-inline:14px;gap:0 5px}
+  .site-head--campaign .mainnav{display:none}
+  .site-head--campaign .h-start{grid-column:1;grid-row:2}
+  .site-head--campaign .h-icons{gap:4px}
+  .campaign-wordmark{font-size:18.4vw}
+}
+.menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+.menu-d:not([open]){display:none}
+.md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
+.md-head img{height:44px; width:auto}
+.md-list{list-style:none; margin:0; padding:6px 20px; overflow-y:auto; overscroll-behavior:contain; flex:1}
+.md-list a{display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(17,17,17,.06); font:500 21px/1.2 var(--f-serif); color:var(--ink)}
+.md-list a[aria-current="page"]{color:var(--wine)}
+.md-list img{width:54px; height:54px; border-radius:14px; object-fit:cover; flex:none}
+.md-list .md-lavermo{object-fit:contain;background:#952053;padding:7px}
+.md-list .tx small{display:block; margin-top:5px; font:500 10px/1 var(--f-latin-script); letter-spacing:.28em; text-transform:uppercase; color:var(--grey-2); direction:ltr; text-align:right}
+.md-list .plain{padding-inline-start:68px}
+.md-foot{padding:16px 20px 22px; display:grid; gap:10px; border-top:1px solid rgba(17,17,17,.08)}
+@media (max-width:760px){
+  .announce{font-size:12px; padding-block:7px}
+  .h-loc,.h-icons .hide-m,.h-icons .sep{display:none}
+  .menu-btn{display:grid}
+  .hbar{padding-block:12px}
+  .site-head .logo img{height:48px}
+  .site-head.scrolled .logo img:not(.campaign-icon){height:38px}
+  .mainnav{display:none}
+}
+.crumbs{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13.5px; color:var(--grey-2); margin:0 0 14px; padding:0}
+.crumbs a:hover{color:var(--wine)}
+.crumbs [aria-current]{color:var(--ink)}
+.cat-hero{
+  position:relative; display:flex; align-items:center; isolation:isolate; overflow:hidden;
+  min-height:clamp(265px,40vw,590px); background:#260e13; color:#fff3ed;
+  padding:clamp(26px,5vw,72px); container-type:inline-size;
+}
+.cat-hero .cover{
+  position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:left center;
+}
+.cat-hero .lab{
+  position:relative; align-items:flex-start; text-align:start; max-width:57%;
+  margin:0; --fs:clamp(47px,8.5cqi,107px);
+}
+.cat-hero .lab .ar{white-space:normal; text-wrap:balance}
+.cat-hero.satin{padding-block:clamp(22px,3vw,44px)}
+.cat-hero.satin::before{content:none}
+.cat-hero.satin .cover{object-position:left 22%}
+.cat-hero.satin .lab{
+  max-width:80%; gap:0; --fs:clamp(84px,16cqi,185px);
+  margin-inline-start:23%; transform:translateY(-10%); color:#f4d9d0;
+}
+.cat-hero.satin .lab .ar{white-space:nowrap; line-height:.73}
+.cat-hero.satin .satin-foreground{z-index:2; pointer-events:none}
+@media (max-width:620px){
+  .cat-hero.satin .cover{object-position:left center}
+  .cat-hero.satin .lab{--fs:clamp(51px,17.5cqi,82px); margin-inline-start:4%; transform:translateY(-23%)}
+}
+.cat-hero.robes{padding-block:clamp(24px,3vw,44px)}
+.cat-hero.robes .cover{object-position:left 22%}
+.cat-hero.robes .lab{
+  align-items:flex-start; gap:0; margin-inline-start:3%; max-width:55%;
+  --fs:clamp(65px,12.8cqi,143px);
+}
+.cat-hero.robes .lab .ar{white-space:nowrap}
+@media (max-width:620px){
+  .cat-hero.robes .lab{--fs:clamp(44px,14cqi,69px); margin-inline-start:0}
+}
+.cat-hero:is(.cotton,.sets) .lab{margin-inline-start:7%; --fs:clamp(64px,12cqi,144px)}
+.cat-hero.cotton .lab{margin-inline-start:2%; --fs:clamp(42px,8.4cqi,112px); max-width:65%}
+.cat-hero.sets .lab .ar + .ar{font-size:calc(var(--fs) * 1.23)}
+.cat-hero.lingerie .lab{margin-inline-start:5%; --fs:clamp(56px,12cqi,144px)}
+.cat-hero.sets .lab .ar{line-height:.83; white-space:nowrap}
+.lavermo-hero{min-height:clamp(255px,35vw,500px); border-radius:24px}
+.lavermo-hero .lavermo-mark{width:clamp(210px,36vw,435px)}
+.lavermo-details{text-align:center; padding-block:clamp(21px,4vw,44px)}
+.lavermo-details h1{font:600 clamp(30px,4.8vw,57px)/1.2 var(--f-sans); color:#7c204e; margin:0}
+.lavermo-details p{max-width:43ch;margin:13px auto 0;color:var(--ink);font:400 17px/1.55 var(--f-sans)}
+.lavermo-details .pill{font-size:16px; margin-top:16px; background:#7c204e; color:#fff; padding-block:11px}
+.lavermo-details .pill:hover{background:#64173e}
+@media (max-width:620px){
+  .cat-hero:is(.sets,.lingerie) .lab{margin-inline-start:0; --fs:clamp(36px,15cqi,68px)}
+  .cat-hero.cotton .lab{margin-inline-start:0; --fs:clamp(29px,11cqi,56px)}
+}
+.toolbar{display:flex; justify-content:space-between; align-items:center; gap:14px 24px; flex-wrap:wrap; margin:clamp(26px,3vw,40px) 0 clamp(26px,3vw,40px)}
+.toolbar .count{margin:0; font-size:14.5px; color:var(--grey-2); line-height:1.7}
+.toolbar .count b{color:var(--ink); font-weight:600}
+.search{position:relative; width:min(340px,100%)}
+.search input{width:100%; height:48px; border:1px solid rgba(17,17,17,.14); border-radius:12px; background:#fff; padding:0 44px 0 14px; font:400 15px var(--f-sans); color:var(--ink)}
+.search input:focus{outline:none; border-color:var(--wine)}
+.search svg{position:absolute; top:50%; right:14px; transform:translateY(-50%); width:19px; height:19px; fill:none; stroke:var(--grey-2); stroke-width:1.7; stroke-linecap:round; pointer-events:none}
+.empty{text-align:center; color:var(--grey-2); font-size:15px; padding:40px 0}
+.others{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,1.6vw,22px)}
+.other{display:block; text-align:center}
+.other .ph{display:block; aspect-ratio:4/5; overflow:hidden; background:#2a1418}
+.other .ph img{width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.other:hover .ph img{transform:scale(1.04)}
+.other .nm{display:block; font-family:var(--f-script); font-weight:400; font-size:clamp(24px,2.2vw,32px); line-height:1.15; margin-top:12px; transition:color .15s}
+.other:hover .nm{color:var(--wine)}
+.other .en{display:block; font-family:var(--f-latin-script); font-weight:500; text-transform:uppercase; letter-spacing:.3em; font-size:11px; color:var(--grey-2); direction:ltr; margin-top:6px}
+@media (max-width:620px){
+  .cat-hero .lab{--fs:clamp(33px,11cqi,62px)}
+}
+@media (max-width:760px){ .others{grid-template-columns:repeat(2,minmax(0,1fr))} .toolbar{flex-direction:column; align-items:stretch} .search{width:100%} }
 
+.catalog-intro{padding-block:clamp(28px,4vw,58px) 0}
+.catalog-intro p{margin:0;font-size:clamp(17px,2vw,23px);color:var(--ink-2);max-width:50ch}
+.catalog-controls{display:grid;grid-template-columns:minmax(180px,2fr) minmax(115px,1fr) minmax(140px,1fr);gap:12px}
+.catalog-controls .search{width:auto}
+#catalogSort{grid-column:-2/-1}
+.catalog-controls select,.catalog-controls input{
+  width:100%;min-height:48px;border:1px solid #d9bec7;border-radius:0;background:#fff;
+  color:var(--ink);font:inherit;padding:0 12px
+}
+.catalog-controls input{padding-inline-start:42px}
+.catalog-controls :focus-visible,.product-view :focus-visible,.related-product:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+.catalog-controls .search input:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+#catalog .toolbar{display:block}
+#catalog .grid{gap:clamp(27px,4vw,56px) clamp(10px,2vw,28px)}
+#catalog .pc{text-align:start}
+#catalog .pc h3{min-height:0;margin:12px 0 4px;font-weight:600}
+#catalog .pc h3 a:hover,.related-product:hover{color:var(--wine);text-decoration:underline;text-underline-offset:4px}
+.pc .pc-meta{margin:0 0 11px;color:var(--grey-2);font-size:12px}
+.pc .act{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pc .act .step{border-radius:100px}
+.pc .act .step{width:fit-content;min-width:128px}
+.quick-shop{
+  border-radius:100px;  min-height:44px;padding-block:6px;border:1px solid #ddcbd0;background:#fff;
+  color:var(--wine);font:500 13px var(--f-sans);cursor:pointer;transition:background-color .2s
+}
+.quick-shop:hover{background:#faf0f4}
+.product-view{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);direction:ltr;
+  gap:clamp(22px,5vw,76px);align-items:start;margin-block:12px clamp(45px,8vw,100px)
+}
+.product-view > *{direction:rtl}
+.product-stage{margin:0;position:relative;overflow:hidden;background:#f8f3f5;aspect-ratio:4/5;max-height:74svh}
+.product-stage img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .35s}
+.product-stage.is-zoomed img{transform:scale(1.65)}
+.product-zoom{
+  border-radius:100px;  position:absolute;inset:auto 12px 12px auto;min-height:44px;padding-block:7px;
+  border:1px solid #d9bec7;background:var(--cream);color:var(--wine);font:inherit;cursor:pointer
+}
+.product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
+.product-info > *{margin:0}
+.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-kicker{color:var(--wine);font-weight:600}
+.product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
+.product-info .qty{justify-content:flex-start}
+.product-info .product-add,.product-info .product-ask{min-height:46px}
+.product-feedback{color:var(--wine);min-height:1.6em}
+.product-related{padding-block-end:clamp(36px,7vw,90px)}
+.related-product{display:grid;gap:8px;font-weight:600}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+@media (max-width:700px){
+  .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .catalog-controls .search{grid-column:1/-1}
+  .product-view{grid-template-columns:minmax(0,1fr);gap:12px}
+  .product-stage{aspect-ratio:1}
+  .pc .act .add{padding-inline:20px;font-size:13px}
+}
+@media (prefers-reduced-motion:reduce){
+  .lookbook-tile:hover img,.lookbook-tile:is(:hover,:focus-visible) .lookbook-name{transform:none}
+}
+
+/* Wallet offers on the homepage */
+.rewards{
+  padding-block:clamp(52px,7vw,108px);background:var(--hero-pink);color:#fff6ed;
+}
+.rewards-layout{
+  display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);
+  gap:clamp(30px,6vw,90px);align-items:center;
+}
+.rewards-heading{font:400 clamp(34px,4vw,61px)/1.22 var(--f-sans);margin:0 0 28px}
+.reward-offers{display:grid;gap:25px}
+.reward-title{font:400 clamp(23px,2.3vw,34px)/1.3 var(--f-sans);margin:0 0 10px;text-wrap:balance}
+.reward-title bdi{white-space:nowrap}
+.reward-copy p{font-size:clamp(14px,1.3vw,17px);line-height:1.7;margin:0 0 12px;max-width:36em}
+.reward-copy .reward-terms{font-size:13px;color:#e7c7c7}
+.reward-link{
+  display:inline-flex;align-items:center;justify-content:center;gap:12px;
+  width:fit-content;flex:none;min-height:44px;padding:8px 24px;white-space:nowrap;
+  border:1px solid #fff6ed88;border-radius:100px;font:500 14px/1.4 var(--f-sans);
+  transition:background-color .2s,color .2s,border-color .2s;
+}
+.reward-link:hover{background:#fff6ed;color:#39121e;border-color:#fff6ed}
+.reward-link:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+.reward-stack{
+  position:relative;isolation:isolate;margin:0;justify-self:center;
+  width:min(100%,390px);aspect-ratio:390/535;
+}
+.reward-card{
+  position:absolute;display:block;width:68%;aspect-ratio:528/763;
+  border-radius:8px;filter:drop-shadow(0 14px 22px #15060e70);
+  transition:transform 650ms cubic-bezier(.22,.67,.28,1);
+}
+.reward-card-image{display:block;position:relative;overflow:hidden;width:100%;height:100%;border-radius:8px}
+.reward-card-image img{position:absolute;max-width:none;display:block}
+.reward-card-cashback{z-index:2;left:0;top:23%;transform:rotate(-5deg)}
+.reward-card-gift{z-index:1;right:0;top:0;aspect-ratio:526/764;transform:rotate(5deg)}
+.reward-card-cashback img{width:106.819%;height:111.271%;left:-4.546%;top:-3.408%}
+.reward-card-gift img{width:106.084%;height:109.163%;left:-3.422%;top:-4.843%}
+.reward-stack figcaption{position:absolute;inset-inline:0;bottom:-22px;font-size:11px;text-align:center;color:#e7c7c7}
+.rewards-layout:has(.reward-link:focus-visible) .reward-card-gift{transform:translate(8px,-9px) rotate(7deg)}
+.rewards-layout:has(.reward-link:focus-visible) .reward-card-cashback{transform:translate(-7px,8px) rotate(-7deg)}
+@media(hover:hover) and (pointer:fine){
+  .reward-stack:hover .reward-card-gift{transform:translate(8px,-9px) rotate(7deg)}
+  .reward-stack:hover .reward-card-cashback{transform:translate(-7px,8px) rotate(-7deg)}
+}
+@media(max-width:700px){
+  .rewards-layout{grid-template-columns:minmax(0,1fr);gap:54px}
+  .reward-stack{grid-row:1;width:min(85%,330px)}
+  .rewards-heading{font-size:35px}
+  .reward-title{font-size:25px}
+}
+@media(prefers-reduced-motion:reduce){
+  .rewards-layout .reward-card{transition:none;transform:none}
+}
 /* ── bestsellers ────────────────────────────────────────────────────── */
 .best{display:grid; grid-template-columns:repeat(5,1fr); gap:clamp(18px,2.6vw,40px); text-align:center}
 .cut{aspect-ratio:4/5; margin:0 auto 14px; width:100%}
@@ -108,7 +588,7 @@ nav a:hover{color:var(--wine)}
 .best h3{font-family:var(--f-sans); font-weight:400; font-size:clamp(15px,1.2vw,17.5px); margin:0 0 6px}
 .best .meta{font-size:13.5px; color:var(--grey); margin:0}
 .center{text-align:center; margin-top:clamp(36px,4.4vw,62px)}
-.pill{display:inline-flex; align-items:center; justify-content:center; background:var(--wine); color:#fff; font-family:var(--f-sans); font-weight:500; font-size:clamp(16px,1.3vw,19px); padding:15px 46px; border-radius:999px; transition:background .18s}
+.pill{background:var(--wine); color:#fff; font-family:var(--f-sans); font-weight:500; font-size:clamp(16px,1.3vw,19px); padding-block:12px; border-radius:100px; transition:background .18s}
 .pill:hover{background:#6f0d14}
 @media (max-width:760px){
   .best{grid-template-columns:none; grid-auto-flow:column; grid-auto-columns:40%; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
@@ -117,45 +597,141 @@ nav a:hover{color:var(--wine)}
 }
 
 /* ── category tiles ─────────────────────────────────────────────────── */
-/* Mosaic, five distinct sizes. RTL, so the first column sits on the right.
-   One lockup everywhere — Arabic name in Aref Ruqaa on a single line, a hairline,
-   the collection in tracked Latin caps — placed in each cover's empty space:
-   cotton → brown field lower left, satin → wine centre, lingerie and robes → dark
-   left half, sets → beneath the set. Left-placed lockups align left, centred ones centre. */
-.tiles{display:grid; gap:clamp(14px,1.6vw,22px);
-  grid-template-columns:1.15fr 1fr 1fr;
-  grid-template-rows:clamp(230px,25vw,350px) clamp(190px,18vw,260px) clamp(260px,29vw,420px);
-  grid-template-areas:"a b b" "a c c" "d d e"}
-.tile{position:relative; display:block; border-radius:28px; overflow:hidden; background:#2a1418; color:#fff; min-width:0; min-height:0; container-type:inline-size}
-.ta{grid-area:a} .tb{grid-area:b} .tc{grid-area:c} .td{grid-area:d} .te{grid-area:e}
-.tile .cover{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .9s cubic-bezier(.2,.7,.2,1)}
-.tile:hover .cover{transform:scale(1.035)}
-.ta .cover{object-position:40% 50%}
-.tc .cover{object-position:78% 35%}
-.td .cover{object-position:62% 50%}
-.te .cover{object-position:50% 30%}
-
+.tiles{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:clamp(14px,1.6vw,22px)}
+.tile{
+  position:relative; display:flex; align-items:center; isolation:isolate; overflow:hidden;
+  min-width:0; aspect-ratio:1.8; border-radius:24px; padding:clamp(18px,3vw,42px);
+  background:#39171f; color:#fff2e9; container-type:inline-size;
+}
+.tile.ta{grid-column:1/-1; aspect-ratio:3.2}
+.tile .cover{
+  position:absolute; inset:0; z-index:-2; width:100%; height:100%;
+  object-fit:cover; object-position:left center; transition:transform .7s ease;
+}
+@media (hover:hover) and (pointer:fine){.tile:hover .cover{transform:scale(1.03)}}
+.tile:focus-visible{outline:3px solid var(--wine); outline-offset:3px}
+.tile::before,.cat-hero::before{
+  content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(to left,rgba(75,25,34,.82),rgba(75,25,34,.48) 35%,transparent 68%);
+}
+:is(.tile.ta,.tile.tc,.cat-hero.cotton,.cat-hero.lingerie)::before{
+  background:linear-gradient(to left,#080709,rgba(8,7,9,.72) 35%,transparent 69%);
+}
+:is(.tile.td,.cat-hero.robes){color:var(--wine)}
+:is(.tile.td,.cat-hero.robes)::before{content:none}
 .lab{position:absolute; z-index:1; display:flex; flex-direction:column; gap:clamp(8px,1.6cqi,14px); text-shadow:0 1px 16px rgba(0,0,0,.3)}
 .lab .ar{font-family:var(--f-script); font-weight:400; font-size:var(--fs); line-height:1.2; white-space:nowrap}
-.lab .rule{display:block; width:clamp(26px,6cqi,44px); height:1px; background:rgba(255,255,255,.8); box-shadow:none}
-.lab .en{font-family:var(--f-sans); font-weight:500; font-size:clamp(9.5px,1.7cqi,12.5px); line-height:1; letter-spacing:.34em; text-transform:uppercase; direction:ltr; opacity:.92}
-.lab.l{left:8%; align-items:flex-end; text-align:left}
-.lab.c{left:50%; align-items:center; text-align:center}
-.ta .lab{top:64%; transform:translateY(-50%); --fs:clamp(26px,10cqi,48px)}
-.tb .lab{top:50%; transform:translate(-50%,-50%); --fs:clamp(26px,6.6cqi,46px)}
-.tc .lab{top:50%; transform:translateY(-50%); --fs:clamp(30px,8.5cqi,56px)}
-.td .lab{top:50%; transform:translateY(-50%); --fs:clamp(28px,6.4cqi,48px)}
-.te .lab{bottom:9%; transform:translateX(-50%); --fs:clamp(24px,13cqi,42px)}
-@media (max-width:760px){
-  /* wide covers go full width so their empty half survives; portrait/square ones pair up */
-  .tiles{grid-template-columns:1fr 1fr; grid-template-rows:220px 220px 190px 240px; grid-template-areas:"a b" "a e" "c c" "d d"}
-  .ta .lab,.tb .lab,.te .lab{--fs:clamp(21px,13cqi,28px)}
-  .tb .lab .ar,.te .lab .ar{white-space:normal; max-width:4.6em}
-  .ta .lab{left:9%}
-  .ta .lab .ar{white-space:normal; max-width:3.6em}
-  .tc .lab{--fs:clamp(30px,10cqi,40px)}
-  .td .lab{--fs:clamp(26px,8cqi,36px)}
-  .lab .en{font-size:9px; letter-spacing:.28em}
+.tile .lab{
+  position:relative; max-width:58%; text-shadow:0 2px 12px #260d18a6;
+  --fs:clamp(29px,10cqi,64px);
+}
+.tile .lab .ar{white-space:normal; text-wrap:balance}
+.tile.tb::before{content:none}
+.tile.tb .cover{object-position:left 22%}
+.satin-title{gap:0; color:#f8ded4; text-shadow:none}
+.satin-title .ar{white-space:nowrap}
+.satin-title .ar + .ar{font-size:calc(var(--fs) * 1.50)}
+.tile.tb .lab{
+  max-width:80%; --fs:clamp(45px,17cqi,106px);
+  margin-inline-start:8%; transform:translateY(-12%); color:#f4d9d0; text-shadow:none;
+}
+.tile.tb .satin-foreground{z-index:2; pointer-events:none}
+@media (max-width:650px){
+  .tile.tb .cover{object-position:left 26%}
+  .tile.tb .lab{--fs:clamp(43px,17cqi,72px); margin-inline-start:1%; transform:translateY(-22%)}
+}
+.robes-title{gap:0; color:var(--wine); text-shadow:none}
+.robes-title .ar{white-space:nowrap; line-height:.87}
+.robes-title .ar + .ar{font-size:calc(var(--fs)*.99)}
+.tile.td .cover{object-position:left 22%}
+.tile.td .lab{max-width:56%; --fs:clamp(43px,15cqi,93px); margin-inline-start:2%; align-items:flex-start; text-shadow:none; transform:none}
+@media (max-width:650px){
+  .tiles{gap:clamp(9px,2.8vw,16px)}
+  .tile{border-radius:16px; padding:clamp(11px,3vw,22px)}
+  .tile.ta,.tile.tb,.tile.te{grid-column:1/-1}
+  .tile.ta{aspect-ratio:1.84}
+  .tile.tb{aspect-ratio:1.59}
+  .tile.tc,.tile.td{aspect-ratio:.89}
+  .tile.te{aspect-ratio:2.13}
+  .tile.tc,.tile.td{align-items:flex-end}
+  .tile.tc .cover{object-position:15% center}
+  .tile.tc .lab{max-width:100%}
+  .tile.td{color:var(--wine); background:#e8d2b9}
+  .tile.td .cover{height:74%; object-position:left center}
+  .tile.td::before{
+    content:""; z-index:-1;
+    background:linear-gradient(to top,#e8d2b9 26%,rgba(232,210,185,.68) 40%,transparent 61%);
+  }
+  .tile.td .lab{--fs:clamp(25px,17cqi,44px); max-width:100%; margin-inline-start:0; transform:none; align-items:flex-start}
+}
+
+/* Collection cover typography and palette */
+.tile.tc::before,.cat-hero.lingerie::before{
+  background:linear-gradient(to left,#23121f,rgba(35,18,31,.74) 35%,transparent 72%);
+}
+.tile.te::before,.cat-hero.sets::before{
+  background:linear-gradient(to left,#592633,rgba(89,38,51,.66) 34%,transparent 68%);
+}
+.stack-title{gap:0}
+.stack-title .ar{white-space:nowrap}
+.tile.ta .lab{--fs:clamp(35px,7.4cqi,90px); margin-inline-start:2%; max-width:65%}
+.tile.tc .lab{--fs:clamp(34px,13cqi,85px)}
+.tile.te .lab{--fs:clamp(37px,12cqi,78px)}
+.tile.te .stack-title .ar + .ar{font-size:calc(var(--fs) * 1.23)}
+.lavermo-surface{
+  display:grid; place-content:center; justify-items:center; position:relative; isolation:isolate; overflow:hidden;
+  gap:clamp(15px,2vw,26px); padding:clamp(30px,4.2vw,64px); background:#952053; color:#fff3e9;
+}
+.tile.lavermo-surface{grid-column:1/-1; aspect-ratio:auto; min-height:clamp(218px,25vw,350px)}
+.lavermo-surface::before{
+  content:""; position:absolute; inset:clamp(9px,1.2vw,17px); z-index:-1;
+  border:1px solid #efd5bd80; border-radius:clamp(9px,1.2vw,16px);
+  background:none; pointer-events:none;
+}
+.lavermo-limited{
+  position:absolute; z-index:1; top:clamp(24px,3.3vw,46px); right:clamp(-51px,-3.5vw,-37px);
+  display:grid; place-items:center; width:clamp(158px,19vw,227px); min-height:clamp(25px,3vw,34px);
+  background:#efd3b7; color:#65213e; transform:rotate(45deg);
+  font:600 clamp(12px,1.3vw,16px)/1 var(--f-sans); white-space:nowrap;
+}
+.lavermo-mark{display:block; width:clamp(183px,28vw,335px); height:auto}
+@media (max-width:650px){
+  .tile.tc::before{background:linear-gradient(to top,#23121f,rgba(35,18,31,.42) 46%,transparent 75%)}
+  .tile.ta .lab{--fs:clamp(26px,10.4cqi,52px); margin-inline-start:0}
+  .tile.te .lab{--fs:clamp(32px,12cqi,58px); margin-inline-start:0}
+  .tile.tc .lab{--fs:clamp(26px,19.5cqi,49px)}
+}
+
+/* Pink campaign artwork for the home collection cards. */
+.tile.campaign-card{background:#6f143c; color:#fff3ea; padding:clamp(15px,3.1vw,44px)}
+.tile.campaign-card .cover{height:100%; object-position:left center}
+.tile.campaign-card::before{content:none}
+.tile.campaign-card.tc{background:#3b2038; --campaign-shade:#241126}
+.tile.campaign-card.td{background:#82554f; --campaign-shade:#57312b}
+.tile.campaign-card .foreground{z-index:2; pointer-events:none}
+.tile.campaign-card .lab{
+  align-items:flex-start; gap:0; max-width:66%; margin:0; transform:none;
+  --fs:clamp(36px,13cqi,90px); text-shadow:0 1px 10px #400a20a3;
+  color:inherit;
+}
+.tile.campaign-card .lab .ar{line-height:.98; white-space:nowrap}
+.tile.campaign-card .lab .ar + .ar{font-size:calc(var(--fs) * 1.07)}
+.tile.campaign-card.ta .lab{--fs:clamp(46px,11.7cqi,156px); margin-inline-start:13%}
+.tile.campaign-card.ta .lab .ar + .ar{font-size:calc(var(--fs)*1.42)}
+.tile.campaign-card.td .lab{margin-inline-start:9%}
+.tile.campaign-card.te .lab{--fs:clamp(39px,15cqi,103px); margin-inline-start:11%}
+.tile.campaign-card.tc .lab{--fs:clamp(42px,16cqi,118px); transform:translateY(10%); margin-inline-start:11%}
+@media (max-width:650px){
+  .tile.campaign-card{padding:clamp(10px,3.1vw,16px)}
+  .tile.campaign-card.ta .lab,.tile.campaign-card.te .lab{--fs:clamp(34px,13.6cqi,61px); margin-inline-start:6%}
+  .tile.campaign-card.ta .lab .ar + .ar{font-size:calc(var(--fs)*1.34)}
+  .tile.campaign-card.tc,.tile.campaign-card.td{align-items:flex-end}
+  .tile.campaign-card.tc .cover,.tile.campaign-card.td .cover{object-position:19% center}
+  .tile.campaign-card.tc .lab,.tile.campaign-card.td .lab{--fs:clamp(25px,18.6cqi,52px); max-width:100%; margin-inline-start:0; transform:none}
+  .tile.campaign-card.tc::before,.tile.campaign-card.td::before{
+    content:""; z-index:0; background:linear-gradient(to top,var(--campaign-shade,#560d34),transparent 71%);
+  }
+  .tile.campaign-card.tc .foreground,.tile.campaign-card.td .foreground{mask-image:linear-gradient(#000 52%,transparent 96%)}
 }
 
 /* ── product carousels ──────────────────────────────────────────────── */
@@ -214,21 +790,21 @@ nav a:hover{color:var(--wine)}
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; text-align:center}
 .pc .act{margin-top:auto}
 .pc .photo .tag{position:absolute; top:12px; inset-inline-start:12px; z-index:1; background:var(--wine); color:#fff; font-size:12px; font-weight:500; padding:5px 11px; border-radius:999px}
-.add{width:100%; height:46px; display:flex; align-items:center; justify-content:center; gap:8px; border:1px solid rgba(17,17,17,.82); border-radius:12px;
-  background:#fff; color:var(--ink); font:500 15px/1 var(--f-sans); cursor:pointer; transition:background .18s, color .18s, border-color .18s}
+.add{min-height:44px; gap:7px; border:1px solid rgba(17,17,17,.82); border-radius:100px;
+  background:#fff; color:var(--ink); font:500 14px/1 var(--f-sans); cursor:pointer; transition:background .18s, color .18s, border-color .18s}
 .add:hover{background:var(--wine); border-color:var(--wine); color:#fff}
 .add svg,.btn svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.6; stroke-linecap:round; stroke-linejoin:round; flex:none}
-.step{width:100%; height:46px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--wine); border-radius:12px; color:var(--wine); background:#fff; overflow:hidden}
+.step{width:100%; height:46px; display:flex; align-items:center; justify-content:space-between; border:1px solid var(--wine); border-radius:100px; color:var(--wine); background:#fff; overflow:hidden}
 .step button{width:46px; height:100%; border:0; background:none; color:inherit; font:400 22px/1 var(--f-sans); cursor:pointer; transition:background .15s}
 .step button:hover{background:#fbefee}
 .step output{flex:1; text-align:center; font:600 15px/1 var(--f-sans)}
 .step output small{font-weight:400; font-size:12px; margin-inline-start:4px; color:var(--grey-2)}
 .best article[data-id]{cursor:pointer}
 
-.btn{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; height:54px; border-radius:14px; font:500 16px/1 var(--f-sans); cursor:pointer; transition:background .18s, border-color .18s, color .18s; text-decoration:none}
+.btn{gap:10px; min-height:46px; border-radius:100px; font:500 16px/1 var(--f-sans); cursor:pointer; transition:background .18s, border-color .18s, color .18s; text-decoration:none}
 .btn.solid{background:var(--wine); color:#fff; border:0}
 .btn.solid:hover{background:#6f0d14}
-.btn.line{background:#fff; color:var(--ink); border:1px solid rgba(17,17,17,.16); height:50px; font-size:15px}
+.btn.line{background:#fff; color:var(--ink); border:1px solid rgba(17,17,17,.16); font-size:15px}
 .btn.line:hover{border-color:var(--wine); color:var(--wine)}
 .btn[disabled]{opacity:.45; cursor:not-allowed}
 
@@ -306,22 +882,64 @@ dialog.sheet::backdrop{background:rgba(40,16,20,.42)}
 .toast.on{opacity:1; transform:translate(-50%,0); pointer-events:auto}
 .toast button{background:none; border:0; color:#f2b8bd; font:600 14.5px var(--f-sans); cursor:pointer; padding:0}
 
-/* ── about ──────────────────────────────────────────────────────────── */
-.about{display:grid; grid-template-columns:1fr 1fr; align-items:center; gap:clamp(30px,5vw,80px)}
-.about-art{position:relative; justify-self:center; width:min(100%,414px)}
-.about-img{aspect-ratio:414/522; background:linear-gradient(170deg,#ebdcd6,#d8c2bc); max-width:100%; display:grid; place-items:end center; overflow:hidden}
-.about-img img{width:94%; height:94%; object-fit:contain; object-position:center bottom; mix-blend-mode:multiply}
-.wm{position:absolute; bottom:6%; right:-30%; left:-26%; text-align:center; direction:ltr; font-family:var(--f-latin-script); color:var(--peach); font-size:clamp(96px,14vw,214px); line-height:1; pointer-events:none}
-.about h2{font-family:var(--f-script); font-weight:400; font-size:clamp(36px,4.3vw,62px); margin:0 0 22px; line-height:1.5}
-.about p{font-weight:300; font-size:clamp(16px,1.4vw,20px); line-height:1.65; color:var(--ink-2); margin:0 0 18px; max-width:470px}
-@media (max-width:820px){ .about{grid-template-columns:1fr} .wm{right:-14%; left:-14%} }
+/* Lavermo private label */
+#about{
+  background:#fff;color:#550f25;
+  margin-block-start:clamp(48px,6vw,90px);
+  padding-block:clamp(38px,5vw,76px);
+}
+.about{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  align-items:center;gap:clamp(28px,5vw,80px);
+}
+.about-art{margin:0;min-width:0}
+.about-img{aspect-ratio:1/1.04;background:#e4d3c4;overflow:hidden}
+.about-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.atelier-caption{font-size:11px;color:#805c62;margin-top:9px}
+.about-copy{max-width:440px}
+.about .brand-eyebrow{font:500 14px/1.4 var(--f-sans);color:inherit;margin:0 0 18px}
+.about .private-brand-title{
+  font:500 clamp(64px,7.1vw,108px)/1 var(--f-latin-script);
+  text-align:right;color:inherit;margin:0 0 24px;
+}
+.lavermo-script{
+  position:relative;display:block;width:min(100%,360px);aspect-ratio:836/310;
+  overflow:hidden;margin-inline-start:auto;
+}
+.lavermo-script img{
+  position:absolute;inset-inline:0;bottom:0;display:block;width:100%;height:auto;
+  clip-path:polygon(0 0,24% 0,24% 63%,73% 63%,73% 0,100% 0,100% 100%,0 100%);
+  filter:brightness(0) saturate(100%) invert(11%) sepia(44%) saturate(2916%) hue-rotate(316deg);
+}
+.about .brand-story{
+  font:400 clamp(17px,1.5vw,21px)/1.8 var(--f-sans);
+  margin:0 0 25px;color:#5e3c40;text-wrap:pretty;
+}
+.brand-details{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:10px;font:400 15px/1.5 var(--f-sans)}
+.about-brand-action{
+  display:inline-flex;align-items:center;justify-content:center;
+  gap:14px;padding:12px 26px;min-height:52px;width:fit-content;white-space:nowrap;
+  background:#550f25;color:#fff6ed;border:1px solid #550f25;border-radius:100px;
+  font:500 16px/1.4 var(--f-sans);transition:background-color .2s,border-color .2s;
+}
+.about-brand-action img{display:block;width:31px;height:auto;flex:none}
+.about-brand-action:hover{background:#39121e;border-color:#39121e}
+.about-brand-action:focus-visible{outline:2px solid #550f25;outline-offset:4px}
+@media(max-width:820px){
+  .about{grid-template-columns:minmax(0,1fr);gap:32px}
+  .about-img{aspect-ratio:4/5}
+  .about-img img{object-position:center}
+  .about-copy{max-width:34em}
+  .about .private-brand-title{font-size:clamp(64px,17vw,94px);margin-bottom:20px}
+  .about .brand-story{font-size:18px}
+}
 
 /* ── mauve band ─────────────────────────────────────────────────────── */
-.band{background:var(--mauve); color:#fff; margin-top:clamp(72px,8vw,100px); padding-block:clamp(56px,8vw,120px)}
+.band{background:var(--hero-pink); color:#fff; margin-top:0; padding-block:clamp(56px,8vw,120px)}
 .band-in{display:grid; grid-template-columns:1.1fr 1fr; gap:40px; align-items:center}
 .band h3{font-weight:500; font-size:clamp(20px,1.8vw,25px); margin:0 0 6px}
 .band .s{font-size:15px; margin:0 0 20px; opacity:.95}
-.field{display:flex; align-items:center; justify-content:space-between; gap:12px; background:#fff; color:#a6a6a6; border-radius:10px; width:min(392px,100%); height:66px; padding:0 20px; font-size:14px; transition:box-shadow .18s}
+.field{display:flex; align-items:center; justify-content:space-between; gap:12px; background:#fff; color:#a6a6a6; border-radius:100px; width:fit-content; max-width:100%; height:66px; padding:0 20px; font-size:14px; transition:box-shadow .18s}
 .field:hover{box-shadow:0 6px 22px rgba(0,0,0,.08)}
 .field .ico{color:var(--ink); width:26px; height:26px}
 .feats{display:grid; grid-template-columns:1fr 1fr; gap:24px; text-align:center}
@@ -330,43 +948,54 @@ dialog.sheet::backdrop{background:rgba(40,16,20,.42)}
 .feat span{font-size:14.5px; opacity:.95}
 @media (max-width:820px){ .band-in{grid-template-columns:1fr} }
 
-/* ── footer ─────────────────────────────────────────────────────────── */
-footer{padding-block:clamp(56px,7vw,100px) 38px}
-.fgrid{display:grid; grid-template-columns:repeat(3,1fr) auto; gap:32px}
-.fgrid h4{font-weight:400; color:var(--grey-2); font-size:clamp(20px,1.8vw,26px); margin:0 0 18px}
-.fgrid h5{font-weight:500; font-size:19px; margin:0 0 12px}
-.fline{display:flex; align-items:center; gap:12px; font-size:17px; margin-bottom:34px}
-.fline .ico{width:21px; height:21px}
-.fgrid ul{list-style:none; margin:0; padding:0; display:grid; gap:17px; font-size:17px}
-.fgrid ul a:hover{color:var(--wine)}
-.flogo{font-family:var(--f-latin-script); color:var(--wine); font-size:clamp(56px,6vw,86px); line-height:1; direction:ltr}
-.fbot{text-align:center; margin-top:clamp(40px,5vw,70px); color:#a3a3a3; font-size:15.5px}
-.fbot small{display:block; font-size:13.5px; margin-top:8px; color:#b4b4b4}
+/* ── Footer ── */
+.purey-footer{background:var(--hero-pink);color:#fff1e8}
+.purey-footer-inner{padding:clamp(28px,4vw,58px) 0 24px}
+.purey-footer-mark{
+  display:block;text-align:center;color:rgb(255 246 237 / .22);direction:ltr;
+  font:600 29.8vw/.78 var(--f-latin-script);letter-spacing:0;
+  white-space:nowrap;
+}
+.purey-footer-mark:focus-visible{outline:2px solid #fff6ed;outline-offset:-4px}
+.purey-footer-nav,.purey-footer-meta{margin-inline:var(--pad)}
+.purey-footer-nav{
+  border-block:1px solid #f6cbd45c;margin:clamp(30px,5vw,62px) var(--pad) 0;
+  padding:clamp(14px,2.2vw,26px) 0;gap:10px clamp(15px,3vw,42px);
+  font:500 clamp(13px,1.15vw,16px)/1.4 var(--f-sans);color:#fff1e8;
+}
+.purey-footer-nav a,.purey-footer-meta a{color:inherit}
+.purey-footer-nav a:hover,.purey-footer-meta a:hover{text-decoration:underline;text-underline-offset:4px}
+.purey-footer-meta{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;
+  gap:9px 18px;padding-top:19px;color:#f4cbd5;font:400 13px/1.4 var(--f-sans);
+}
+.purey-footer-meta .contacts{display:flex;flex-wrap:wrap;gap:8px 18px}
 .ltr{direction:ltr; unicode-bidi:isolate; display:inline-block}
-@media (max-width:820px){ .fgrid{grid-template-columns:1fr 1fr} .flogo{grid-column:1/-1} }
-@media (max-width:520px){ .fgrid{grid-template-columns:1fr} }
-
+@media(max-width:520px){
+  .purey-footer-meta{justify-content:center;text-align:center}
+  .purey-footer-meta .contacts{justify-content:center}
+}
 
 /* ── logos ──────────────────────────────────────────────────────────── */
 .logo img{height:clamp(50px,5vw,72px); width:auto; display:block}
-.flogo img{width:clamp(120px,12vw,168px); height:auto; display:block}
 .band{position:relative; overflow:hidden}
 .band-in{position:relative; z-index:1}
 .band-mark{position:absolute; inset-inline-end:-3%; top:50%; transform:translateY(-50%); height:135%; width:auto; opacity:.13; pointer-events:none}
 
 /* ── Flann website chat ─────────────────────────────────────────────── */
 .ai{--ai-w:min(384px, calc(100vw - 24px)); font-family:var(--f-sans); color:var(--ink)}
-.ai-launch{position:fixed; right:max(18px, env(safe-area-inset-right,0px)); bottom:max(18px, env(safe-area-inset-bottom,0px)); z-index:80;
-  display:flex; align-items:center; gap:10px; padding:7px 8px 7px 18px; border:0; border-radius:999px; cursor:pointer;
-  background:var(--wine); color:#fff; font:500 15px/1 var(--f-sans); box-shadow:0 14px 34px -12px rgba(80,10,16,.55); transition:transform .2s, box-shadow .2s}
-.ai-launch:hover{transform:translateY(-2px); box-shadow:0 18px 40px -12px rgba(80,10,16,.65)}
-.ai-launch .av{width:38px; height:38px; border-radius:50%; background:rgba(255,255,255,.14); display:grid; place-items:center}
-.ai-launch .av img{width:27px; height:auto}
+.ai-launch{position:fixed; left:auto; right:max(14px, env(safe-area-inset-right,0px)); bottom:max(16px, env(safe-area-inset-bottom,0px)); z-index:85; pointer-events:auto;
+  display:flex; align-items:center; gap:9px; padding:6px 8px 6px 14px; border:1px solid #b02c63; border-radius:999px; cursor:pointer; min-height:48px;
+  background:#fff0e3; color:#672042; font:500 15px/1 var(--f-sans); box-shadow:0 14px 34px -12px #45223f9c; transition:transform .2s, box-shadow .2s}
+.ai-launch:hover{transform:translateY(-2px); box-shadow:0 18px 40px -12px #45223faa}
+.ai-launch:focus-visible{outline:3px solid #ac255d; outline-offset:3px}
+.ai-launch .av{width:36px; height:36px; border-radius:50%; background:#94234f; display:grid; place-items:center}
+.ai-launch .av img{width:29px; height:auto}
 .ai-launch .dot{width:8px; height:8px; border-radius:50%; background:#7fd39b; box-shadow:0 0 0 3px rgba(127,211,155,.25)}
 html.ai-open .ai-launch{transform:scale(.92); opacity:0; pointer-events:none}
 .ai-scrim{position:fixed; inset:0; z-index:89; background:rgba(40,16,20,.28); opacity:0; pointer-events:none; transition:opacity .25s}
 html.ai-open .ai-scrim{opacity:1; pointer-events:auto}
-.ai-panel{position:fixed; z-index:90; right:max(16px, env(safe-area-inset-right,0px)); bottom:max(16px, env(safe-area-inset-bottom,0px));
+.ai-panel{position:fixed; z-index:90; left:auto; right:max(16px, env(safe-area-inset-right,0px)); bottom:max(16px, env(safe-area-inset-bottom,0px));
   width:var(--ai-w); height:min(620px, calc(100dvh - 32px)); display:flex; flex-direction:column; overflow:hidden;
   background:var(--cream); border-radius:24px; box-shadow:0 30px 80px -24px rgba(60,12,20,.45), 0 0 0 1px rgba(139,17,25,.08);
   opacity:0; transform:translateY(14px) scale(.98); transform-origin:bottom right; pointer-events:none; transition:opacity .22s, transform .26s cubic-bezier(.2,.8,.2,1)}
@@ -387,8 +1016,14 @@ html.ai-open .ai-scrim{opacity:1; pointer-events:auto}
 .ai-panel[data-view="home"] .ai-view.home, .ai-panel[data-view="chat"] .ai-view.chat{display:block}
 .ai-card{background:#fff; border-radius:18px; padding:16px; box-shadow:0 1px 0 rgba(139,17,25,.06), 0 8px 24px -16px rgba(60,12,20,.25)}
 .ai-card .msg{font-size:14.5px; line-height:1.75; color:var(--ink-2); margin:0 0 14px}
-.ai-cta{display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; border:0; cursor:pointer; background:var(--wine); color:#fff; font:500 15px/1 var(--f-sans); padding:13px 16px; border-radius:14px; transition:background .18s}
+.ai-cta{gap:8px; border:0; cursor:pointer; background:var(--wine); color:#fff; font:500 15px/1 var(--f-sans); padding-block:13px; border-radius:100px; transition:background .18s}
 .ai-cta:hover{background:#6f0d14}
+.ai-feature{
+  display:block;margin-top:12px;padding:11px 13px;background:#f4e3e8;border:1px solid #e4bec9;
+  border-radius:12px;color:#672042;font:500 13px/1.5 var(--f-sans);
+}
+.ai-feature:hover{text-decoration:underline}
+.bub .ai-feature{margin-top:5px}
 .ai-sep{font-size:12.5px; color:var(--grey); text-align:center; margin:18px 0 10px}
 .ai-ch{display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:14px; background:#fff; margin-bottom:8px; transition:background .15s}
 .ai-ch:hover{background:#fbefee}
@@ -417,8 +1052,7 @@ html.ai-open .ai-scrim{opacity:1; pointer-events:auto}
 .ai-send svg{width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
 .ai-foot{font-size:11.5px; color:var(--grey); text-align:center; margin-top:8px}
 @media (max-width:520px){
-  .ai-launch .txt{display:none}
-  .ai-launch{padding:7px}
+  .ai-launch{padding:5px 6px 5px 12px; font-size:13px}
   .ai-panel{right:0; left:0; bottom:0; width:100%; height:min(88dvh, 640px); border-radius:24px 24px 0 0; transform-origin:bottom center}
 }
 
@@ -430,27 +1064,21 @@ html.ai-open .ai-scrim{opacity:1; pointer-events:auto}
 .tagline{font-family:var(--f-serif); font-weight:400; font-size:clamp(16px,1.3vw,19px); color:var(--ink-2)}
 nav{font-family:var(--f-serif); font-weight:500; font-size:clamp(17px,1.4vw,21px)}
 nav a[aria-current="page"]{color:var(--wine)}
-.hero h1{font-weight:400; font-size:clamp(46px,5.8vw,92px); line-height:1.12; color:var(--ink); padding-bottom:.12em; text-wrap:balance}
-.hero h1 span{color:var(--wine)}
-.hero .sub{font-weight:300}
-.hero .go{font-family:var(--f-sans); font-weight:500; font-size:clamp(15px,1.25vw,17px)}
-.lab .ar{font-weight:400; font-size:calc(var(--fs) * 1.12); line-height:1.1}
-.lab .en{font-family:var(--f-latin-script); font-style:normal; font-weight:500; text-transform:uppercase; letter-spacing:.32em; font-size:clamp(10px,2cqi,13px); opacity:.95}
-.about h2{font-weight:400; font-size:clamp(44px,5vw,72px); line-height:1.1; color:var(--ink)}
-.about p{font-weight:300}
+.lab .ar{font-family:var(--f-sans); font-weight:600; font-size:calc(var(--fs) * 1.12); line-height:1.1}
+.satin-title .ar{line-height:1.02}
+.robes-title .ar{line-height:1.03}
 .best h3,.pc h3,.grid .pc h3{font-family:var(--f-serif); font-weight:400; font-size:clamp(17px,1.35vw,20px); line-height:1.35}
 .qv h2{font-weight:400; font-size:clamp(30px,3vw,40px); line-height:1.2; color:var(--ink)}
 .bag-head h2{font-weight:400; font-size:34px; line-height:1.1; color:var(--ink)}
 .bag-list .nm{font-family:var(--f-serif); font-size:17px; line-height:1.35}
 .band h3{font-family:var(--f-serif); font-weight:500; font-size:clamp(28px,2.6vw,36px); line-height:1.2}
 .feat b{font-family:var(--f-serif); font-weight:500; font-size:clamp(22px,2vw,28px)}
-.fgrid h4{font-family:var(--f-serif); font-weight:500; color:var(--wine)}
-.wm{font-style:italic; font-weight:300}
 
 /* ── navigation + category pages ────────────────────────────────────── */
 nav a[aria-current="page"]{color:var(--wine)}
 /* ── site header ─────────────────────────────────────────────────────── */
-.page{overflow:clip}
+.page{overflow:clip;margin-block:0}
+.page:has(.site-head--campaign){max-width:none}
 .announce{display:block; background:var(--wine); color:#f6e9e8; text-align:center; font:400 13px/1.5 var(--f-sans); padding:9px var(--pad); transition:color .15s}
 .announce:hover{color:#fff}
 .announce bdi{font-weight:500}
@@ -475,6 +1103,97 @@ nav a[aria-current="page"]{color:var(--wine)}
 .mainnav a::after{content:""; position:absolute; left:50%; right:50%; bottom:9px; height:1px; background:var(--wine); transition:left .3s cubic-bezier(.2,.7,.2,1), right .3s cubic-bezier(.2,.7,.2,1)}
 .mainnav a:hover,.mainnav a[aria-current="page"]{color:var(--wine)}
 .mainnav a:hover::after,.mainnav a[aria-current="page"]::after{left:0; right:0}
+@media (min-width:921px){
+  .hbar{grid-template-columns:minmax(0,1fr) auto;padding-block:14px 10px;column-gap:24px;row-gap:7px}
+  .h-start{display:none}
+  .site-head .logo{grid-column:1/-1;grid-row:1}
+  .mainnav{grid-column:1;grid-row:2;justify-content:flex-start;gap:clamp(10px,1.75vw,30px);border:0}
+  .mainnav a{font:600 clamp(13px,1.25vw,17px)/1.1 var(--f-sans);padding:12px 1px}
+  .mainnav a::after{bottom:5px}
+  .h-icons{grid-column:2;grid-row:2}
+}
+@media (max-width:920px){
+  .h-loc,.h-icons .hide-m,.h-icons .sep,.mainnav{display:none}
+  .menu-btn{display:grid}
+  .site-head .logo img{height:49px}
+}
+.site-head--campaign{
+  position:relative;height:0;overflow:visible;background:transparent;color:#fff;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.site-head--campaign .hbar{
+  position:relative;grid-template-columns:1fr auto 1fr;
+  gap:4px 20px;max-width:none;margin:0;padding:8px clamp(18px,4vw,66px) 2px;transition:background-color .24s,color .24s;
+}
+.site-head--campaign .logo{grid-column:1/-1;grid-row:1;color:inherit}
+.campaign-wordmark{
+  display:flex;align-items:center;gap:.11em;
+  font:600 18vw/.78 var(--f-latin-script);letter-spacing:.08em;
+}
+.site-head--campaign .logo .campaign-icon{
+  height:.59em;width:auto;flex:none;filter:brightness(0) invert(1);
+}
+.site-head--campaign .mainnav{
+  grid-column:1/3;grid-row:2;justify-content:flex-start;align-items:center;gap:clamp(20px,3.25vw,54px);
+}
+.site-head--campaign .mainnav a,.mega-trigger{
+  padding:12px 0;color:inherit;font:500 clamp(18px,1.55vw,23px)/1.3 var(--f-sans);
+}
+.site-head--campaign .mainnav a::after{background:currentColor}
+.site-head--campaign .h-icons{grid-column:3;grid-row:2;gap:clamp(7px,1vw,14px)}
+.site-head--campaign .h-icons :is(a,button),.site-head--campaign .menu-btn{
+  color:inherit;padding:0;min-width:40px;min-height:44px;
+}
+.site-head--campaign .h-icons .sep{display:none}
+.mega-trigger,.editorial-drawer button{background:none;border:0;color:inherit;cursor:pointer;font-family:inherit}
+.mega-trigger[aria-expanded="true"]{text-decoration:underline;text-underline-offset:7px}
+.mega-panel{
+  position:absolute;inset-inline:0;top:100%;background:#fff;
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1.2vw,18px);
+  padding:22px clamp(18px,4vw,66px) 30px;
+}
+.site-head--campaign.is-mega-open .hbar{background:#fff;color:#111}
+.site-head--campaign.is-mega-open .campaign-icon{filter:brightness(0)}
+@media (min-width:921px) and (hover:hover) and (pointer:fine){
+  .site-head--campaign .hbar:hover{background:#fff;color:#111}
+  .site-head--campaign .hbar:hover .campaign-icon{filter:brightness(0)}
+}
+
+.mega-panel[hidden],.editorial-drawer [hidden]{display:none}
+.site-head--campaign .mega-panel a,.drawer-collections a{position:relative;display:block;padding:0;color:#fff6ed;font-size:13px}
+.mega-panel a::after{content:none}
+.mega-panel img,.drawer-collections img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.74)}
+.mega-panel a span,.drawer-collections a span{
+  position:absolute;inset-inline:10px;bottom:10px;text-shadow:0 1px 5px #110507;
+}
+.site-head--campaign .mega-panel a{color:#111;font-size:clamp(14px,1.4vw,21px)}
+.mega-panel img{filter:none}
+.mega-panel a span{position:static;display:block;margin-top:8px;text-shadow:none}
+.mega-panel small,.drawer-collections small{display:block;font-size:11px}
+.site-head--campaign :focus-visible,.editorial-drawer :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+dialog.sheet.editorial-drawer{
+  position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;
+  padding:24px;color:#fff6ed;background:transparent;border-radius:0;overflow:auto;
+}
+.editorial-drawer::backdrop{background:#39121eba;backdrop-filter:blur(9px)}
+.editorial-drawer .drawer-controls{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.editorial-drawer .drawer-controls button{min-height:44px;font-size:17px}
+.drawer-main{display:grid;justify-items:start;gap:24px;margin-top:clamp(44px,12vh,120px)}
+.drawer-main :is(a,button){padding:0;font-size:clamp(27px,7vw,42px);font-weight:500}
+.drawer-collections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:24px}
+@media(prefers-reduced-motion:no-preference){
+  .mega-panel:not([hidden]),.editorial-drawer[open],.editorial-drawer [data-menu-view]:not([hidden]){
+    animation:editorial-menu-in .28s ease both;
+  }
+  @keyframes editorial-menu-in{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:none}}
+}
+@media (max-width:920px){
+  .site-head--campaign .hbar{padding-inline:14px;gap:0 5px}
+  .site-head--campaign .mainnav{display:none}
+  .site-head--campaign .h-start{grid-column:1;grid-row:2}
+  .site-head--campaign .h-icons{gap:4px}
+  .campaign-wordmark{font-size:18.4vw}
+}
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
@@ -483,6 +1202,7 @@ nav a[aria-current="page"]{color:var(--wine)}
 .md-list a{display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(17,17,17,.06); font:500 21px/1.2 var(--f-serif); color:var(--ink)}
 .md-list a[aria-current="page"]{color:var(--wine)}
 .md-list img{width:54px; height:54px; border-radius:14px; object-fit:cover; flex:none}
+.md-list .md-lavermo{object-fit:contain;background:#952053;padding:7px}
 .md-list .tx small{display:block; margin-top:5px; font:500 10px/1 var(--f-latin-script); letter-spacing:.28em; text-transform:uppercase; color:var(--grey-2); direction:ltr; text-align:right}
 .md-list .plain{padding-inline-start:68px}
 .md-foot{padding:16px 20px 22px; display:grid; gap:10px; border-top:1px solid rgba(17,17,17,.08)}
@@ -492,18 +1212,65 @@ nav a[aria-current="page"]{color:var(--wine)}
   .menu-btn{display:grid}
   .hbar{padding-block:12px}
   .site-head .logo img{height:48px}
-  .site-head.scrolled .logo img{height:38px}
+  .site-head.scrolled .logo img:not(.campaign-icon){height:38px}
   .mainnav{display:none}
 }
 .crumbs{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13.5px; color:var(--grey-2); margin:0 0 14px; padding:0}
 .crumbs a:hover{color:var(--wine)}
 .crumbs [aria-current]{color:var(--ink)}
-.cat-hero{position:relative; border-radius:26px; overflow:hidden; height:clamp(230px,30vw,430px); background:#2a1418; color:#fff; container-type:inline-size}
-.cat-hero .cover{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
-.cat-hero .lab{margin:0; top:50%; transform:translateY(-50%); --fs:clamp(40px,7.4cqi,96px)}
-.cat-hero .lab.c{transform:translate(-50%,-50%)}
-.cat-hero .lab .en{font-size:clamp(11px,1.3cqi,14px)}
-.cat-hero.sets .lab{--fs:clamp(34px,5.6cqi,70px)}
+.cat-hero{
+  position:relative; display:flex; align-items:center; isolation:isolate; overflow:hidden;
+  min-height:clamp(265px,40vw,590px); background:#260e13; color:#fff3ed;
+  padding:clamp(26px,5vw,72px); container-type:inline-size;
+}
+.cat-hero .cover{
+  position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:left center;
+}
+.cat-hero .lab{
+  position:relative; align-items:flex-start; text-align:start; max-width:57%;
+  margin:0; --fs:clamp(47px,8.5cqi,107px);
+}
+.cat-hero .lab .ar{white-space:normal; text-wrap:balance}
+.cat-hero.satin{padding-block:clamp(22px,3vw,44px)}
+.cat-hero.satin::before{content:none}
+.cat-hero.satin .cover{object-position:left 22%}
+.cat-hero.satin .lab{
+  max-width:80%; gap:0; --fs:clamp(84px,16cqi,185px);
+  margin-inline-start:23%; transform:translateY(-10%); color:#f4d9d0;
+}
+.cat-hero.satin .lab .ar{white-space:nowrap; line-height:.73}
+.cat-hero.satin .satin-foreground{z-index:2; pointer-events:none}
+@media (max-width:620px){
+  .cat-hero.satin .cover{object-position:left center}
+  .cat-hero.satin .lab{--fs:clamp(51px,17.5cqi,82px); margin-inline-start:4%; transform:translateY(-23%)}
+}
+.cat-hero.robes{padding-block:clamp(24px,3vw,44px)}
+.cat-hero.robes .cover{object-position:left 22%}
+.cat-hero.robes .lab{
+  align-items:flex-start; gap:0; margin-inline-start:3%; max-width:55%;
+  --fs:clamp(65px,12.8cqi,143px);
+}
+.cat-hero.robes .lab .ar{white-space:nowrap}
+@media (max-width:620px){
+  .cat-hero.robes .lab{--fs:clamp(44px,14cqi,69px); margin-inline-start:0}
+}
+.cat-hero:is(.cotton,.sets) .lab{margin-inline-start:7%; --fs:clamp(64px,12cqi,144px)}
+.cat-hero.cotton .lab{margin-inline-start:2%; --fs:clamp(42px,8.4cqi,112px); max-width:65%}
+.cat-hero.sets .lab .ar + .ar{font-size:calc(var(--fs) * 1.23)}
+.cat-hero.lingerie .lab{margin-inline-start:5%; --fs:clamp(56px,12cqi,144px)}
+.cat-hero.sets .lab .ar{line-height:.83; white-space:nowrap}
+.lavermo-hero{min-height:clamp(255px,35vw,500px); border-radius:24px}
+.lavermo-hero .lavermo-mark{width:clamp(210px,36vw,435px)}
+.lavermo-details{text-align:center; padding-block:clamp(21px,4vw,44px)}
+.lavermo-details h1{font:600 clamp(30px,4.8vw,57px)/1.2 var(--f-sans); color:#7c204e; margin:0}
+.lavermo-details p{max-width:43ch;margin:13px auto 0;color:var(--ink);font:400 17px/1.55 var(--f-sans)}
+.lavermo-details .pill{font-size:16px; margin-top:16px; background:#7c204e; color:#fff; padding-block:11px}
+.lavermo-details .pill:hover{background:#64173e}
+@media (max-width:620px){
+  .cat-hero:is(.sets,.lingerie) .lab{margin-inline-start:0; --fs:clamp(36px,15cqi,68px)}
+  .cat-hero.cotton .lab{margin-inline-start:0; --fs:clamp(29px,11cqi,56px)}
+}
 .toolbar{display:flex; justify-content:space-between; align-items:center; gap:14px 24px; flex-wrap:wrap; margin:clamp(26px,3vw,40px) 0 clamp(26px,3vw,40px)}
 .toolbar .count{margin:0; font-size:14.5px; color:var(--grey-2); line-height:1.7}
 .toolbar .count b{color:var(--ink); font-weight:600}
@@ -514,16 +1281,98 @@ nav a[aria-current="page"]{color:var(--wine)}
 .empty{text-align:center; color:var(--grey-2); font-size:15px; padding:40px 0}
 .others{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,1.6vw,22px)}
 .other{display:block; text-align:center}
-.other .ph{display:block; aspect-ratio:4/5; border-radius:20px; overflow:hidden; background:#2a1418}
+.other .ph{display:block; aspect-ratio:4/5; overflow:hidden; background:#2a1418}
 .other .ph img{width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .other:hover .ph img{transform:scale(1.04)}
 .other .nm{display:block; font-family:var(--f-script); font-weight:400; font-size:clamp(24px,2.2vw,32px); line-height:1.15; margin-top:12px; transition:color .15s}
 .other:hover .nm{color:var(--wine)}
 .other .en{display:block; font-family:var(--f-latin-script); font-weight:500; text-transform:uppercase; letter-spacing:.3em; font-size:11px; color:var(--grey-2); direction:ltr; margin-top:6px}
-@media (max-width:620px){ .cat-hero .lab{--fs:clamp(24px,7.4cqi,32px)} .cat-hero.sets .lab{--fs:clamp(22px,6.5cqi,30px)} .cat-hero.robes .cover{object-position:88% 50% !important} .cat-hero.sets .cover{object-position:0% 50% !important} }
+@media (max-width:620px){
+  .cat-hero .lab{--fs:clamp(33px,11cqi,62px)}
+}
 @media (max-width:760px){ .others{grid-template-columns:repeat(2,minmax(0,1fr))} .toolbar{flex-direction:column; align-items:stretch} .search{width:100%} }
 
+.catalog-intro{padding-block:clamp(28px,4vw,58px) 0}
+.catalog-intro p{margin:0;font-size:clamp(17px,2vw,23px);color:var(--ink-2);max-width:50ch}
+.catalog-controls{display:grid;grid-template-columns:minmax(180px,2fr) minmax(115px,1fr) minmax(140px,1fr);gap:12px}
+.catalog-controls .search{width:auto}
+#catalogSort{grid-column:-2/-1}
+.catalog-controls select,.catalog-controls input{
+  width:100%;min-height:48px;border:1px solid #d9bec7;border-radius:0;background:#fff;
+  color:var(--ink);font:inherit;padding:0 12px
+}
+.catalog-controls input{padding-inline-start:42px}
+.catalog-controls :focus-visible,.product-view :focus-visible,.related-product:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+.catalog-controls .search input:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+#catalog .toolbar{display:block}
+#catalog .grid{gap:clamp(27px,4vw,56px) clamp(10px,2vw,28px)}
+#catalog .pc{text-align:start}
+#catalog .pc h3{min-height:0;margin:12px 0 4px;font-weight:600}
+#catalog .pc h3 a:hover,.related-product:hover{color:var(--wine);text-decoration:underline;text-underline-offset:4px}
+.pc .pc-meta{margin:0 0 11px;color:var(--grey-2);font-size:12px}
+.pc .act{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pc .act .step{border-radius:100px}
+.pc .act .step{width:fit-content;min-width:128px}
+.quick-shop{
+  border-radius:100px;  min-height:44px;padding-block:6px;border:1px solid #ddcbd0;background:#fff;
+  color:var(--wine);font:500 13px var(--f-sans);cursor:pointer;transition:background-color .2s
+}
+.quick-shop:hover{background:#faf0f4}
+.product-view{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);direction:ltr;
+  gap:clamp(22px,5vw,76px);align-items:start;margin-block:12px clamp(45px,8vw,100px)
+}
+.product-view > *{direction:rtl}
+.product-stage{margin:0;position:relative;overflow:hidden;background:#f8f3f5;aspect-ratio:4/5;max-height:74svh}
+.product-stage img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .35s}
+.product-stage.is-zoomed img{transform:scale(1.65)}
+.product-zoom{
+  border-radius:100px;  position:absolute;inset:auto 12px 12px auto;min-height:44px;padding-block:7px;
+  border:1px solid #d9bec7;background:var(--cream);color:var(--wine);font:inherit;cursor:pointer
+}
+.product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
+.product-info > *{margin:0}
+.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-kicker{color:var(--wine);font-weight:600}
+.product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
+.product-info .qty{justify-content:flex-start}
+.product-info .product-add,.product-info .product-ask{min-height:46px}
+.product-feedback{color:var(--wine);min-height:1.6em}
+.product-related{padding-block-end:clamp(36px,7vw,90px)}
+.related-product{display:grid;gap:8px;font-weight:600}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+@media (max-width:700px){
+  .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .catalog-controls .search{grid-column:1/-1}
+  .product-view{grid-template-columns:minmax(0,1fr);gap:12px}
+  .product-stage{aspect-ratio:1}
+  .pc .act .add{padding-inline:20px;font-size:13px}
+}
 @media (prefers-reduced-motion:reduce){ *{transition:none !important; scroll-behavior:auto !important} }
+
+/* PUREY guided shopping, using the same chat on every page. */
+.purey-ask{padding:clamp(58px,8vw,112px) var(--pad);background:#faf0f2;color:#550f25;text-align:center}
+.purey-ask-inner{max-width:900px;margin:auto}
+.purey-ask h2{margin:0;font:500 clamp(34px,4vw,58px)/1.3 var(--f-sans)}
+.purey-ask p{max-width:52ch;margin:18px auto 30px;font:400 clamp(16px,1.55vw,21px)/1.6 var(--f-sans)}
+.purey-ask-form{display:flex;align-items:center;gap:12px;border:1px solid #dfbdc8;padding:9px;background:#fff;border-radius:100px}
+.purey-ask-form:focus-within{outline:2px solid #94234f;outline-offset:4px}
+.purey-ask-form input{width:100%;min-width:0;border:0;background:transparent;outline:none;padding:12px 18px;color:#39121e;font:400 18px/1.4 var(--f-sans)}
+.purey-ask-form button{display:inline-flex;align-items:center;justify-content:center;flex:none;width:52px;height:52px;border-radius:50%;background:#550f25;border:0;color:white;font-size:25px;cursor:pointer;transition:background .2s}
+.purey-ask-form button:hover{background:#94234f}
+.purey-ask-note{display:block;margin-top:18px;font:400 13px/1.5 var(--f-sans);color:#76515e}
+.purey-ask-prompts{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
+.purey-ask-prompts button{display:inline-flex;width:fit-content;padding:12px 24px;border:1px solid #cc9bab;border-radius:99px;color:#550f25;background:transparent;cursor:pointer;font:400 15px/1.4 var(--f-sans);transition:background .2s}
+.purey-ask-prompts button:hover{background:#f1dfe5}
+.chat-products{display:grid;gap:8px}
+.chat-product-label{font:500 13px/1.4 var(--f-sans);color:#672042;margin:12px 0 2px}
+.chat-product{display:flex;align-items:center;gap:12px;border:1px solid #e6cdd5;border-radius:14px;background:white;padding:8px;color:#39121e}
+.chat-product img{display:block;width:76px;height:108px;object-fit:contain;background:#f6f4f4;border-radius:8px;flex:none}
+.chat-product>span{display:grid;gap:6px;min-width:0}
+.chat-product strong{font:500 14px/1.5 var(--f-sans)}
+.chat-product small{font:400 11px/1.4 var(--f-sans);color:#76515e;direction:ltr;text-align:right}
+.chat-product-action{font:400 12px/1.4 var(--f-sans);color:#94234f}
+@media(max-width:420px){.purey-ask-form input{font-size:16px;padding-inline:12px}.purey-ask-form button{width:46px;height:46px}.purey-ask-prompts button{padding:11px 18px}.ai-launch{min-height:44px;font-size:12px;gap:7px}.ai-launch .av{width:30px;height:30px}.ai-launch .av img{width:24px}}
 </style>
 </head>
 <body>
@@ -533,10 +1382,20 @@ nav a[aria-current="page"]{color:var(--wine)}
   <header class="site-head" id="siteHead">
     <div class="hbar in">
       <div class="h-start">
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="القائمة" aria-controls="menuD"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M10 17h10"/></svg></button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="القائمة" aria-controls="menuD" aria-expanded="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M10 17h10"/></svg></button>
         <a class="h-loc" href="https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.6a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.4" r="2.5"/></svg>طرابلس، شارع الرشيد</a>
       </div>
       <a class="logo" href="index.html"><img src="img/logo-mark.png" alt="بيـوري Purey" width="293" height="240"></a>
+      <nav class="mainnav" aria-label="القائمة">
+        <a href="index.html">الرئيسية</a>
+      <a href="cotton.html">بجامات قطني</a>
+      <a href="satin.html">بجامات ستان</a>
+      <a href="robes.html">أرواب وعرائسي</a>
+      <a href="lingerie.html" aria-current="page">لانجري</a>
+      <a href="sets.html">طواقم داخلي</a>
+      <a href="lavermo.html">Lavermo</a>
+      <a href="#contact">تواصل معنا</a>
+      </nav>
       <div class="h-icons">
         <a class="hide-m" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener" aria-label="تيك توك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3v11.6a3.6 3.6 0 1 1-3.6-3.6"/><path d="M14 3c.5 2.7 2.4 4.5 5.2 4.8"/></svg></a>
         <a href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></a>
@@ -544,26 +1403,18 @@ nav a[aria-current="page"]{color:var(--wine)}
         <button class="bag-btn" id="bagBtn" type="button" aria-label="طلبك"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l-1.2 12.2a1 1 0 0 1-1 .8H7.2a1 1 0 0 1-1-.8L5 8Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></svg><span class="badge" id="bagBadge"></span></button>
       </div>
     </div>
-    <nav class="mainnav in" aria-label="القائمة">
-      <a href="index.html">الرئيسية</a>
-      <a href="cotton.html">بجامات قطني</a>
-      <a href="satin.html">بجامات ستان</a>
-      <a href="robes.html">ارواب وعرائيسي</a>
-      <a href="lingerie.html" aria-current="page">لانجري</a>
-      <a href="sets.html">طواقم داخلي</a>
-      <a href="#contact">تواصل معنا</a>
-    </nav>
   </header>
   <dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
     <button class="x" type="button" data-close aria-label="إغلاق">✕</button>
     <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey"></div>
     <ul class="md-list">
         <li><a class="plain" href="index.html">الرئيسية</a></li>
-        <li><a href="cotton.html"><img src="img/cover-cotton.webp" alt="" loading="lazy" style="object-position:40% 62%"><span class="tx">بجامات قطني<small>Cotton · 72</small></span></a></li>
-        <li><a href="satin.html"><img src="img/cover-satin.webp" alt="" loading="lazy" style="object-position:50% 50%"><span class="tx">بجامات ستان<small>Satin · 50</small></span></a></li>
-        <li><a href="robes.html"><img src="img/cover-robes.webp" alt="" loading="lazy" style="object-position:62% 50%"><span class="tx">ارواب وعرائيسي<small>Robes · Bridal · 85</small></span></a></li>
-        <li><a href="lingerie.html" aria-current="page"><img src="img/cover-lingerie.webp" alt="" loading="lazy" style="object-position:75% 40%"><span class="tx">لانجري<small>Lingerie · 56</small></span></a></li>
-        <li><a href="sets.html"><img src="img/cover-sets.webp" alt="" loading="lazy" style="object-position:50% 40%"><span class="tx">طواقم داخلي<small>Sets · 120</small></span></a></li>
+        <li><a href="cotton.html"><img src="img/collection-cotton-480.webp?v=cover-sync" alt="" loading="lazy" style="object-position:40% 62%"><span class="tx">بجامات قطني<small>Cotton · 119</small></span></a></li>
+        <li><a href="satin.html"><img src="img/collection-satin-480.webp?v=cover-sync" alt="" loading="lazy" style="object-position:50% 50%"><span class="tx">بجامات ستان<small>Satin · 58</small></span></a></li>
+        <li><a href="robes.html"><img src="img/collection-robes-480.webp?v=cover-sync" alt="" loading="lazy" style="object-position:62% 50%"><span class="tx">أرواب وعرائسي<small>Robes · Bridal · 87</small></span></a></li>
+        <li><a href="lingerie.html" aria-current="page"><img src="img/collection-lingerie-480.webp?v=cover-sync" alt="" loading="lazy" style="object-position:75% 40%"><span class="tx">لانجري<small>Lingerie · 59</small></span></a></li>
+        <li><a href="sets.html"><img src="img/collection-sets-480.webp?v=cover-sync" alt="" loading="lazy" style="object-position:50% 40%"><span class="tx">طواقم داخلي<small>Sets · 120</small></span></a></li>
+        <li><a href="lavermo.html"><img class="md-lavermo" src="img/lavermo-lockup.webp" alt="" loading="lazy"><span class="tx"><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a></li>
         <li><a class="plain" href="#contact">تواصل معنا</a></li>
     </ul>
     <div class="md-foot">
@@ -576,21 +1427,26 @@ nav a[aria-current="page"]{color:var(--wine)}
 
     <div class="in">
       <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="index.html#cats">الأقسام</a><span aria-hidden="true">‹</span><span aria-current="page">لانجري</span></nav>
-      <div class="cat-hero lingerie">
-        <img class="cover" src="img/cover-lingerie.webp" alt="" decoding="async" style="object-position:75% 40%">
-        <h1 class="lab l"><span class="ar">لانجري</span><span class="rule" aria-hidden="true"></span><span class="en" lang="en">Lingerie · 56</span></h1>
-      </div>
     </div>
-
+    <div class="cat-hero lingerie">
+        <img class="cover" src="img/collection-lingerie.webp?v=cover-sync" srcset="img/collection-lingerie-480.webp?v=cover-sync 480w, img/collection-lingerie-800.webp?v=cover-sync 800w, img/collection-lingerie.webp?v=cover-sync 1440w" sizes="(max-width:1440px) 100vw, 1440px" alt="" fetchpriority="high">
+        <h1 class="lab"><span class="ar">لانجري</span></h1>
+    </div>
+    <div class="in catalog-intro"><p>تشكيلة لانجري بقصّات وتفاصيل مختلفة من الستان والدانتيل. متوفرة بالجملة لأصحاب المحلات.</p></div>
     <section class="in" id="catalog" aria-label="لانجري">
       <div class="toolbar">
-        <p class="count"><b>56</b> قطعة · جملة فقط — أضف القطع والكميات وابعت الطلب كامل على واتساب</p>
-        <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="q" type="search" placeholder="ابحث باللون أو النوع أو الرمز" aria-label="ابحث في لانجري"></label>
+        <div class="catalog-controls">
+          <label class="search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input id="q" type="search" placeholder="ابحث بالاسم أو الرمز" aria-label="ابحث في لانجري"></label>
+          <select id="catalogColor" aria-label="اللون"><option value="">كل الألوان</option></select>
+          <select id="catalogSort" aria-label="ترتيب المنتجات">
+            <option value="">ترتيب المجموعة</option><option value="name">الاسم</option><option value="code">رمز القطعة</option>
+          </select>
+        </div>
       </div>
       <div class="grid" id="grid" data-cat="l"></div>
       <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف — جرّب كلمة ثانية.</p>
       <div class="more-row">
-        <span class="shown" id="shown"></span>
+        <span class="shown" id="shown" role="status"></span>
         <button class="pill" id="more" type="button">عرض المزيد</button>
       </div>
     </section>
@@ -598,13 +1454,13 @@ nav a[aria-current="page"]{color:var(--wine)}
     <section class="sec in" aria-labelledby="t-others">
       <h2 class="ttl" id="t-others">أقسام أخرى</h2>
       <div class="others">
-        <a class="other" href="cotton.html"><span class="ph"><img src="img/cover-cotton.webp" alt="" loading="lazy" decoding="async" style="object-position:40% 62%"></span><span class="nm">بجامات قطني</span><span class="en">Cotton · 72</span></a>
-        <a class="other" href="satin.html"><span class="ph"><img src="img/cover-satin.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></span><span class="nm">بجامات ستان</span><span class="en">Satin · 50</span></a>
-        <a class="other" href="robes.html"><span class="ph"><img src="img/cover-robes.webp" alt="" loading="lazy" decoding="async" style="object-position:62% 50%"></span><span class="nm">ارواب وعرائيسي</span><span class="en">Robes · Bridal · 85</span></a>
-        <a class="other" href="sets.html"><span class="ph"><img src="img/cover-sets.webp" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span><span class="nm">طواقم داخلي</span><span class="en">Sets · 120</span></a>
+        <a class="other" href="cotton.html"><span class="ph"><img src="img/collection-cotton-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:40% 62%"></span><span class="nm">بجامات قطني</span><span class="en">Cotton · 119</span></a>
+        <a class="other" href="satin.html"><span class="ph"><img src="img/collection-satin-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:50% 50%"></span><span class="nm">بجامات ستان</span><span class="en">Satin · 58</span></a>
+        <a class="other" href="robes.html"><span class="ph"><img src="img/collection-robes-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:62% 50%"></span><span class="nm">أرواب وعرائسي</span><span class="en">Robes · Bridal · 87</span></a>
+        <a class="other" href="sets.html"><span class="ph"><img src="img/collection-sets-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:50% 40%"></span><span class="nm">طواقم داخلي</span><span class="en">Sets · 120</span></a>
       </div>
     </section>
-    <script type="application/json" id="catalog-data">[{"id":"o01","c":"c","n":"بجامة منقّطة رمادي","i":"img/01.webp"},{"id":"o02","c":"c","n":"بجامة منقّطة بني","i":"img/02.webp"},{"id":"o03","c":"c","n":"بجامة منقّطة فحمي","i":"img/03.webp"},{"id":"o04","c":"c","n":"بجامة مقلّمة مرجاني","i":"img/04.webp"},{"id":"o05","c":"c","n":"بجامة مقلّمة بني فاتح","i":"img/05.webp"},{"id":"o06","c":"c","n":"بجامة مقلّمة أزرق","i":"img/06.webp"},{"id":"o07","c":"s","n":"بجامة ستان بياقة مكشكشة","i":"img/07.webp"},{"id":"o08","c":"s","n":"بجامة ستان بالدانتيل","i":"img/08.webp"},{"id":"o09","c":"r","n":"روب وقميص مطرّز عاجي","i":"img/09.webp"},{"id":"o10","c":"r","n":"روب وقميص بالدانتيل أسود","i":"img/10.webp"},{"id":"o11","c":"l","n":"فستان لامع ذهبي","i":"img/11.webp"},{"id":"o12","c":"u","n":"طقم بحمالات متقاطعة أحمر","i":"img/12.webp"},{"id":"o13","c":"u","n":"طقم دانتيل عنابي","i":"img/13.webp"},{"id":"o14","c":"u","n":"طقم ناعم ليلكي","i":"img/14.webp"},{"id":"o15","c":"u","n":"طقم ناعم كريمي","i":"img/15.webp"},{"id":"o16","c":"u","n":"طقم ناعم أسود","i":"img/16.webp"},{"id":"o17","c":"u","n":"طقم ناعم رمادي مزرق","i":"img/17.webp"},{"id":"o18","c":"u","n":"طقم ناعم وردي","i":"img/18.webp"},{"id":"c01","c":"c","n":"بجامة رقبة مربعة مطرّزة عاجي","i":"img/p/c01.webp"},{"id":"c02","c":"c","n":"بجامة رقبة مربعة مطرّزة وردي مطفي","i":"img/p/c02.webp"},{"id":"c03","c":"c","n":"بجامة بصدر مكشكش عاجي","i":"img/p/c03.webp"},{"id":"c04","c":"c","n":"بجامة بكشكش على الصدر أخضر فاتح","i":"img/p/c04.webp"},{"id":"c05","c":"c","n":"بجامة بصدر مكشكش خوخي","i":"img/p/c05.webp"},{"id":"c06","c":"c","n":"بجامة بصدر مكشكش وردي غامق","i":"img/p/c06.webp"},{"id":"c07","c":"c","n":"بجامة بكشكش على الصدر عاجي","i":"img/p/c07.webp"},{"id":"c08","c":"c","n":"بجامة رقبة مربعة مطرّزة خوخي","i":"img/p/c08.webp"},{"id":"c09","c":"c","n":"بجامة بكشكش على الصدر وردي غامق","i":"img/p/c09.webp"},{"id":"c10","c":"c","n":"بجامة قلب وأرنب مرجاني","i":"img/p/c10.webp"},{"id":"c11","c":"c","n":"بجامة قلب وأرنب بيج","i":"img/p/c11.webp"},{"id":"c12","c":"c","n":"بجامة برسمة على الصدر بيج","i":"img/p/c12.webp"},{"id":"c13","c":"c","n":"بجامة قلب وأرنب زيتي","i":"img/p/c13.webp"},{"id":"c14","c":"c","n":"بجامة منقّطة برسمة فيونكة كريمي","i":"img/p/c14.webp"},{"id":"c15","c":"c","n":"بجامة منقّطة بجيب فيونكة عاجي وأسود","i":"img/p/c15.webp"},{"id":"c16","c":"c","n":"بجامة منقّطة بجيب فيونكة عاجي وعنابي","i":"img/p/c16.webp"},{"id":"c17","c":"c","n":"بجامة منقّطة برسمة فيونكة عاجي وعنابي","i":"img/p/c17.webp"},{"id":"c18","c":"c","n":"بجامة منقّطة برسمة فيونكة أبيض وأسود","i":"img/p/c18.webp"},{"id":"c19","c":"c","n":"بجامة بجيب توليب وردي فاتح","i":"img/p/c19.webp"},{"id":"c20","c":"c","n":"بجامة أرنب بقلب أخضر فاتح","i":"img/p/c20.webp"},{"id":"c21","c":"c","n":"بجامة بجيب توليب أصفر","i":"img/p/c21.webp"},{"id":"c22","c":"c","n":"بجامة دبدوب عاجي وأسود","i":"img/p/c22.webp"},{"id":"c23","c":"c","n":"بجامة دبدوب عاجي وعنابي","i":"img/p/c23.webp"},{"id":"c24","c":"c","n":"بجامة رقبة دائرية بالدانتيل خوخي","i":"img/p/c24.webp"},{"id":"c25","c":"c","n":"بجامة بجيب دبدوب مرجاني","i":"img/p/c25.webp"},{"id":"c26","c":"c","n":"بجامة أرنب بقلب عاجي","i":"img/p/c26.webp"},{"id":"c27","c":"c","n":"بجامة دبدوب وبنطلون نمري رمادي","i":"img/p/c27.webp"},{"id":"c28","c":"c","n":"بجامة بجيب دبدوب وردي مطفي","i":"img/p/c28.webp"},{"id":"c29","c":"c","n":"بجامة ورق لافندر رمادي","i":"img/p/c29.webp"},{"id":"c30","c":"c","n":"بجامة ورق لافندر بيج","i":"img/p/c30.webp"},{"id":"c31","c":"c","n":"بجامة كاروهات بفيونكة زيتي","i":"img/p/c31.webp"},{"id":"c32","c":"c","n":"بجامة دبدوب وبنطلون نمري عاجي وزيتي","i":"img/p/c32.webp"},{"id":"c33","c":"c","n":"بجامة دبدوب وبنطلون نمري كاكي","i":"img/p/c33.webp"},{"id":"c34","c":"c","n":"بجامة مقلّمة بفيونكات عاجي وذهبي","i":"img/p/c34.webp"},{"id":"c35","c":"c","n":"بجامة ورد ناعم عاجي ووردي","i":"img/p/c35.webp"},{"id":"c36","c":"c","n":"بجامة كاروهات بفيونكة وردي","i":"img/p/c36.webp"},{"id":"c37","c":"c","n":"بجامة ورد ناعم عاجي وبيج","i":"img/p/c37.webp"},{"id":"c38","c":"c","n":"بجامة نقشة نباتية عاجي ورمادي","i":"img/p/c38.webp"},{"id":"c39","c":"c","n":"بجامة مقلّمة بفيونكات عاجي ووردي","i":"img/p/c39.webp"},{"id":"c40","c":"c","n":"بجامة بأطراف دانتيل أصفر فاتح","i":"img/p/c40.webp"},{"id":"c41","c":"c","n":"بجامة بأطراف دانتيل خوخي","i":"img/p/c41.webp"},{"id":"c42","c":"s","n":"بجامة ستان بياقة بحّار مطرّزة عاجي","i":"img/p/c42.webp"},{"id":"c43","c":"s","n":"بجامة ستان بياقة بحّار مطرّزة ليلكي","i":"img/p/c43.webp"},{"id":"c44","c":"s","n":"بجامة ستان بكشكش وربطة عاجي","i":"img/p/c44.webp"},{"id":"c45","c":"c","n":"طقم ثلاث قطع مع كامي وردي وعاجي","i":"img/p/c45.webp"},{"id":"c46","c":"l","n":"قميص نوم نمري بالدانتيل أسود وأبيض","i":"img/p/c46.webp"},{"id":"c47","c":"l","n":"قميص نوم مفتوح مورّد وردي","i":"img/p/c47.webp"},{"id":"c49","c":"s","n":"بجامة ستان بأكمام دانتيل واسعة عاجي","i":"img/p/c49.webp"},{"id":"c50","c":"s","n":"بجامة ستان بأكمام دانتيل واسعة أسود","i":"img/p/c50.webp"},{"id":"c51","c":"r","n":"طقم روب ثلاث قطع أحمر","i":"img/p/c51.webp"},{"id":"c52","c":"r","n":"طقم روب ثلاث قطع أسود","i":"img/p/c52.webp"},{"id":"c53","c":"s","n":"بجامة ستان بدانتيل وفيونكتين خوخي","i":"img/p/c53.webp"},{"id":"c54","c":"s","n":"بجامة ستان بدانتيل وفيونكتين أزرق ثلجي","i":"img/p/c54.webp"},{"id":"c55","c":"s","n":"بجامة ستان بدانتيل وفيونكتين أسود","i":"img/p/c55.webp"},{"id":"c56","c":"s","n":"بجامة ستان بدانتيل وفيونكتين عاجي","i":"img/p/c56.webp"},{"id":"c58","c":"c","n":"طقم ثلاث قطع مطبوع بالدانتيل وردي","i":"img/p/c58.webp"},{"id":"c59","c":"s","n":"بجامة ستان بكشكش شلال عاجي","i":"img/p/c59.webp"},{"id":"c60","c":"s","n":"بجامة ستان بكشكش شلال أسود","i":"img/p/c60.webp"},{"id":"c61","c":"s","n":"بجامة ستان بكشكش شلال ليلكي","i":"img/p/c61.webp"},{"id":"c62","c":"s","n":"بجامة ستان بياقة V عاجي","i":"img/p/c62.webp"},{"id":"c63","c":"s","n":"بجامة ستان بياقة V أسود","i":"img/p/c63.webp"},{"id":"c64","c":"c","n":"بجامة بأكمام شبك مورّدة عاجي","i":"img/p/c64.webp"},{"id":"c65","c":"c","n":"بجامة بأكمام شبك مورّدة أصفر","i":"img/p/c65.webp"},{"id":"c66","c":"c","n":"بجامة بأكمام شبك مورّدة وردي فاتح","i":"img/p/c66.webp"},{"id":"c67","c":"c","n":"بجامة بأكمام شبك مورّدة عنابي","i":"img/p/c67.webp"},{"id":"c68","c":"c","n":"بجامة نجوم مع توكة شعر أحمر","i":"img/p/c68.webp"},{"id":"c69","c":"c","n":"بجامة نجوم مع توكة شعر وردي","i":"img/p/c69.webp"},{"id":"c70","c":"c","n":"بجامة نجوم مع توكة شعر كريمي","i":"img/p/c70.webp"},{"id":"c71","c":"c","n":"بجامة نجوم مع توكة شعر أسود","i":"img/p/c71.webp"},{"id":"c72","c":"c","n":"بجامة مقلّمة بحواف مموّجة نعناعي","i":"img/p/c72.webp"},{"id":"c73","c":"c","n":"بجامة مقلّمة بحواف مموّجة وردي","i":"img/p/c73.webp"},{"id":"c74","c":"c","n":"بجامة بلوزة مطبوعة نمر جالس","i":"img/p/c74.webp"},{"id":"c75","c":"c","n":"بجامة بلوزة مطبوعة حصان","i":"img/p/c75.webp"},{"id":"c76","c":"c","n":"بجامة بلوزة مطبوعة نمر قافز","i":"img/p/c76.webp"},{"id":"c77","c":"c","n":"بجامة بلوزة مطبوعة باندا وقمر","i":"img/p/c77.webp"},{"id":"c78","c":"c","n":"بجامة بلوزة مطبوعة دباديب","i":"img/p/c78.webp"},{"id":"c79","c":"c","n":"بجامة بلوزة مطبوعة دمية","i":"img/p/c79.webp"},{"id":"c80","c":"c","n":"بجامة بلوزة مطبوعة قطة وورد","i":"img/p/c80.webp"},{"id":"c81","c":"c","n":"بجامة بلوزة مطبوعة زهرة","i":"img/p/c81.webp"},{"id":"c82","c":"c","n":"بجامة بلوزة مطبوعة قطة وليمون","i":"img/p/c82.webp"},{"id":"c83","c":"s","n":"بجامة ستان بفيونكات صغيرة وردي فاتح","i":"img/p/c83.webp"},{"id":"c84","c":"s","n":"بجامة ستان بفيونكات صغيرة أزرق ثلجي","i":"img/p/c84.webp"},{"id":"c85","c":"s","n":"بجامة ستان بفيونكات صغيرة عاجي","i":"img/p/c85.webp"},{"id":"c86","c":"s","n":"بجامة ستان بفيونكات صغيرة ليلكي فضي","i":"img/p/c86.webp"},{"id":"s01","c":"r","n":"طقم عرائسي أربع قطع بالكشكش عاجي","i":"img/p/s01.webp"},{"id":"s02","c":"s","n":"بجامة ستان نمري مع شبشب ليلكي","i":"img/p/s02.webp"},{"id":"s03","c":"r","n":"طقم روب دانتيل ثلاث قطع أبيض","i":"img/p/s03.webp"},{"id":"s04","c":"s","n":"بجامة ستان بأطراف نمري مع شبشب أسود وبيج","i":"img/p/s04.webp"},{"id":"s05","c":"s","n":"بجامة ستان نمري ناعم مع شبشب بني","i":"img/p/s05.webp"},{"id":"s06","c":"s","n":"طقم كامي نمري مع شبشب بيج","i":"img/p/s06.webp"},{"id":"s07","c":"s","n":"بجامة ستان جاكار مورّد نحاسي","i":"img/p/s07.webp"},{"id":"s08","c":"s","n":"بجامة ستان بأطراف نمري مع شبشب أسود ووردي","i":"img/p/s08.webp"},{"id":"s09","c":"s","n":"بجامة ستان بأكمام دانتيل أزرق رمادي","i":"img/p/s09.webp"},{"id":"s10","c":"s","n":"بجامة ستان جاكار مورّد فضي","i":"img/p/s10.webp"},{"id":"s11","c":"s","n":"بجامة ستان مقلّمة مع شبشب برتقالي","i":"img/p/s11.webp"},{"id":"s12","c":"s","n":"بجامة ستان جاكار مورّد وردي","i":"img/p/s12.webp"},{"id":"s13","c":"s","n":"بجامة ستان بياقة مكسّرة أبيض","i":"img/p/s13.webp"},{"id":"s14","c":"s","n":"بجامة ستان بياقة مكسّرة أزرق ثلجي","i":"img/p/s14.webp"},{"id":"s15","c":"s","n":"بجامة ستان جاكار مورّد أحمر","i":"img/p/s15.webp"},{"id":"s16","c":"s","n":"بجامة ستان بأكمام دانتيل مكسّرة عاجي وأسود","i":"img/p/s16.webp"},{"id":"s17","c":"s","n":"بجامة ستان بياقة مكسّرة وردي فاتح","i":"img/p/s17.webp"},{"id":"s18","c":"s","n":"بجامة ستان بدانتيل مكسّر أسود وعاجي","i":"img/p/s18.webp"},{"id":"s19","c":"s","n":"بجامة ستان بقلوب وكشكش عاجي وأسود","i":"img/p/s19.webp"},{"id":"s20","c":"s","n":"بجامة ستان منقّطة بكشكش عاجي وأسود","i":"img/p/s20.webp"},{"id":"s21","c":"s","n":"بجامة ستان بقلوب عاجي وفحمي","i":"img/p/s21.webp"},{"id":"s22","c":"s","n":"طقم كامي وشورت ستان أسود","i":"img/p/s22.webp"},{"id":"s23","c":"r","n":"طقم روب تول مع بنطلون أسود","i":"img/p/s23.webp"},{"id":"s24","c":"r","n":"طقم روب وكامي أزرق ثلجي","i":"img/p/s24.webp"},{"id":"s25","c":"s","n":"بجامة ستان منقّطة بكشكش وردي فاتح","i":"img/p/s25.webp"},{"id":"s26","c":"r","n":"طقم روب بفيونكة أبيض وليلكي","i":"img/p/s26.webp"},{"id":"s27","c":"r","n":"روب بأطراف كشكش أسود وعاجي","i":"img/p/s27.webp"},{"id":"s28","c":"s","n":"بجامة ستان بقلوب فضي وزيتي","i":"img/p/s28.webp"},{"id":"s29","c":"r","n":"طقم روب منقوش كريمي ووردي","i":"img/p/s29.webp"},{"id":"s30","c":"s","n":"بجامة ستان بياقة دانتيل كبيرة أسود","i":"img/p/s30.webp"},{"id":"s31","c":"r","n":"طقم روب أربع قطع بالدانتيل عاجي وأسود","i":"img/p/s31.webp"},{"id":"s32","c":"s","n":"طقم كامي وشورت ستان شامبين","i":"img/p/s32.webp"},{"id":"s33","c":"s","n":"بجامة ستان بياقة مربوطة وردي","i":"img/p/s33.webp"},{"id":"s34","c":"s","n":"طقم كامي وشورت بقلوب عاجي","i":"img/p/s34.webp"},{"id":"s35","c":"s","n":"بجامة ستان بقلوب خوخي","i":"img/p/s35.webp"},{"id":"s36","c":"s","n":"بجامة ستان بياقة مربوطة عاجي","i":"img/p/s36.webp"},{"id":"s37","c":"r","n":"طقم روب وقميص شامبين","i":"img/p/s37.webp"},{"id":"s38","c":"l","n":"فستان نوم شبك منقّط أسود","i":"img/p/s38.webp"},{"id":"s39","c":"r","n":"طقم روب أربع قطع بالدانتيل زيتي وأسود","i":"img/p/s39.webp"},{"id":"s40","c":"s","n":"بجامة ستان بقلوب طويلة عاجي","i":"img/p/s40.webp"},{"id":"s41","c":"r","n":"طقم روب بأطراف كشكش عاجي","i":"img/p/s41.webp"},{"id":"s42","c":"r","n":"طقم روب وقميص دانتيل أبيض","i":"img/p/s42.webp"},{"id":"s43","c":"r","n":"طقم روب أربع قطع بالدانتيل وردي غامق وأسود","i":"img/p/s43.webp"},{"id":"s44","c":"r","n":"روب دانتيل مورّد أسود","i":"img/p/s44.webp"},{"id":"s45","c":"s","n":"بجامة ستان ثلاث قطع بأطراف مموّجة عاجي","i":"img/p/s45.webp"},{"id":"u01","c":"u","n":"طقم مضلّع بحواف مموّجة عنابي","i":"img/p/u01.webp"},{"id":"u02","c":"u","n":"طقم مضلّع بحواف مموّجة أزرق جينز","i":"img/p/u02.webp"},{"id":"u03","c":"u","n":"طقم مضلّع بحواف مموّجة كحلي","i":"img/p/u03.webp"},{"id":"u04","c":"u","n":"طقم مضلّع بحواف مموّجة أزرق فاتح","i":"img/p/u04.webp"},{"id":"u05","c":"u","n":"طقم مضلّع بحواف مموّجة وردي مطفي","i":"img/p/u05.webp"},{"id":"u06","c":"u","n":"طقم مضلّع بحواف مموّجة أسود","i":"img/p/u06.webp"},{"id":"u07","c":"u","n":"طقم مضلّع بحواف مموّجة نعناعي","i":"img/p/u07.webp"},{"id":"u08","c":"u","n":"طقم بكب مكسّر ليلكي رمادي","i":"img/p/u08.webp"},{"id":"u09","c":"u","n":"طقم بكب مكسّر موف","i":"img/p/u09.webp"},{"id":"u10","c":"u","n":"طقم بكب مكسّر خوخي","i":"img/p/u10.webp"},{"id":"u11","c":"u","n":"طقم بكب مكسّر بيج","i":"img/p/u11.webp"},{"id":"u12","c":"u","n":"طقم بكب مكسّر أحمر","i":"img/p/u12.webp"},{"id":"u13","c":"u","n":"طقم بكب مكسّر أبيض","i":"img/p/u13.webp"},{"id":"u14","c":"u","n":"طقم بكب مكسّر وردي غامق","i":"img/p/u14.webp"},{"id":"u15","c":"u","n":"طقم بكب ناعم كحلي غامق","i":"img/p/u15.webp"},{"id":"u16","c":"u","n":"طقم بكب ناعم أسود","i":"img/p/u16.webp"},{"id":"u17","c":"u","n":"طقم بكب ناعم ليلكي فاتح","i":"img/p/u17.webp"},{"id":"u18","c":"u","n":"طقم بحمالات لؤلؤ برتقالي محروق","i":"img/p/u18.webp"},{"id":"u19","c":"u","n":"طقم بحمالات لؤلؤ وردي","i":"img/p/u19.webp"},{"id":"u20","c":"u","n":"طقم بحمالات لؤلؤ أحمر طوبي","i":"img/p/u20.webp"},{"id":"u21","c":"u","n":"طقم بحمالات لؤلؤ أسود","i":"img/p/u21.webp"},{"id":"u22","c":"u","n":"طقم بحمالات لؤلؤ أبيض","i":"img/p/u22.webp"},{"id":"u23","c":"u","n":"طقم بحمالات لؤلؤ أصفر ذهبي","i":"img/p/u23.webp"},{"id":"u24","c":"u","n":"طقم بحمالات لؤلؤ زيتي","i":"img/p/u24.webp"},{"id":"u25","c":"u","n":"طقم دانتيل بحمالات لامعة أسود","i":"img/p/u25.webp"},{"id":"u26","c":"u","n":"طقم دانتيل بحمالات لامعة رمادي فحمي","i":"img/p/u26.webp"},{"id":"u27","c":"u","n":"طقم دانتيل بحمالات لامعة أخضر زيتي","i":"img/p/u27.webp"},{"id":"u28","c":"u","n":"طقم دانتيل بحمالات لامعة خردلي","i":"img/p/u28.webp"},{"id":"u29","c":"u","n":"طقم دانتيل بحمالات لامعة خوخي","i":"img/p/u29.webp"},{"id":"u30","c":"u","n":"طقم دانتيل بحمالات لامعة عنابي","i":"img/p/u30.webp"},{"id":"u31","c":"u","n":"طقم دانتيل بحمالات لامعة فوشي","i":"img/p/u31.webp"},{"id":"u32","c":"u","n":"طقم دانتيل بحمالات لامعة تيراكوتا","i":"img/p/u32.webp"},{"id":"u33","c":"u","n":"طقم دانتيل بحمالات لامعة بيج رمادي","i":"img/p/u33.webp"},{"id":"u34","c":"u","n":"طقم دانتيل بحمالات لامعة نعناعي فاتح","i":"img/p/u34.webp"},{"id":"u35","c":"u","n":"طقم ناعم بحمالات لامعة نبيذي","i":"img/p/u35.webp"},{"id":"u36","c":"u","n":"طقم ناعم بحمالات لامعة فوشي","i":"img/p/u36.webp"},{"id":"u37","c":"u","n":"طقم ناعم بحمالات لامعة نحاسي","i":"img/p/u37.webp"},{"id":"u38","c":"u","n":"طقم ناعم بحمالات لامعة زيتي رمادي","i":"img/p/u38.webp"},{"id":"u39","c":"u","n":"طقم ناعم بحمالات لامعة أصفر ذهبي","i":"img/p/u39.webp"},{"id":"u40","c":"u","n":"طقم ناعم بحمالات لامعة خوخي","i":"img/p/u40.webp"},{"id":"u41","c":"u","n":"طقم مضلّع بكشكش تركوازي","i":"img/p/u41.webp"},{"id":"u42","c":"u","n":"طقم مضلّع بكشكش كحلي","i":"img/p/u42.webp"},{"id":"u43","c":"u","n":"طقم مضلّع بكشكش أزرق مطفي","i":"img/p/u43.webp"},{"id":"u44","c":"u","n":"طقم مضلّع بكشكش وردي","i":"img/p/u44.webp"},{"id":"u45","c":"u","n":"طقم مضلّع بكشكش أسود","i":"img/p/u45.webp"},{"id":"u46","c":"u","n":"طقم مضلّع بكشكش عنابي","i":"img/p/u46.webp"},{"id":"u47","c":"u","n":"طقم مضلّع بكشكش موف","i":"img/p/u47.webp"},{"id":"u48","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل خردلي","i":"img/p/u48.webp"},{"id":"u49","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل ليلكي رمادي","i":"img/p/u49.webp"},{"id":"u50","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل خوخي","i":"img/p/u50.webp"},{"id":"u51","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل تيراكوتا","i":"img/p/u51.webp"},{"id":"u52","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل زيتي","i":"img/p/u52.webp"},{"id":"u53","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل تركوازي غامق","i":"img/p/u53.webp"},{"id":"u54","c":"l","n":"قميص نوم شبك بقلوب أحمر","i":"img/p/u54.webp"},{"id":"u55","c":"l","n":"طقم لانجري شبك بلؤلؤ أسود","i":"img/p/u55.webp"},{"id":"u56","c":"r","n":"طقم نوم نمري خمس قطع مع روب","i":"img/p/u56.webp"},{"id":"u57","c":"r","n":"طقم عرائسي أربع قطع بالدانتيل عاجي","i":"img/p/u57.webp"},{"id":"u59","c":"l","n":"فستان دانتيل طويل مورّد أحمر","i":"img/p/u59.webp"},{"id":"u62","c":"l","n":"فستان دانتيل قصير أسود","i":"img/p/u62.webp"},{"id":"u63","c":"l","n":"فستان شبك مكشكش بالورد وردي","i":"img/p/u63.webp"},{"id":"u64","c":"l","n":"فستان شبك مكشكش بالورد أسود","i":"img/p/u64.webp"},{"id":"u65","c":"l","n":"فستان شبك مكشكش بالورد أبيض","i":"img/p/u65.webp"},{"id":"u66","c":"l","n":"فستان شبك مكشكش بالورد أحمر","i":"img/p/u66.webp"},{"id":"u67","c":"l","n":"فستان بحمالات لؤلؤ وورد أسود","i":"img/p/u67.webp"},{"id":"u68","c":"l","n":"فستان بحمالات لؤلؤ وورد أحمر","i":"img/p/u68.webp"},{"id":"u69","c":"l","n":"فستان نوم شبك بفتحة أسود ووردي","i":"img/p/u69.webp"},{"id":"u70","c":"l","n":"فستان طويل مورّد بفتحتين أبيض","i":"img/p/u70.webp"},{"id":"u71","c":"l","n":"فستان بحلقات وفتحات بنفسجي","i":"img/p/u71.webp"},{"id":"u72","c":"l","n":"فستان بحلقات وفتحات أبيض","i":"img/p/u72.webp"},{"id":"u73","c":"l","n":"فستان بحلقات وفتحات قرمزي","i":"img/p/u73.webp"},{"id":"u74","c":"l","n":"فستان بحلقات وفتحات برقوقي","i":"img/p/u74.webp"},{"id":"u75","c":"l","n":"فستان بحلقة قرمزي","i":"img/p/u75.webp"},{"id":"u76","c":"c","n":"بجامة أوفرول هيلو كيتي كريمي","i":"img/p/u76.webp"},{"id":"u77","c":"l","n":"قميص نوم ستان بالدانتيل أسود","i":"img/p/u77.webp"},{"id":"u78","c":"l","n":"قميص نوم ستان بالدانتيل أحمر وأسود","i":"img/p/u78.webp"},{"id":"u79","c":"l","n":"قميص نوم ستان بالدانتيل أزرق ملكي","i":"img/p/u79.webp"},{"id":"u80","c":"l","n":"قميص نوم ستان بالدانتيل لافندر فضي","i":"img/p/u80.webp"},{"id":"u81","c":"l","n":"قميص نوم ستان بالدانتيل وردي فاتح","i":"img/p/u81.webp"},{"id":"u82","c":"l","n":"قميص نوم ستان بالدانتيل نبيذي","i":"img/p/u82.webp"},{"id":"l001","c":"r","n":"روب ستان بشراشيب كحلي","i":"img/p/l001.webp"},{"id":"l002","c":"r","n":"روب ستان بشراشيب أسود","i":"img/p/l002.webp"},{"id":"l003","c":"r","n":"روب ستان بشراشيب وردي","i":"img/p/l003.webp"},{"id":"l004","c":"r","n":"روب ستان بشراشيب أحمر","i":"img/p/l004.webp"},{"id":"l005","c":"l","n":"فستان نوم ضيّق بأطراف مموّجة أسود","i":"img/p/l005.webp"},{"id":"l006","c":"c","n":"بجامة أوفرول هيلو كيتي أبيض","i":"img/p/l006.webp"},{"id":"l007","c":"c","n":"بجامة هيلو كيتي بشورت كريمي","i":"img/p/l007.webp"},{"id":"l008","c":"l","n":"بيبي دول مفتوح بكشكش قرمزي","i":"img/p/l008.webp"},{"id":"l009","c":"l","n":"بيبي دول مفتوح بكشكش نبيذي","i":"img/p/l009.webp"},{"id":"l011","c":"l","n":"بيبي دول مفتوح بكشكش وردي","i":"img/p/l011.webp"},{"id":"l013","c":"l","n":"فستان كورسيه دانتيل بفتحة أبيض","i":"img/p/l013.webp"},{"id":"l014","c":"l","n":"فستان كورسيه دانتيل بفتحة نبيذي","i":"img/p/l014.webp"},{"id":"l015","c":"l","n":"فستان كورسيه دانتيل بفتحة أسود","i":"img/p/l015.webp"},{"id":"l016","c":"l","n":"فستان كورسيه دانتيل بفتحة كحلي","i":"img/p/l016.webp"},{"id":"l017","c":"l","n":"فستان دانتيل طويل بفتحة أسود","i":"img/p/l017.webp"},{"id":"l018","c":"l","n":"فستان هالتر دانتيل بفتحتين أسود","i":"img/p/l018.webp"},{"id":"l019","c":"l","n":"فستان هالتر دانتيل بفتحتين قرمزي","i":"img/p/l019.webp"},{"id":"l020","c":"l","n":"فستان هالتر دانتيل بفتحتين عنابي","i":"img/p/l020.webp"},{"id":"l021","c":"l","n":"فستان لامع بحلقة ليلكي","i":"img/p/l021.webp"},{"id":"l023","c":"l","n":"بيبي دول دانتيل بحمالات وردي","i":"img/p/l023.webp"},{"id":"l025","c":"r","n":"روب شيفون نمري بأكمام ريش بني","i":"img/p/l025.webp"},{"id":"l026","c":"r","n":"روب شيفون نمري بأكمام ريش أبيض وأسود","i":"img/p/l026.webp"},{"id":"l027","c":"l","n":"قميص نوم ستان بظهر فراشة أسود","i":"img/p/l027.webp"},{"id":"l028","c":"l","n":"قميص نوم ستان بظهر فراشة نبيذي","i":"img/p/l028.webp"},{"id":"l029","c":"l","n":"قميص نوم ستان بظهر فراشة شامبين","i":"img/p/l029.webp"},{"id":"l030","c":"l","n":"قميص نوم ستان بظهر فراشة وردي مطفي","i":"img/p/l030.webp"},{"id":"l031","c":"l","n":"قميص نوم ستان بظهر فراشة وردي ذهبي","i":"img/p/l031.webp"},{"id":"l032","c":"l","n":"فستان لامع بحمالات سلسلة فضي","i":"img/p/l032.webp"},{"id":"l033","c":"l","n":"فستان لامع بحمالات سلسلة ذهبي","i":"img/p/l033.webp"},{"id":"l034","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ وردي","i":"img/p/l034.webp"},{"id":"l035","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ نبيذي","i":"img/p/l035.webp"},{"id":"l036","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ كحلي","i":"img/p/l036.webp"},{"id":"l037","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ أسود","i":"img/p/l037.webp"},{"id":"l039","c":"l","n":"فستان نمري طويل بحلقات قلب","i":"img/p/l039.webp"},{"id":"l041","c":"l","n":"فستان دانتيل ميدي فوشي","i":"img/p/l041.webp"},{"id":"l042","c":"l","n":"فستان ورد طويل بصدر مكشكش أبيض","i":"img/p/l042.webp"},{"id":"l044","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع وردي فاتح","i":"img/p/l044.webp"},{"id":"l045","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أزرق رمادي","i":"img/p/l045.webp"},{"id":"l046","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أسود","i":"img/p/l046.webp"},{"id":"l047","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أبيض","i":"img/p/l047.webp"},{"id":"l048","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أحمر","i":"img/p/l048.webp"},{"id":"l049","c":"r","n":"طقم روب وقميص ميدي أبيض","i":"img/p/l049.webp"},{"id":"l050","c":"r","n":"طقم روب وقميص ميدي أسود","i":"img/p/l050.webp"},{"id":"l051","c":"r","n":"طقم روب وقميص ميدي وردي فاتح","i":"img/p/l051.webp"},{"id":"l052","c":"r","n":"طقم روب وقميص بكشكش ليلكي","i":"img/p/l052.webp"},{"id":"l053","c":"r","n":"طقم روب وقميص بكشكش أبيض","i":"img/p/l053.webp"},{"id":"l054","c":"r","n":"طقم روب وقميص بكشكش أسود","i":"img/p/l054.webp"},{"id":"l055","c":"r","n":"طقم روب وقميص بكشكش وردي فاتح","i":"img/p/l055.webp"},{"id":"l056","c":"r","n":"طقم روب وقميص بصدر دانتيل أسود","i":"img/p/l056.webp"},{"id":"l057","c":"r","n":"طقم روب وقميص بصدر دانتيل عاجي","i":"img/p/l057.webp"},{"id":"l058","c":"r","n":"طقم روب وقميص بصدر دانتيل وردي فاتح","i":"img/p/l058.webp"},{"id":"l059","c":"r","n":"طقم روب وقميص بصدر دانتيل نعناعي","i":"img/p/l059.webp"},{"id":"l060","c":"r","n":"طقم روب وقميص بذيل مكشكش عاجي","i":"img/p/l060.webp"},{"id":"l061","c":"r","n":"طقم روب وقميص بذيل مكشكش أسود","i":"img/p/l061.webp"},{"id":"l062","c":"r","n":"طقم روب وقميص بذيل مكشكش ليلكي","i":"img/p/l062.webp"},{"id":"l063","c":"r","n":"طقم روب وقميص بذيل مكشكش خوخي","i":"img/p/l063.webp"},{"id":"l064","c":"r","n":"طقم روب وقميص طويل عاجي","i":"img/p/l064.webp"},{"id":"l065","c":"r","n":"طقم روب وقميص طويل أسود","i":"img/p/l065.webp"},{"id":"l066","c":"r","n":"طقم روب وقميص طويل نعناعي","i":"img/p/l066.webp"},{"id":"l067","c":"r","n":"طقم روب وقميص طويل وردي فاتح","i":"img/p/l067.webp"},{"id":"l068","c":"r","n":"طقم روب وقميص ستان كريمي","i":"img/p/l068.webp"},{"id":"l069","c":"r","n":"طقم روب وقميص ستان ليلكي","i":"img/p/l069.webp"},{"id":"l070","c":"r","n":"طقم روب وقميص ستان أسود","i":"img/p/l070.webp"},{"id":"l071","c":"r","n":"طقم روب وقميص بحمالات متقاطعة خوخي","i":"img/p/l071.webp"},{"id":"l072","c":"r","n":"طقم روب وقميص بحمالات متقاطعة زيتي","i":"img/p/l072.webp"},{"id":"l073","c":"r","n":"طقم روب وقميص بحمالات متقاطعة أبيض","i":"img/p/l073.webp"},{"id":"l074","c":"r","n":"طقم روب وقميص بحمالات متقاطعة أسود","i":"img/p/l074.webp"},{"id":"l075","c":"r","n":"طقم روب وقميص بصدر مكشكش أزرق ثلجي","i":"img/p/l075.webp"},{"id":"l076","c":"r","n":"طقم روب وقميص بصدر مكشكش أسود","i":"img/p/l076.webp"},{"id":"l077","c":"r","n":"طقم روب وقميص بصدر مكشكش وردي","i":"img/p/l077.webp"},{"id":"l078","c":"r","n":"طقم روب وقميص بصدر مكشكش عاجي","i":"img/p/l078.webp"},{"id":"l080","c":"r","n":"طقم روب وقميص دانتيل بياقة V وردي مطفي","i":"img/p/l080.webp"},{"id":"l081","c":"r","n":"طقم روب وقميص دانتيل بياقة V أبيض","i":"img/p/l081.webp"},{"id":"l082","c":"r","n":"طقم روب وقميص دانتيل بياقة V ليلكي مزرق","i":"img/p/l082.webp"},{"id":"l083","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع زيتي","i":"img/p/l083.webp"},{"id":"l084","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع أبيض","i":"img/p/l084.webp"},{"id":"l085","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع ليلكي","i":"img/p/l085.webp"},{"id":"l086","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع وردي","i":"img/p/l086.webp"},{"id":"l087","c":"r","n":"طقم روب وقميص مطرّز بالخرز نعناعي","i":"img/p/l087.webp"},{"id":"l088","c":"r","n":"طقم روب وقميص مطرّز بالخرز أسود","i":"img/p/l088.webp"},{"id":"l089","c":"r","n":"طقم روب وقميص مطرّز بالخرز وردي","i":"img/p/l089.webp"},{"id":"l090","c":"r","n":"طقم روب وقميص مطرّز بالخرز عاجي","i":"img/p/l090.webp"},{"id":"l091","c":"r","n":"روب ستان بأكمام ريش عاجي","i":"img/p/l091.webp"},{"id":"l092","c":"r","n":"طقم روب دانتيل طويل وقميص أحمر","i":"img/p/l092.webp"},{"id":"l093","c":"r","n":"طقم روب دانتيل طويل وقميص نمري","i":"img/p/l093.webp"},{"id":"l094","c":"r","n":"طقم روب دانتيل طويل وقميص أبيض","i":"img/p/l094.webp"},{"id":"l095","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة وردي","i":"img/p/l095.webp"},{"id":"l096","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة أسود","i":"img/p/l096.webp"},{"id":"l097","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة عاجي","i":"img/p/l097.webp"},{"id":"l098","c":"r","n":"طقم روب وبنطلون بالدانتيل زيتي","i":"img/p/l098.webp"},{"id":"l099","c":"r","n":"طقم روب وبنطلون بالدانتيل أسود","i":"img/p/l099.webp"},{"id":"l100","c":"r","n":"طقم روب وبنطلون بالدانتيل أبيض","i":"img/p/l100.webp"},{"id":"l101","c":"r","n":"طقم روب وبنطلون بالدانتيل نبيذي","i":"img/p/l101.webp"},{"id":"l102","c":"r","n":"طقم روب وبنطلون بالدانتيل وردي","i":"img/p/l102.webp"},{"id":"l104","c":"r","n":"طقم عرائسي أربع قطع بالدانتيل أبيض","i":"img/p/l104.webp"},{"id":"l105","c":"u","n":"طقم دانتيل بحمالات مزخرفة أسود","i":"img/p/l105.webp"},{"id":"l106","c":"u","n":"طقم دانتيل بحمالات مزخرفة وردي فاتح","i":"img/p/l106.webp"},{"id":"l107","c":"u","n":"طقم دانتيل بحمالات مزخرفة أزرق رمادي","i":"img/p/l107.webp"},{"id":"l108","c":"u","n":"طقم دانتيل بحمالات مزخرفة وردي غامق","i":"img/p/l108.webp"},{"id":"l109","c":"u","n":"طقم دانتيل بحمالات مزخرفة أحمر","i":"img/p/l109.webp"},{"id":"l110","c":"u","n":"طقم دانتيل بحمالات مزخرفة بيج","i":"img/p/l110.webp"},{"id":"l111","c":"u","n":"طقم بحزام لامع نعناعي","i":"img/p/l111.webp"},{"id":"l112","c":"u","n":"طقم بحزام لامع وردي","i":"img/p/l112.webp"},{"id":"l113","c":"u","n":"طقم بحزام لامع أسود","i":"img/p/l113.webp"},{"id":"l114","c":"u","n":"طقم بحزام لامع أحمر","i":"img/p/l114.webp"},{"id":"l115","c":"u","n":"طقم بحزام لامع أزرق ملكي","i":"img/p/l115.webp"},{"id":"l116","c":"u","n":"طقم بحزام لامع بيج رمادي","i":"img/p/l116.webp"},{"id":"l117","c":"u","n":"طقم بطبعة جلد نمر أخضر","i":"img/p/l117.webp"},{"id":"l118","c":"u","n":"طقم بطبعة جلد نمر عاجي ببقع بني","i":"img/p/l118.webp"},{"id":"l119","c":"u","n":"طقم بطبعة جلد نمر كريمي منقّط","i":"img/p/l119.webp"},{"id":"l120","c":"u","n":"طقم بطبعة جلد نمر بيج","i":"img/p/l120.webp"},{"id":"l121","c":"u","n":"طقم بطبعة جلد نمر ذهبي","i":"img/p/l121.webp"},{"id":"l122","c":"u","n":"طقم بحمالات زخرفة ذهبية وردي غامق","i":"img/p/l122.webp"},{"id":"l123","c":"u","n":"طقم بحمالات زخرفة ذهبية وردي فاتح","i":"img/p/l123.webp"},{"id":"l124","c":"u","n":"طقم بحمالات زخرفة ذهبية كحلي","i":"img/p/l124.webp"},{"id":"l125","c":"u","n":"طقم بحمالات زخرفة ذهبية أبيض","i":"img/p/l125.webp"},{"id":"l126","c":"u","n":"طقم بحمالات زخرفة ذهبية أسود","i":"img/p/l126.webp"},{"id":"l127","c":"u","n":"طقم بحمالات زخرفة ذهبية أحمر","i":"img/p/l127.webp"},{"id":"l128","c":"u","n":"طقم بحواف لامعة متقاطعة أسود","i":"img/p/l128.webp"},{"id":"l129","c":"u","n":"طقم بحواف لامعة متقاطعة وردي فاتح","i":"img/p/l129.webp"},{"id":"l130","c":"u","n":"طقم بحواف لامعة متقاطعة موف","i":"img/p/l130.webp"},{"id":"l131","c":"u","n":"طقم بحواف لامعة متقاطعة تركوازي","i":"img/p/l131.webp"},{"id":"l132","c":"u","n":"طقم بحواف لامعة متقاطعة أزرق ملكي","i":"img/p/l132.webp"},{"id":"l133","c":"u","n":"طقم بحواف لامعة متقاطعة توتي","i":"img/p/l133.webp"},{"id":"l134","c":"u","n":"طقم هالتر مقلّم أحمر","i":"img/p/l134.webp"},{"id":"l135","c":"u","n":"طقم هالتر مقلّم أسود ورمادي","i":"img/p/l135.webp"},{"id":"l136","c":"u","n":"طقم هالتر مقلّم تركوازي","i":"img/p/l136.webp"},{"id":"l137","c":"u","n":"طقم هالتر مقلّم مرجاني","i":"img/p/l137.webp"},{"id":"l138","c":"u","n":"طقم هالتر مقلّم موف","i":"img/p/l138.webp"},{"id":"l139","c":"u","n":"طقم هالتر مقلّم كحلي","i":"img/p/l139.webp"},{"id":"l140","c":"u","n":"طقم بنقشة حروف بيج","i":"img/p/l140.webp"},{"id":"l141","c":"u","n":"طقم بنقشة حروف كحلي","i":"img/p/l141.webp"},{"id":"l142","c":"u","n":"طقم بنقشة حروف نبيذي","i":"img/p/l142.webp"},{"id":"l143","c":"u","n":"طقم بنقشة حروف وردي","i":"img/p/l143.webp"},{"id":"l144","c":"u","n":"طقم ناعم بسلسلة ذهبية أسود","i":"img/p/l144.webp"},{"id":"l145","c":"u","n":"طقم ناعم بسلسلة ذهبية أبيض","i":"img/p/l145.webp"},{"id":"l146","c":"u","n":"طقم ناعم بسلسلة ذهبية أزرق رمادي","i":"img/p/l146.webp"},{"id":"l147","c":"u","n":"طقم ناعم بسلسلة ذهبية أحمر","i":"img/p/l147.webp"},{"id":"l148","c":"u","n":"طقم ناعم بسلسلة ذهبية خردلي","i":"img/p/l148.webp"},{"id":"l149","c":"u","n":"طقم ناعم بسلسلة ذهبية وردي","i":"img/p/l149.webp"},{"id":"l150","c":"u","n":"طقم دانتيل هانا بحمالات لامعة وردي","i":"img/p/l150.webp"},{"id":"l151","c":"u","n":"طقم دانتيل هانا بحمالات لامعة أحمر","i":"img/p/l151.webp"},{"id":"l152","c":"u","n":"طقم دانتيل هانا بحمالات لامعة تركوازي","i":"img/p/l152.webp"},{"id":"l153","c":"u","n":"طقم دانتيل هانا بحمالات لامعة نبيذي","i":"img/p/l153.webp"},{"id":"l154","c":"u","n":"طقم دانتيل هانا بحمالات لامعة ليلكي مزرق","i":"img/p/l154.webp"},{"id":"l155","c":"u","n":"طقم دانتيل هانا بحمالات لامعة سلموني","i":"img/p/l155.webp"},{"id":"l156","c":"u","n":"طقم نمري بسلسلة ذهبية ذهبي","i":"img/p/l156.webp"},{"id":"l157","c":"u","n":"طقم نمري بسلسلة ذهبية كريمي","i":"img/p/l157.webp"},{"id":"l158","c":"u","n":"طقم نمري بسلسلة ذهبية بني","i":"img/p/l158.webp"},{"id":"l159","c":"u","n":"طقم نمري بسلسلة ذهبية رمادي","i":"img/p/l159.webp"},{"id":"l160","c":"u","n":"طقم نمري بسلسلة ذهبية كريمي ببقع كبيرة","i":"img/p/l160.webp"},{"id":"l161","c":"u","n":"طقم نمري بسلسلة ذهبية أبيض","i":"img/p/l161.webp"},{"id":"l162","c":"u","n":"طقم منقّط بسلسلة ذهبية رمادي","i":"img/p/l162.webp"},{"id":"l163","c":"u","n":"طقم منقّط بسلسلة ذهبية ذهبي فاتح","i":"img/p/l163.webp"},{"id":"l164","c":"u","n":"طقم منقّط بسلسلة ذهبية وردي","i":"img/p/l164.webp"},{"id":"l165","c":"c","n":"بجامة بقلوب حمراء أبيض","i":"img/p/l165.webp"},{"id":"l166","c":"l","n":"فستان ستان ميدي بحمالات مكشكشة عاجي","i":"img/p/l166.webp"}]</script>
+    <script type="application/json" id="catalog-data">[{"id":"o01","c":"c","n":"بجامة منقّطة رمادي","i":"img/01.webp","brand":"lavermo"},{"id":"o02","c":"c","n":"بجامة منقّطة بني","i":"img/02.webp","brand":"lavermo"},{"id":"o03","c":"c","n":"بجامة منقّطة فحمي","i":"img/03.webp","brand":"lavermo"},{"id":"o04","c":"c","n":"بجامة مقلّمة مرجاني","i":"img/04.webp","brand":"lavermo"},{"id":"o05","c":"c","n":"بجامة مقلّمة بني فاتح","i":"img/05.webp","brand":"lavermo"},{"id":"o06","c":"c","n":"بجامة مقلّمة أزرق","i":"img/06.webp","brand":"lavermo"},{"id":"o07","c":"s","n":"بجامة ستان بياقة مكشكشة","i":"img/07.webp"},{"id":"o08","c":"s","n":"بجامة ستان بالدانتيل","i":"img/08.webp"},{"id":"o09","c":"r","n":"روب وقميص مطرّز عاجي","i":"img/09.webp","brand":"lavermo"},{"id":"o10","c":"r","n":"روب وقميص بالدانتيل أسود","i":"img/10.webp","brand":"lavermo"},{"id":"o11","c":"l","n":"فستان لامع ذهبي","i":"img/11.webp"},{"id":"o12","c":"u","n":"طقم بحمالات متقاطعة أحمر","i":"img/12.webp"},{"id":"o13","c":"u","n":"طقم دانتيل عنابي","i":"img/13.webp","brand":"lavermo"},{"id":"o14","c":"u","n":"طقم ناعم ليلكي","i":"img/14.webp","brand":"lavermo"},{"id":"o15","c":"u","n":"طقم ناعم كريمي","i":"img/15.webp","brand":"lavermo"},{"id":"o16","c":"u","n":"طقم ناعم أسود","i":"img/16.webp","brand":"lavermo"},{"id":"o17","c":"u","n":"طقم ناعم رمادي مزرق","i":"img/17.webp","brand":"lavermo"},{"id":"o18","c":"u","n":"طقم ناعم وردي","i":"img/18.webp","brand":"lavermo"},{"id":"c01","c":"c","n":"بجامة رقبة مربعة مطرّزة عاجي","i":"img/p/c01.webp"},{"id":"c02","c":"c","n":"بجامة رقبة مربعة مطرّزة وردي مطفي","i":"img/p/c02.webp"},{"id":"c03","c":"c","n":"بجامة بصدر مكشكش عاجي","i":"img/p/c03.webp"},{"id":"c04","c":"c","n":"بجامة بكشكش على الصدر أخضر فاتح","i":"img/p/c04.webp"},{"id":"c05","c":"c","n":"بجامة بصدر مكشكش خوخي","i":"img/p/c05.webp"},{"id":"c06","c":"c","n":"بجامة بصدر مكشكش وردي غامق","i":"img/p/c06.webp"},{"id":"c07","c":"c","n":"بجامة بكشكش على الصدر عاجي","i":"img/p/c07.webp"},{"id":"c08","c":"c","n":"بجامة رقبة مربعة مطرّزة خوخي","i":"img/p/c08.webp"},{"id":"c09","c":"c","n":"بجامة بكشكش على الصدر وردي غامق","i":"img/p/c09.webp"},{"id":"c10","c":"c","n":"بجامة قلب وأرنب مرجاني","i":"img/p/c10.webp"},{"id":"c11","c":"c","n":"بجامة قلب وأرنب بيج","i":"img/p/c11.webp"},{"id":"c12","c":"c","n":"بجامة برسمة على الصدر بيج","i":"img/p/c12.webp"},{"id":"c13","c":"c","n":"بجامة قلب وأرنب زيتي","i":"img/p/c13.webp"},{"id":"c14","c":"c","n":"بجامة منقّطة برسمة فيونكة كريمي","i":"img/p/c14.webp"},{"id":"c15","c":"c","n":"بجامة منقّطة بجيب فيونكة عاجي وأسود","i":"img/p/c15.webp"},{"id":"c16","c":"c","n":"بجامة منقّطة بجيب فيونكة عاجي وعنابي","i":"img/p/c16.webp"},{"id":"c17","c":"c","n":"بجامة منقّطة برسمة فيونكة عاجي وعنابي","i":"img/p/c17.webp"},{"id":"c18","c":"c","n":"بجامة منقّطة برسمة فيونكة أبيض وأسود","i":"img/p/c18.webp"},{"id":"c19","c":"c","n":"بجامة بجيب توليب وردي فاتح","i":"img/p/c19.webp"},{"id":"c20","c":"c","n":"بجامة أرنب بقلب أخضر فاتح","i":"img/p/c20.webp"},{"id":"c21","c":"c","n":"بجامة بجيب توليب أصفر","i":"img/p/c21.webp"},{"id":"c22","c":"c","n":"بجامة دبدوب عاجي وأسود","i":"img/p/c22.webp"},{"id":"c23","c":"c","n":"بجامة دبدوب عاجي وعنابي","i":"img/p/c23.webp"},{"id":"c24","c":"c","n":"بجامة رقبة دائرية بالدانتيل خوخي","i":"img/p/c24.webp"},{"id":"c25","c":"c","n":"بجامة بجيب دبدوب مرجاني","i":"img/p/c25.webp"},{"id":"c26","c":"c","n":"بجامة أرنب بقلب عاجي","i":"img/p/c26.webp"},{"id":"c27","c":"c","n":"بجامة دبدوب وبنطلون نمري رمادي","i":"img/p/c27.webp"},{"id":"c28","c":"c","n":"بجامة بجيب دبدوب وردي مطفي","i":"img/p/c28.webp"},{"id":"c29","c":"c","n":"بجامة ورق لافندر رمادي","i":"img/p/c29.webp"},{"id":"c30","c":"c","n":"بجامة ورق لافندر بيج","i":"img/p/c30.webp"},{"id":"c31","c":"c","n":"بجامة كاروهات بفيونكة زيتي","i":"img/p/c31.webp"},{"id":"c32","c":"c","n":"بجامة دبدوب وبنطلون نمري عاجي وزيتي","i":"img/p/c32.webp"},{"id":"c33","c":"c","n":"بجامة دبدوب وبنطلون نمري كاكي","i":"img/p/c33.webp"},{"id":"c34","c":"c","n":"بجامة مقلّمة بفيونكات عاجي وذهبي","i":"img/p/c34.webp"},{"id":"c35","c":"c","n":"بجامة ورد ناعم عاجي ووردي","i":"img/p/c35.webp"},{"id":"c36","c":"c","n":"بجامة كاروهات بفيونكة وردي","i":"img/p/c36.webp"},{"id":"c37","c":"c","n":"بجامة ورد ناعم عاجي وبيج","i":"img/p/c37.webp"},{"id":"c38","c":"c","n":"بجامة نقشة نباتية عاجي ورمادي","i":"img/p/c38.webp"},{"id":"c39","c":"c","n":"بجامة مقلّمة بفيونكات عاجي ووردي","i":"img/p/c39.webp"},{"id":"c40","c":"c","n":"بجامة بأطراف دانتيل أصفر فاتح","i":"img/p/c40.webp"},{"id":"c41","c":"c","n":"بجامة بأطراف دانتيل خوخي","i":"img/p/c41.webp"},{"id":"c42","c":"s","n":"بجامة ستان بياقة بحّار مطرّزة عاجي","i":"img/p/c42.webp"},{"id":"c43","c":"s","n":"بجامة ستان بياقة بحّار مطرّزة ليلكي","i":"img/p/c43.webp"},{"id":"c44","c":"s","n":"بجامة ستان بكشكش وربطة عاجي","i":"img/p/c44.webp"},{"id":"c45","c":"c","n":"طقم ثلاث قطع مع كامي وردي وعاجي","i":"img/p/c45.webp"},{"id":"c46","c":"l","n":"قميص نوم نمري بالدانتيل أسود وأبيض","i":"img/p/c46.webp"},{"id":"c47","c":"l","n":"قميص نوم مفتوح مورّد وردي","i":"img/p/c47.webp"},{"id":"c49","c":"s","n":"بجامة ستان بأكمام دانتيل واسعة عاجي","i":"img/p/c49.webp"},{"id":"c50","c":"s","n":"بجامة ستان بأكمام دانتيل واسعة أسود","i":"img/p/c50.webp"},{"id":"c51","c":"r","n":"طقم روب ثلاث قطع أحمر","i":"img/p/c51.webp"},{"id":"c52","c":"r","n":"طقم روب ثلاث قطع أسود","i":"img/p/c52.webp"},{"id":"c53","c":"s","n":"بجامة ستان بدانتيل وفيونكتين خوخي","i":"img/p/c53.webp"},{"id":"c54","c":"s","n":"بجامة ستان بدانتيل وفيونكتين أزرق ثلجي","i":"img/p/c54.webp"},{"id":"c55","c":"s","n":"بجامة ستان بدانتيل وفيونكتين أسود","i":"img/p/c55.webp"},{"id":"c56","c":"s","n":"بجامة ستان بدانتيل وفيونكتين عاجي","i":"img/p/c56.webp"},{"id":"c58","c":"c","n":"طقم ثلاث قطع مطبوع بالدانتيل وردي","i":"img/p/c58.webp"},{"id":"c59","c":"s","n":"بجامة ستان بكشكش شلال عاجي","i":"img/p/c59.webp"},{"id":"c60","c":"s","n":"بجامة ستان بكشكش شلال أسود","i":"img/p/c60.webp"},{"id":"c61","c":"s","n":"بجامة ستان بكشكش شلال ليلكي","i":"img/p/c61.webp"},{"id":"c62","c":"s","n":"بجامة ستان بياقة V عاجي","i":"img/p/c62.webp"},{"id":"c63","c":"s","n":"بجامة ستان بياقة V أسود","i":"img/p/c63.webp"},{"id":"c64","c":"c","n":"بجامة بأكمام شبك مورّدة عاجي","i":"img/p/c64.webp"},{"id":"c65","c":"c","n":"بجامة بأكمام شبك مورّدة أصفر","i":"img/p/c65.webp"},{"id":"c66","c":"c","n":"بجامة بأكمام شبك مورّدة وردي فاتح","i":"img/p/c66.webp"},{"id":"c67","c":"c","n":"بجامة بأكمام شبك مورّدة عنابي","i":"img/p/c67.webp","brand":"lavermo"},{"id":"c68","c":"c","n":"بجامة نجوم مع توكة شعر أحمر","i":"img/p/c68.webp"},{"id":"c69","c":"c","n":"بجامة نجوم مع توكة شعر وردي","i":"img/p/c69.webp"},{"id":"c70","c":"c","n":"بجامة نجوم مع توكة شعر كريمي","i":"img/p/c70.webp"},{"id":"c71","c":"c","n":"بجامة نجوم مع توكة شعر أسود","i":"img/p/c71.webp"},{"id":"c72","c":"c","n":"بجامة مقلّمة بحواف مموّجة نعناعي","i":"img/p/c72.webp"},{"id":"c73","c":"c","n":"بجامة مقلّمة بحواف مموّجة وردي","i":"img/p/c73.webp","brand":"lavermo"},{"id":"c74","c":"c","n":"بجامة بلوزة مطبوعة نمر جالس","i":"img/p/c74.webp"},{"id":"c75","c":"c","n":"بجامة بلوزة مطبوعة حصان","i":"img/p/c75.webp"},{"id":"c76","c":"c","n":"بجامة بلوزة مطبوعة نمر قافز","i":"img/p/c76.webp"},{"id":"c77","c":"c","n":"بجامة بلوزة مطبوعة باندا وقمر","i":"img/p/c77.webp"},{"id":"c78","c":"c","n":"بجامة بلوزة مطبوعة دباديب","i":"img/p/c78.webp"},{"id":"c79","c":"c","n":"بجامة بلوزة مطبوعة دمية","i":"img/p/c79.webp"},{"id":"c80","c":"c","n":"بجامة بلوزة مطبوعة قطة وورد","i":"img/p/c80.webp"},{"id":"c81","c":"c","n":"بجامة بلوزة مطبوعة زهرة","i":"img/p/c81.webp"},{"id":"c82","c":"c","n":"بجامة بلوزة مطبوعة قطة وليمون","i":"img/p/c82.webp"},{"id":"c83","c":"s","n":"بجامة ستان بفيونكات صغيرة وردي فاتح","i":"img/p/c83.webp"},{"id":"c84","c":"s","n":"بجامة ستان بفيونكات صغيرة أزرق ثلجي","i":"img/p/c84.webp","brand":"lavermo"},{"id":"c85","c":"s","n":"بجامة ستان بفيونكات صغيرة عاجي","i":"img/p/c85.webp"},{"id":"c86","c":"s","n":"بجامة ستان بفيونكات صغيرة ليلكي فضي","i":"img/p/c86.webp"},{"id":"s01","c":"r","n":"طقم عرائسي أربع قطع بالكشكش عاجي","i":"img/p/s01.webp"},{"id":"s02","c":"s","n":"بجامة ستان نمري مع شبشب ليلكي","i":"img/p/s02.webp","brand":"lavermo"},{"id":"s03","c":"r","n":"طقم روب دانتيل ثلاث قطع أبيض","i":"img/p/s03.webp"},{"id":"s04","c":"s","n":"بجامة ستان بأطراف نمري مع شبشب أسود وبيج","i":"img/p/s04.webp","brand":"lavermo"},{"id":"s05","c":"s","n":"بجامة ستان نمري ناعم مع شبشب بني","i":"img/p/s05.webp","brand":"lavermo"},{"id":"s06","c":"s","n":"طقم كامي نمري مع شبشب بيج","i":"img/p/s06.webp","brand":"lavermo"},{"id":"s07","c":"s","n":"بجامة ستان جاكار مورّد نحاسي","i":"img/p/s07.webp","brand":"lavermo"},{"id":"s08","c":"s","n":"بجامة ستان بأطراف نمري مع شبشب أسود ووردي","i":"img/p/s08.webp"},{"id":"s09","c":"s","n":"بجامة ستان بأكمام دانتيل أزرق رمادي","i":"img/p/s09.webp","brand":"lavermo"},{"id":"s10","c":"s","n":"بجامة ستان جاكار مورّد فضي","i":"img/p/s10.webp","brand":"lavermo"},{"id":"s11","c":"s","n":"بجامة ستان مقلّمة مع شبشب برتقالي","i":"img/p/s11.webp"},{"id":"s12","c":"s","n":"بجامة ستان جاكار مورّد وردي","i":"img/p/s12.webp","brand":"lavermo"},{"id":"s13","c":"s","n":"بجامة ستان بياقة مكسّرة أبيض","i":"img/p/s13.webp","brand":"lavermo"},{"id":"s14","c":"s","n":"بجامة ستان بياقة مكسّرة أزرق ثلجي","i":"img/p/s14.webp","brand":"lavermo"},{"id":"s15","c":"s","n":"بجامة ستان جاكار مورّد أحمر","i":"img/p/s15.webp","brand":"lavermo"},{"id":"s16","c":"s","n":"بجامة ستان بأكمام دانتيل مكسّرة عاجي وأسود","i":"img/p/s16.webp","brand":"lavermo"},{"id":"s17","c":"s","n":"بجامة ستان بياقة مكسّرة وردي فاتح","i":"img/p/s17.webp","brand":"lavermo"},{"id":"s18","c":"s","n":"بجامة ستان بدانتيل مكسّر أسود وعاجي","i":"img/p/s18.webp","brand":"lavermo"},{"id":"s19","c":"s","n":"بجامة ستان بقلوب وكشكش عاجي وأسود","i":"img/p/s19.webp","brand":"lavermo"},{"id":"s20","c":"s","n":"بجامة ستان منقّطة بكشكش عاجي وأسود","i":"img/p/s20.webp","brand":"lavermo"},{"id":"s21","c":"s","n":"بجامة ستان بقلوب عاجي وفحمي","i":"img/p/s21.webp","brand":"lavermo"},{"id":"s22","c":"s","n":"طقم كامي وشورت ستان أسود","i":"img/p/s22.webp"},{"id":"s23","c":"r","n":"طقم روب تول مع بنطلون أسود","i":"img/p/s23.webp"},{"id":"s24","c":"r","n":"طقم روب وكامي أزرق ثلجي","i":"img/p/s24.webp"},{"id":"s25","c":"s","n":"بجامة ستان منقّطة بكشكش وردي فاتح","i":"img/p/s25.webp"},{"id":"s26","c":"r","n":"طقم روب بفيونكة أبيض وليلكي","i":"img/p/s26.webp"},{"id":"s27","c":"r","n":"روب بأطراف كشكش أسود وعاجي","i":"img/p/s27.webp"},{"id":"s28","c":"s","n":"بجامة ستان بقلوب فضي وزيتي","i":"img/p/s28.webp","brand":"lavermo"},{"id":"s29","c":"r","n":"طقم روب منقوش كريمي ووردي","i":"img/p/s29.webp"},{"id":"s30","c":"s","n":"بجامة ستان بياقة دانتيل كبيرة أسود","i":"img/p/s30.webp","brand":"lavermo"},{"id":"s31","c":"r","n":"طقم روب أربع قطع بالدانتيل عاجي وأسود","i":"img/p/s31.webp"},{"id":"s32","c":"s","n":"طقم كامي وشورت ستان شامبين","i":"img/p/s32.webp"},{"id":"s33","c":"s","n":"بجامة ستان بياقة مربوطة وردي","i":"img/p/s33.webp","brand":"lavermo"},{"id":"s34","c":"s","n":"طقم كامي وشورت بقلوب عاجي","i":"img/p/s34.webp","brand":"lavermo"},{"id":"s35","c":"s","n":"بجامة ستان بقلوب خوخي","i":"img/p/s35.webp","brand":"lavermo"},{"id":"s36","c":"s","n":"بجامة ستان بياقة مربوطة عاجي","i":"img/p/s36.webp","brand":"lavermo"},{"id":"s37","c":"r","n":"طقم روب وقميص شامبين","i":"img/p/s37.webp"},{"id":"s38","c":"l","n":"فستان نوم شبك منقّط أسود","i":"img/p/s38.webp"},{"id":"s39","c":"r","n":"طقم روب أربع قطع بالدانتيل زيتي وأسود","i":"img/p/s39.webp"},{"id":"s40","c":"s","n":"بجامة ستان بقلوب طويلة عاجي","i":"img/p/s40.webp"},{"id":"s41","c":"r","n":"طقم روب بأطراف كشكش عاجي","i":"img/p/s41.webp"},{"id":"s42","c":"r","n":"طقم روب وقميص دانتيل أبيض","i":"img/p/s42.webp"},{"id":"s43","c":"r","n":"طقم روب أربع قطع بالدانتيل وردي غامق وأسود","i":"img/p/s43.webp"},{"id":"s44","c":"r","n":"روب دانتيل مورّد أسود","i":"img/p/s44.webp"},{"id":"s45","c":"s","n":"بجامة ستان ثلاث قطع بأطراف مموّجة عاجي","i":"img/p/s45.webp"},{"id":"u01","c":"u","n":"طقم مضلّع بحواف مموّجة عنابي","i":"img/p/u01.webp","brand":"lavermo"},{"id":"u02","c":"u","n":"طقم مضلّع بحواف مموّجة أزرق جينز","i":"img/p/u02.webp","brand":"lavermo"},{"id":"u03","c":"u","n":"طقم مضلّع بحواف مموّجة كحلي","i":"img/p/u03.webp","brand":"lavermo"},{"id":"u04","c":"u","n":"طقم مضلّع بحواف مموّجة أزرق فاتح","i":"img/p/u04.webp","brand":"lavermo"},{"id":"u05","c":"u","n":"طقم مضلّع بحواف مموّجة وردي مطفي","i":"img/p/u05.webp","brand":"lavermo"},{"id":"u06","c":"u","n":"طقم مضلّع بحواف مموّجة أسود","i":"img/p/u06.webp","brand":"lavermo"},{"id":"u07","c":"u","n":"طقم مضلّع بحواف مموّجة نعناعي","i":"img/p/u07.webp","brand":"lavermo"},{"id":"u08","c":"u","n":"طقم بكب مكسّر ليلكي رمادي","i":"img/p/u08.webp","brand":"lavermo"},{"id":"u09","c":"u","n":"طقم بكب مكسّر موف","i":"img/p/u09.webp","brand":"lavermo"},{"id":"u10","c":"u","n":"طقم بكب مكسّر خوخي","i":"img/p/u10.webp","brand":"lavermo"},{"id":"u11","c":"u","n":"طقم بكب مكسّر بيج","i":"img/p/u11.webp","brand":"lavermo"},{"id":"u12","c":"u","n":"طقم بكب مكسّر أحمر","i":"img/p/u12.webp","brand":"lavermo"},{"id":"u13","c":"u","n":"طقم بكب مكسّر أبيض","i":"img/p/u13.webp","brand":"lavermo"},{"id":"u14","c":"u","n":"طقم بكب مكسّر وردي غامق","i":"img/p/u14.webp","brand":"lavermo"},{"id":"u15","c":"u","n":"طقم بكب ناعم كحلي غامق","i":"img/p/u15.webp","brand":"lavermo"},{"id":"u16","c":"u","n":"طقم بكب ناعم أسود","i":"img/p/u16.webp","brand":"lavermo"},{"id":"u17","c":"u","n":"طقم بكب ناعم ليلكي فاتح","i":"img/p/u17.webp","brand":"lavermo"},{"id":"u18","c":"u","n":"طقم بحمالات لؤلؤ برتقالي محروق","i":"img/p/u18.webp"},{"id":"u19","c":"u","n":"طقم بحمالات لؤلؤ وردي","i":"img/p/u19.webp"},{"id":"u20","c":"u","n":"طقم بحمالات لؤلؤ أحمر طوبي","i":"img/p/u20.webp"},{"id":"u21","c":"u","n":"طقم بحمالات لؤلؤ أسود","i":"img/p/u21.webp"},{"id":"u22","c":"u","n":"طقم بحمالات لؤلؤ أبيض","i":"img/p/u22.webp"},{"id":"u23","c":"u","n":"طقم بحمالات لؤلؤ أصفر ذهبي","i":"img/p/u23.webp"},{"id":"u24","c":"u","n":"طقم بحمالات لؤلؤ زيتي","i":"img/p/u24.webp"},{"id":"u25","c":"u","n":"طقم دانتيل بحمالات لامعة أسود","i":"img/p/u25.webp","brand":"lavermo"},{"id":"u26","c":"u","n":"طقم دانتيل بحمالات لامعة رمادي فحمي","i":"img/p/u26.webp","brand":"lavermo"},{"id":"u27","c":"u","n":"طقم دانتيل بحمالات لامعة أخضر زيتي","i":"img/p/u27.webp","brand":"lavermo"},{"id":"u28","c":"u","n":"طقم دانتيل بحمالات لامعة خردلي","i":"img/p/u28.webp","brand":"lavermo"},{"id":"u29","c":"u","n":"طقم دانتيل بحمالات لامعة خوخي","i":"img/p/u29.webp","brand":"lavermo"},{"id":"u30","c":"u","n":"طقم دانتيل بحمالات لامعة عنابي","i":"img/p/u30.webp","brand":"lavermo"},{"id":"u31","c":"u","n":"طقم دانتيل بحمالات لامعة فوشي","i":"img/p/u31.webp","brand":"lavermo"},{"id":"u32","c":"u","n":"طقم دانتيل بحمالات لامعة تيراكوتا","i":"img/p/u32.webp","brand":"lavermo"},{"id":"u33","c":"u","n":"طقم دانتيل بحمالات لامعة بيج رمادي","i":"img/p/u33.webp","brand":"lavermo"},{"id":"u34","c":"u","n":"طقم دانتيل بحمالات لامعة نعناعي فاتح","i":"img/p/u34.webp","brand":"lavermo"},{"id":"u35","c":"u","n":"طقم ناعم بحمالات لامعة نبيذي","i":"img/p/u35.webp","brand":"lavermo"},{"id":"u36","c":"u","n":"طقم ناعم بحمالات لامعة فوشي","i":"img/p/u36.webp","brand":"lavermo"},{"id":"u37","c":"u","n":"طقم ناعم بحمالات لامعة نحاسي","i":"img/p/u37.webp","brand":"lavermo"},{"id":"u38","c":"u","n":"طقم ناعم بحمالات لامعة زيتي رمادي","i":"img/p/u38.webp","brand":"lavermo"},{"id":"u39","c":"u","n":"طقم ناعم بحمالات لامعة أصفر ذهبي","i":"img/p/u39.webp","brand":"lavermo"},{"id":"u40","c":"u","n":"طقم ناعم بحمالات لامعة خوخي","i":"img/p/u40.webp","brand":"lavermo"},{"id":"u41","c":"u","n":"طقم مضلّع بكشكش تركوازي","i":"img/p/u41.webp"},{"id":"u42","c":"u","n":"طقم مضلّع بكشكش كحلي","i":"img/p/u42.webp"},{"id":"u43","c":"u","n":"طقم مضلّع بكشكش أزرق مطفي","i":"img/p/u43.webp"},{"id":"u44","c":"u","n":"طقم مضلّع بكشكش وردي","i":"img/p/u44.webp"},{"id":"u45","c":"u","n":"طقم مضلّع بكشكش أسود","i":"img/p/u45.webp"},{"id":"u46","c":"u","n":"طقم مضلّع بكشكش عنابي","i":"img/p/u46.webp"},{"id":"u47","c":"u","n":"طقم مضلّع بكشكش موف","i":"img/p/u47.webp"},{"id":"u48","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل خردلي","i":"img/p/u48.webp","brand":"lavermo"},{"id":"u49","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل ليلكي رمادي","i":"img/p/u49.webp","brand":"lavermo"},{"id":"u50","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل خوخي","i":"img/p/u50.webp","brand":"lavermo"},{"id":"u51","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل تيراكوتا","i":"img/p/u51.webp","brand":"lavermo"},{"id":"u52","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل زيتي","i":"img/p/u52.webp","brand":"lavermo"},{"id":"u53","c":"u","n":"طقم بكب مكسّر وأطراف دانتيل تركوازي غامق","i":"img/p/u53.webp","brand":"lavermo"},{"id":"u54","c":"l","n":"قميص نوم شبك بقلوب أحمر","i":"img/p/u54.webp"},{"id":"u55","c":"l","n":"طقم لانجري شبك بلؤلؤ أسود","i":"img/p/u55.webp","brand":"lavermo"},{"id":"u56","c":"r","n":"طقم نوم نمري خمس قطع مع روب","i":"img/p/u56.webp"},{"id":"u57","c":"r","n":"طقم عرائسي أربع قطع بالدانتيل عاجي","i":"img/p/u57.webp"},{"id":"u59","c":"l","n":"فستان دانتيل طويل مورّد أحمر","i":"img/p/u59.webp"},{"id":"u62","c":"l","n":"فستان دانتيل قصير أسود","i":"img/p/u62.webp"},{"id":"u63","c":"l","n":"فستان شبك مكشكش بالورد وردي","i":"img/p/u63.webp"},{"id":"u64","c":"l","n":"فستان شبك مكشكش بالورد أسود","i":"img/p/u64.webp"},{"id":"u65","c":"l","n":"فستان شبك مكشكش بالورد أبيض","i":"img/p/u65.webp"},{"id":"u66","c":"l","n":"فستان شبك مكشكش بالورد أحمر","i":"img/p/u66.webp"},{"id":"u67","c":"l","n":"فستان بحمالات لؤلؤ وورد أسود","i":"img/p/u67.webp"},{"id":"u68","c":"l","n":"فستان بحمالات لؤلؤ وورد أحمر","i":"img/p/u68.webp"},{"id":"u69","c":"l","n":"فستان نوم شبك بفتحة أسود ووردي","i":"img/p/u69.webp"},{"id":"u70","c":"l","n":"فستان طويل مورّد بفتحتين أبيض","i":"img/p/u70.webp"},{"id":"u71","c":"l","n":"فستان بحلقات وفتحات بنفسجي","i":"img/p/u71.webp"},{"id":"u72","c":"l","n":"فستان بحلقات وفتحات أبيض","i":"img/p/u72.webp"},{"id":"u73","c":"l","n":"فستان بحلقات وفتحات قرمزي","i":"img/p/u73.webp"},{"id":"u74","c":"l","n":"فستان بحلقات وفتحات برقوقي","i":"img/p/u74.webp"},{"id":"u75","c":"l","n":"فستان بحلقة قرمزي","i":"img/p/u75.webp"},{"id":"u76","c":"c","n":"بجامة أوفرول هيلو كيتي كريمي","i":"img/p/u76.webp"},{"id":"u77","c":"l","n":"قميص نوم ستان بالدانتيل أسود","i":"img/p/u77.webp"},{"id":"u78","c":"l","n":"قميص نوم ستان بالدانتيل أحمر وأسود","i":"img/p/u78.webp"},{"id":"u79","c":"l","n":"قميص نوم ستان بالدانتيل أزرق ملكي","i":"img/p/u79.webp"},{"id":"u80","c":"l","n":"قميص نوم ستان بالدانتيل لافندر فضي","i":"img/p/u80.webp"},{"id":"u81","c":"l","n":"قميص نوم ستان بالدانتيل وردي فاتح","i":"img/p/u81.webp"},{"id":"u82","c":"l","n":"قميص نوم ستان بالدانتيل نبيذي","i":"img/p/u82.webp"},{"id":"l001","c":"r","n":"روب ستان بشراشيب كحلي","i":"img/p/l001.webp"},{"id":"l002","c":"r","n":"روب ستان بشراشيب أسود","i":"img/p/l002.webp"},{"id":"l003","c":"r","n":"روب ستان بشراشيب وردي","i":"img/p/l003.webp"},{"id":"l004","c":"r","n":"روب ستان بشراشيب أحمر","i":"img/p/l004.webp"},{"id":"l005","c":"l","n":"فستان نوم ضيّق بأطراف مموّجة أسود","i":"img/p/l005.webp"},{"id":"l006","c":"c","n":"بجامة أوفرول هيلو كيتي أبيض","i":"img/p/l006.webp"},{"id":"l007","c":"c","n":"بجامة هيلو كيتي بشورت كريمي","i":"img/p/l007.webp"},{"id":"l008","c":"l","n":"بيبي دول مفتوح بكشكش قرمزي","i":"img/p/l008.webp"},{"id":"l009","c":"l","n":"بيبي دول مفتوح بكشكش نبيذي","i":"img/p/l009.webp"},{"id":"l011","c":"l","n":"بيبي دول مفتوح بكشكش وردي","i":"img/p/l011.webp"},{"id":"l013","c":"l","n":"فستان كورسيه دانتيل بفتحة أبيض","i":"img/p/l013.webp"},{"id":"l014","c":"l","n":"فستان كورسيه دانتيل بفتحة نبيذي","i":"img/p/l014.webp"},{"id":"l015","c":"l","n":"فستان كورسيه دانتيل بفتحة أسود","i":"img/p/l015.webp"},{"id":"l016","c":"l","n":"فستان كورسيه دانتيل بفتحة كحلي","i":"img/p/l016.webp"},{"id":"l017","c":"l","n":"فستان دانتيل طويل بفتحة أسود","i":"img/p/l017.webp"},{"id":"l018","c":"l","n":"فستان هالتر دانتيل بفتحتين أسود","i":"img/p/l018.webp"},{"id":"l019","c":"l","n":"فستان هالتر دانتيل بفتحتين قرمزي","i":"img/p/l019.webp"},{"id":"l020","c":"l","n":"فستان هالتر دانتيل بفتحتين عنابي","i":"img/p/l020.webp"},{"id":"l021","c":"l","n":"فستان لامع بحلقة ليلكي","i":"img/p/l021.webp"},{"id":"l023","c":"l","n":"بيبي دول دانتيل بحمالات وردي","i":"img/p/l023.webp"},{"id":"l025","c":"r","n":"روب شيفون نمري بأكمام ريش بني","i":"img/p/l025.webp"},{"id":"l026","c":"r","n":"روب شيفون نمري بأكمام ريش أبيض وأسود","i":"img/p/l026.webp"},{"id":"l027","c":"l","n":"قميص نوم ستان بظهر فراشة أسود","i":"img/p/l027.webp"},{"id":"l028","c":"l","n":"قميص نوم ستان بظهر فراشة نبيذي","i":"img/p/l028.webp"},{"id":"l029","c":"l","n":"قميص نوم ستان بظهر فراشة شامبين","i":"img/p/l029.webp","brand":"lavermo"},{"id":"l030","c":"l","n":"قميص نوم ستان بظهر فراشة وردي مطفي","i":"img/p/l030.webp"},{"id":"l031","c":"l","n":"قميص نوم ستان بظهر فراشة وردي ذهبي","i":"img/p/l031.webp"},{"id":"l032","c":"l","n":"فستان لامع بحمالات سلسلة فضي","i":"img/p/l032.webp"},{"id":"l033","c":"l","n":"فستان لامع بحمالات سلسلة ذهبي","i":"img/p/l033.webp"},{"id":"l034","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ وردي","i":"img/p/l034.webp"},{"id":"l035","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ نبيذي","i":"img/p/l035.webp"},{"id":"l036","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ كحلي","i":"img/p/l036.webp","brand":"lavermo"},{"id":"l037","c":"l","n":"طقم كورسيه بتنورة شيفون ولؤلؤ أسود","i":"img/p/l037.webp","brand":"lavermo"},{"id":"l039","c":"l","n":"فستان نمري طويل بحلقات قلب","i":"img/p/l039.webp"},{"id":"l041","c":"l","n":"فستان دانتيل ميدي فوشي","i":"img/p/l041.webp"},{"id":"l042","c":"l","n":"فستان ورد طويل بصدر مكشكش أبيض","i":"img/p/l042.webp","brand":"lavermo"},{"id":"l044","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع وردي فاتح","i":"img/p/l044.webp"},{"id":"l045","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أزرق رمادي","i":"img/p/l045.webp"},{"id":"l046","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أسود","i":"img/p/l046.webp"},{"id":"l047","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أبيض","i":"img/p/l047.webp"},{"id":"l048","c":"r","n":"طقم روب بأكتاف دانتيل ثلاث قطع أحمر","i":"img/p/l048.webp"},{"id":"l049","c":"r","n":"طقم روب وقميص ميدي أبيض","i":"img/p/l049.webp"},{"id":"l050","c":"r","n":"طقم روب وقميص ميدي أسود","i":"img/p/l050.webp"},{"id":"l051","c":"r","n":"طقم روب وقميص ميدي وردي فاتح","i":"img/p/l051.webp"},{"id":"l052","c":"r","n":"طقم روب وقميص بكشكش ليلكي","i":"img/p/l052.webp"},{"id":"l053","c":"r","n":"طقم روب وقميص بكشكش أبيض","i":"img/p/l053.webp"},{"id":"l054","c":"r","n":"طقم روب وقميص بكشكش أسود","i":"img/p/l054.webp"},{"id":"l055","c":"r","n":"طقم روب وقميص بكشكش وردي فاتح","i":"img/p/l055.webp"},{"id":"l056","c":"r","n":"طقم روب وقميص بصدر دانتيل أسود","i":"img/p/l056.webp"},{"id":"l057","c":"r","n":"طقم روب وقميص بصدر دانتيل عاجي","i":"img/p/l057.webp"},{"id":"l058","c":"r","n":"طقم روب وقميص بصدر دانتيل وردي فاتح","i":"img/p/l058.webp"},{"id":"l059","c":"r","n":"طقم روب وقميص بصدر دانتيل نعناعي","i":"img/p/l059.webp"},{"id":"l060","c":"r","n":"طقم روب وقميص بذيل مكشكش عاجي","i":"img/p/l060.webp"},{"id":"l061","c":"r","n":"طقم روب وقميص بذيل مكشكش أسود","i":"img/p/l061.webp"},{"id":"l062","c":"r","n":"طقم روب وقميص بذيل مكشكش ليلكي","i":"img/p/l062.webp"},{"id":"l063","c":"r","n":"طقم روب وقميص بذيل مكشكش خوخي","i":"img/p/l063.webp"},{"id":"l064","c":"r","n":"طقم روب وقميص طويل عاجي","i":"img/p/l064.webp"},{"id":"l065","c":"r","n":"طقم روب وقميص طويل أسود","i":"img/p/l065.webp"},{"id":"l066","c":"r","n":"طقم روب وقميص طويل نعناعي","i":"img/p/l066.webp"},{"id":"l067","c":"r","n":"طقم روب وقميص طويل وردي فاتح","i":"img/p/l067.webp"},{"id":"l068","c":"r","n":"طقم روب وقميص ستان كريمي","i":"img/p/l068.webp"},{"id":"l069","c":"r","n":"طقم روب وقميص ستان ليلكي","i":"img/p/l069.webp"},{"id":"l070","c":"r","n":"طقم روب وقميص ستان أسود","i":"img/p/l070.webp"},{"id":"l071","c":"r","n":"طقم روب وقميص بحمالات متقاطعة خوخي","i":"img/p/l071.webp"},{"id":"l072","c":"r","n":"طقم روب وقميص بحمالات متقاطعة زيتي","i":"img/p/l072.webp"},{"id":"l073","c":"r","n":"طقم روب وقميص بحمالات متقاطعة أبيض","i":"img/p/l073.webp"},{"id":"l074","c":"r","n":"طقم روب وقميص بحمالات متقاطعة أسود","i":"img/p/l074.webp"},{"id":"l075","c":"r","n":"طقم روب وقميص بصدر مكشكش أزرق ثلجي","i":"img/p/l075.webp"},{"id":"l076","c":"r","n":"طقم روب وقميص بصدر مكشكش أسود","i":"img/p/l076.webp"},{"id":"l077","c":"r","n":"طقم روب وقميص بصدر مكشكش وردي","i":"img/p/l077.webp"},{"id":"l078","c":"r","n":"طقم روب وقميص بصدر مكشكش عاجي","i":"img/p/l078.webp"},{"id":"l080","c":"r","n":"طقم روب وقميص دانتيل بياقة V وردي مطفي","i":"img/p/l080.webp"},{"id":"l081","c":"r","n":"طقم روب وقميص دانتيل بياقة V أبيض","i":"img/p/l081.webp"},{"id":"l082","c":"r","n":"طقم روب وقميص دانتيل بياقة V ليلكي مزرق","i":"img/p/l082.webp"},{"id":"l083","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع زيتي","i":"img/p/l083.webp"},{"id":"l084","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع أبيض","i":"img/p/l084.webp"},{"id":"l085","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع ليلكي","i":"img/p/l085.webp"},{"id":"l086","c":"r","n":"طقم روب وبنطلون ستان ثلاث قطع وردي","i":"img/p/l086.webp"},{"id":"l087","c":"r","n":"طقم روب وقميص مطرّز بالخرز نعناعي","i":"img/p/l087.webp"},{"id":"l088","c":"r","n":"طقم روب وقميص مطرّز بالخرز أسود","i":"img/p/l088.webp"},{"id":"l089","c":"r","n":"طقم روب وقميص مطرّز بالخرز وردي","i":"img/p/l089.webp"},{"id":"l090","c":"r","n":"طقم روب وقميص مطرّز بالخرز عاجي","i":"img/p/l090.webp"},{"id":"l091","c":"r","n":"روب ستان بأكمام ريش عاجي","i":"img/p/l091.webp"},{"id":"l092","c":"r","n":"طقم روب دانتيل طويل وقميص أحمر","i":"img/p/l092.webp"},{"id":"l093","c":"r","n":"طقم روب دانتيل طويل وقميص نمري","i":"img/p/l093.webp"},{"id":"l094","c":"r","n":"طقم روب دانتيل طويل وقميص أبيض","i":"img/p/l094.webp"},{"id":"l095","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة وردي","i":"img/p/l095.webp"},{"id":"l096","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة أسود","i":"img/p/l096.webp"},{"id":"l097","c":"r","n":"طقم ثلاث قطع بأكمام مكشكشة عاجي","i":"img/p/l097.webp"},{"id":"l098","c":"r","n":"طقم روب وبنطلون بالدانتيل زيتي","i":"img/p/l098.webp"},{"id":"l099","c":"r","n":"طقم روب وبنطلون بالدانتيل أسود","i":"img/p/l099.webp"},{"id":"l100","c":"r","n":"طقم روب وبنطلون بالدانتيل أبيض","i":"img/p/l100.webp"},{"id":"l101","c":"r","n":"طقم روب وبنطلون بالدانتيل نبيذي","i":"img/p/l101.webp"},{"id":"l102","c":"r","n":"طقم روب وبنطلون بالدانتيل وردي","i":"img/p/l102.webp"},{"id":"l104","c":"r","n":"طقم عرائسي أربع قطع بالدانتيل أبيض","i":"img/p/l104.webp"},{"id":"l105","c":"u","n":"طقم دانتيل بحمالات مزخرفة أسود","i":"img/p/l105.webp","brand":"lavermo"},{"id":"l106","c":"u","n":"طقم دانتيل بحمالات مزخرفة وردي فاتح","i":"img/p/l106.webp","brand":"lavermo"},{"id":"l107","c":"u","n":"طقم دانتيل بحمالات مزخرفة أزرق رمادي","i":"img/p/l107.webp","brand":"lavermo"},{"id":"l108","c":"u","n":"طقم دانتيل بحمالات مزخرفة وردي غامق","i":"img/p/l108.webp","brand":"lavermo"},{"id":"l109","c":"u","n":"طقم دانتيل بحمالات مزخرفة أحمر","i":"img/p/l109.webp","brand":"lavermo"},{"id":"l110","c":"u","n":"طقم دانتيل بحمالات مزخرفة بيج","i":"img/p/l110.webp","brand":"lavermo"},{"id":"l111","c":"u","n":"طقم بحزام لامع نعناعي","i":"img/p/l111.webp"},{"id":"l112","c":"u","n":"طقم بحزام لامع وردي","i":"img/p/l112.webp"},{"id":"l113","c":"u","n":"طقم بحزام لامع أسود","i":"img/p/l113.webp"},{"id":"l114","c":"u","n":"طقم بحزام لامع أحمر","i":"img/p/l114.webp"},{"id":"l115","c":"u","n":"طقم بحزام لامع أزرق ملكي","i":"img/p/l115.webp"},{"id":"l116","c":"u","n":"طقم بحزام لامع بيج رمادي","i":"img/p/l116.webp"},{"id":"l117","c":"u","n":"طقم بطبعة جلد نمر أخضر","i":"img/p/l117.webp"},{"id":"l118","c":"u","n":"طقم بطبعة جلد نمر عاجي ببقع بني","i":"img/p/l118.webp"},{"id":"l119","c":"u","n":"طقم بطبعة جلد نمر كريمي منقّط","i":"img/p/l119.webp"},{"id":"l120","c":"u","n":"طقم بطبعة جلد نمر بيج","i":"img/p/l120.webp"},{"id":"l121","c":"u","n":"طقم بطبعة جلد نمر ذهبي","i":"img/p/l121.webp"},{"id":"l122","c":"u","n":"طقم بحمالات زخرفة ذهبية وردي غامق","i":"img/p/l122.webp"},{"id":"l123","c":"u","n":"طقم بحمالات زخرفة ذهبية وردي فاتح","i":"img/p/l123.webp"},{"id":"l124","c":"u","n":"طقم بحمالات زخرفة ذهبية كحلي","i":"img/p/l124.webp"},{"id":"l125","c":"u","n":"طقم بحمالات زخرفة ذهبية أبيض","i":"img/p/l125.webp"},{"id":"l126","c":"u","n":"طقم بحمالات زخرفة ذهبية أسود","i":"img/p/l126.webp"},{"id":"l127","c":"u","n":"طقم بحمالات زخرفة ذهبية أحمر","i":"img/p/l127.webp"},{"id":"l128","c":"u","n":"طقم بحواف لامعة متقاطعة أسود","i":"img/p/l128.webp"},{"id":"l129","c":"u","n":"طقم بحواف لامعة متقاطعة وردي فاتح","i":"img/p/l129.webp"},{"id":"l130","c":"u","n":"طقم بحواف لامعة متقاطعة موف","i":"img/p/l130.webp"},{"id":"l131","c":"u","n":"طقم بحواف لامعة متقاطعة تركوازي","i":"img/p/l131.webp"},{"id":"l132","c":"u","n":"طقم بحواف لامعة متقاطعة أزرق ملكي","i":"img/p/l132.webp"},{"id":"l133","c":"u","n":"طقم بحواف لامعة متقاطعة توتي","i":"img/p/l133.webp"},{"id":"l134","c":"u","n":"طقم هالتر مقلّم أحمر","i":"img/p/l134.webp"},{"id":"l135","c":"u","n":"طقم هالتر مقلّم أسود ورمادي","i":"img/p/l135.webp"},{"id":"l136","c":"u","n":"طقم هالتر مقلّم تركوازي","i":"img/p/l136.webp"},{"id":"l137","c":"u","n":"طقم هالتر مقلّم مرجاني","i":"img/p/l137.webp"},{"id":"l138","c":"u","n":"طقم هالتر مقلّم موف","i":"img/p/l138.webp"},{"id":"l139","c":"u","n":"طقم هالتر مقلّم كحلي","i":"img/p/l139.webp"},{"id":"l140","c":"u","n":"طقم بنقشة حروف بيج","i":"img/p/l140.webp"},{"id":"l141","c":"u","n":"طقم بنقشة حروف كحلي","i":"img/p/l141.webp"},{"id":"l142","c":"u","n":"طقم بنقشة حروف نبيذي","i":"img/p/l142.webp"},{"id":"l143","c":"u","n":"طقم بنقشة حروف وردي","i":"img/p/l143.webp"},{"id":"l144","c":"u","n":"طقم ناعم بسلسلة ذهبية أسود","i":"img/p/l144.webp","brand":"lavermo"},{"id":"l145","c":"u","n":"طقم ناعم بسلسلة ذهبية أبيض","i":"img/p/l145.webp","brand":"lavermo"},{"id":"l146","c":"u","n":"طقم ناعم بسلسلة ذهبية أزرق رمادي","i":"img/p/l146.webp","brand":"lavermo"},{"id":"l147","c":"u","n":"طقم ناعم بسلسلة ذهبية أحمر","i":"img/p/l147.webp","brand":"lavermo"},{"id":"l148","c":"u","n":"طقم ناعم بسلسلة ذهبية خردلي","i":"img/p/l148.webp","brand":"lavermo"},{"id":"l149","c":"u","n":"طقم ناعم بسلسلة ذهبية وردي","i":"img/p/l149.webp","brand":"lavermo"},{"id":"l150","c":"u","n":"طقم دانتيل هانا بحمالات لامعة وردي","i":"img/p/l150.webp"},{"id":"l151","c":"u","n":"طقم دانتيل هانا بحمالات لامعة أحمر","i":"img/p/l151.webp"},{"id":"l152","c":"u","n":"طقم دانتيل هانا بحمالات لامعة تركوازي","i":"img/p/l152.webp"},{"id":"l153","c":"u","n":"طقم دانتيل هانا بحمالات لامعة نبيذي","i":"img/p/l153.webp"},{"id":"l154","c":"u","n":"طقم دانتيل هانا بحمالات لامعة ليلكي مزرق","i":"img/p/l154.webp"},{"id":"l155","c":"u","n":"طقم دانتيل هانا بحمالات لامعة سلموني","i":"img/p/l155.webp"},{"id":"l156","c":"u","n":"طقم نمري بسلسلة ذهبية ذهبي","i":"img/p/l156.webp"},{"id":"l157","c":"u","n":"طقم نمري بسلسلة ذهبية كريمي","i":"img/p/l157.webp"},{"id":"l158","c":"u","n":"طقم نمري بسلسلة ذهبية بني","i":"img/p/l158.webp"},{"id":"l159","c":"u","n":"طقم نمري بسلسلة ذهبية رمادي","i":"img/p/l159.webp"},{"id":"l160","c":"u","n":"طقم نمري بسلسلة ذهبية كريمي ببقع كبيرة","i":"img/p/l160.webp"},{"id":"l161","c":"u","n":"طقم نمري بسلسلة ذهبية أبيض","i":"img/p/l161.webp"},{"id":"l162","c":"u","n":"طقم منقّط بسلسلة ذهبية رمادي","i":"img/p/l162.webp"},{"id":"l163","c":"u","n":"طقم منقّط بسلسلة ذهبية ذهبي فاتح","i":"img/p/l163.webp"},{"id":"l164","c":"u","n":"طقم منقّط بسلسلة ذهبية وردي","i":"img/p/l164.webp"},{"id":"l165","c":"c","n":"بجامة بقلوب حمراء أبيض","i":"img/p/l165.webp"},{"id":"l166","c":"l","n":"فستان ستان ميدي بحمالات مكشكشة عاجي","i":"img/p/l166.webp","brand":"lavermo"},{"id":"v001","c":"s","n":"بجامة ستان بنجوم وكشكش أبيض وأسود","i":"img/p/v001.webp","brand":"lavermo"},{"id":"v002","c":"s","n":"بجامة ستان بنجوم وكشكش عاجي","i":"img/p/v002.webp","brand":"lavermo"},{"id":"v003","c":"s","n":"بجامة ستان بريش وتطريز بجعة أسود","i":"img/p/v003.webp","brand":"lavermo"},{"id":"v004","c":"s","n":"بجامة ستان ببايبينغ عاجي أسود","i":"img/p/v004.webp","brand":"lavermo"},{"id":"v005","c":"s","n":"طقم ستان بكشكش وشورت فضي","i":"img/p/v005.webp","brand":"lavermo"},{"id":"v006","c":"c","n":"بجامة أكمام قصيرة بنجوم أسود","i":"img/p/v006.webp","brand":"lavermo"},{"id":"v007","c":"c","n":"بجامة أكمام قصيرة بنجوم عاجي","i":"img/p/v007.webp","brand":"lavermo"},{"id":"v008","c":"c","n":"بجامة بحمالات ونقشة طيور بيج رمادي","i":"img/p/v008.webp","brand":"lavermo"},{"id":"v009","c":"c","n":"بجامة بحمالات ونقشة طيور عاجي","i":"img/p/v009.webp","brand":"lavermo"},{"id":"v010","c":"c","n":"بجامة بحمالات ونقشات صغيرة عاجي","i":"img/p/v010.webp","brand":"lavermo"},{"id":"v011","c":"c","n":"بجامة بحمالات ونقشات صغيرة أسود","i":"img/p/v011.webp","brand":"lavermo"},{"id":"v012","c":"c","n":"بجامة بنقشات صغيرة أسود","i":"img/p/v012.webp","brand":"lavermo"},{"id":"v013","c":"c","n":"بجامة بنقشات صغيرة أزرق فاتح","i":"img/p/v013.webp","brand":"lavermo"},{"id":"v014","c":"c","n":"بجامة بخطوط أفقية عاجي ووردي","i":"img/p/v014.webp","brand":"lavermo"},{"id":"v015","c":"c","n":"بجامة بخطوط أفقية عاجي وأخضر","i":"img/p/v015.webp","brand":"lavermo"},{"id":"v016","c":"c","n":"بجامة بخطوط أفقية عاجي وبيج","i":"img/p/v016.webp","brand":"lavermo"},{"id":"v017","c":"c","n":"بجامة أكمام قصيرة بقلب رمادي","i":"img/p/v017.webp","brand":"lavermo"},{"id":"v018","c":"c","n":"بجامة أكمام قصيرة بقلب عاجي","i":"img/p/v018.webp","brand":"lavermo"},{"id":"v019","c":"c","n":"بجامة برسمة وبنطلون منقوش فحمي","i":"img/p/v019.webp","brand":"lavermo"},{"id":"v020","c":"c","n":"بجامة برسمة وبنطلون منقوش بني","i":"img/p/v020.webp","brand":"lavermo"},{"id":"v021","c":"c","n":"بجامة برسمة وبنطلون منقوش وردي مطفي","i":"img/p/v021.webp","brand":"lavermo"},{"id":"v022","c":"c","n":"بجامة ببنطلون كاروهات أصفر خردلي","i":"img/p/v022.webp","brand":"lavermo"},{"id":"v023","c":"c","n":"بجامة ببنطلون كاروهات كريمي","i":"img/p/v023.webp","brand":"lavermo"},{"id":"v024","c":"c","n":"بجامة ببنطلون كاروهات خوخي","i":"img/p/v024.webp","brand":"lavermo"},{"id":"v025","c":"c","n":"بجامة بقلوب أحمر","i":"img/p/v025.webp","brand":"lavermo"},{"id":"v026","c":"c","n":"بجامة بقلوب بني غامق","i":"img/p/v026.webp","brand":"lavermo"},{"id":"v027","c":"c","n":"بجامة بقلوب كحلي","i":"img/p/v027.webp","brand":"lavermo"},{"id":"v028","c":"c","n":"بجامة برسمة وبنطلون مخطط وردي","i":"img/p/v028.webp","brand":"lavermo"},{"id":"v029","c":"c","n":"بجامة برسمة وبنطلون مخطط كريمي","i":"img/p/v029.webp","brand":"lavermo"},{"id":"v030","c":"c","n":"بجامة برسمة وبنطلون مخطط أبيض","i":"img/p/v030.webp","brand":"lavermo"},{"id":"v031","c":"c","n":"بجامة بنقشات صغيرة وردي","i":"img/p/v031.webp","brand":"lavermo"},{"id":"v032","c":"c","n":"بجامة بنقشات صغيرة عاجي","i":"img/p/v032.webp","brand":"lavermo"},{"id":"v033","c":"c","n":"بجامة بنقشات صغيرة خوخي","i":"img/p/v033.webp","brand":"lavermo"},{"id":"v034","c":"c","n":"بجامة بخطوط منقطة وردي","i":"img/p/v034.webp","brand":"lavermo"},{"id":"v035","c":"c","n":"بجامة بخطوط منقطة أسود","i":"img/p/v035.webp","brand":"lavermo"},{"id":"v036","c":"c","n":"بجامة بخطوط منقطة أحمر","i":"img/p/v036.webp","brand":"lavermo"},{"id":"v037","c":"c","n":"بجامة بنقشة حلقات وردي","i":"img/p/v037.webp","brand":"lavermo"},{"id":"v038","c":"c","n":"بجامة بنقشة حلقات عنابي غامق","i":"img/p/v038.webp","brand":"lavermo"},{"id":"v039","c":"c","n":"بجامة بنقشة حلقات أحمر","i":"img/p/v039.webp","brand":"lavermo"},{"id":"v040","c":"c","n":"بجامة بنقشة هندسية أحمر","i":"img/p/v040.webp","brand":"lavermo"},{"id":"v041","c":"c","n":"بجامة بنقشة هندسية خردلي","i":"img/p/v041.webp","brand":"lavermo"},{"id":"v042","c":"c","n":"بجامة بنقشة هندسية زيتي","i":"img/p/v042.webp","brand":"lavermo"},{"id":"v043","c":"c","n":"بجامة بنقشة توال أزرق وعاجي","i":"img/p/v043.webp","brand":"lavermo"},{"id":"v044","c":"c","n":"بجامة بنقشة توال وردي وعاجي","i":"img/p/v044.webp","brand":"lavermo"},{"id":"v045","c":"c","n":"بجامة بنقشة توال بيج وعاجي","i":"img/p/v045.webp","brand":"lavermo"},{"id":"v046","c":"c","n":"بجامة مخططة بجيب مطرّز وردي","i":"img/p/v046.webp","brand":"lavermo"},{"id":"v047","c":"c","n":"بجامة مخططة بجيب مطرّز فحمي","i":"img/p/v047.webp","brand":"lavermo"},{"id":"v048","c":"c","n":"بجامة مخططة بجيب مطرّز أحمر","i":"img/p/v048.webp","brand":"lavermo"},{"id":"v049","c":"c","n":"بجامة بنقشة زهور صغيرة وردي وعاجي","i":"img/p/v049.webp","brand":"lavermo"},{"id":"v050","c":"c","n":"بجامة بنقشة زهور صغيرة أحمر","i":"img/p/v050.webp","brand":"lavermo"},{"id":"v051","c":"c","n":"بجامة بنقشة زهور صغيرة أسود","i":"img/p/v051.webp","brand":"lavermo"},{"id":"v052","c":"r","n":"قميص نوم طويل مطرّز عاجي","i":"img/p/v052.webp","brand":"lavermo"},{"id":"v053","c":"r","n":"قميص نوم بأكمام قصيرة مطرّز عاجي","i":"img/p/v053.webp","brand":"lavermo"},{"id":"v054","c":"c","n":"بجامة شورت بقلوب صغيرة عاجي","i":"img/p/v054.webp","brand":"lavermo"},{"id":"v055","c":"l","n":"قميص نوم ستان بأكمام تول توتي","i":"img/p/v055.webp","brand":"lavermo"},{"id":"v056","c":"l","n":"قميص نوم ستان بأكمام تول فضي","i":"img/p/v056.webp","brand":"lavermo"},{"id":"v057","c":"l","n":"قميص نوم ستان بأكمام تول أبيض","i":"img/p/v057.webp","brand":"lavermo"},{"id":"v058","c":"s","n":"بجامة ستان جاكار توتي","i":"img/p/v058.webp","brand":"lavermo"},{"id":"v059","c":"s","n":"بجامة ستان بخطوط كتابية وردي فاتح","i":"img/p/v059.webp","brand":"lavermo"},{"id":"v060","c":"s","n":"بجامة ستان بنقشة صغيرة وردي فاتح","i":"img/p/v060.webp","brand":"lavermo"}]</script>
 
     <!-- BAND -->
     <section class="band" aria-label="اطلب الكتالوج">
@@ -634,37 +1490,27 @@ nav a[aria-current="page"]{color:var(--wine)}
   </main>
 
   <!-- FOOTER -->
-  <footer class="in" id="contact">
-    <div class="fgrid">
-      <div>
-        <h4>تواصل معنا</h4>
-        <h5>واتساب</h5>
-        <div class="fline"><svg class="ico" viewBox="0 0 24 24"><path d="M5 3.8h3.2l1.5 4-2.1 1.3a11.4 11.4 0 0 0 5.3 5.3l1.3-2.1 4 1.5v3.2a2 2 0 0 1-2.1 2A14.6 14.6 0 0 1 3 5.9a2 2 0 0 1 2-2.1Z"/></svg><a class="ltr" href="https://wa.me/218919282214" target="_blank" rel="noopener">0919282214</a></div>
-        <h5>العنوان</h5>
-        <div class="fline"><svg class="ico" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.6a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.4" r="2.5"/></svg><a href="https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya" target="_blank" rel="noopener">طرابلس، شارع الرشيد</a></div>
+  <footer class="purey-footer" id="contact">
+    <div class="in purey-footer-inner">
+      <a class="purey-footer-mark" href="index.html" dir="ltr" lang="en" aria-label="Purey home">PUREY</a>
+      <nav class="purey-footer-nav" aria-label="القائمة السفلية" lang="ar" dir="rtl">
+        <a href="cotton.html">بجامات قطني</a>
+        <a href="satin.html">بجامات ستان</a>
+        <a href="robes.html">أرواب وعرائسي</a>
+        <a href="lingerie.html">لانجري</a>
+        <a href="sets.html">طواقم داخلي</a>
+        <a href="lavermo.html">Lavermo</a>
+        <a href="index.html#about">علامتنا الخاصة</a>
+      </nav>
+      <div class="purey-footer-meta" lang="en" dir="ltr">
+        <div class="contacts">
+          <a href="https://wa.me/218919282214" target="_blank" rel="noopener">WhatsApp · 0919282214</a>
+          <a href="https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya" target="_blank" rel="noopener">Al Rasheed Street, Tripoli</a>
+          <a href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">TikTok</a>
+        </div>
+        <span>Wholesale only · © 2026 Purey</span>
       </div>
-      <div>
-        <h4>الأقسام</h4>
-        <ul>
-          <li><a href="cotton.html">بجامات قطني</a></li>
-          <li><a href="satin.html">بجامات ستان</a></li>
-          <li><a href="robes.html">ارواب وعرائيسي</a></li>
-          <li><a href="lingerie.html">لانجري</a></li>
-          <li><a href="sets.html">طواقم داخلي</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>معلومات</h4>
-        <ul>
-          <li><a href="index.html#about">من نحن</a></li>
-          <li><a href="https://wa.me/218919282214" target="_blank" rel="noopener">طريقة الطلب</a></li>
-          <li><a href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك <span class="ltr">@purey116</span></a></li>
-          <li>جملة فقط للتجار</li>
-        </ul>
-      </div>
-      <div class="flogo"><img src="img/logo-full.png" alt="Purey Lingerie" width="559" height="520" loading="lazy"></div>
     </div>
-    <div class="fbot">جملة فقط — للتجار وأصحاب المحلات<small>© 2026 شركة بيـوري</small></div>
   </footer>
 </div>
 
@@ -695,7 +1541,8 @@ nav a[aria-current="page"]{color:var(--wine)}
     <div class="bag-empty" id="bagEmpty">طلبك فاضي.<br>تصفّح الكتالوج وأضف القطع اللي تبيها.</div>
     <form class="bag-foot" id="bagFoot" novalidate>
       <div class="bag-sum"><span>المجموع</span><b id="bagTotal"></b></div>
-      <label class="fld"><span>الاسم أو اسم المحل *</span><input id="oName" name="name" autocomplete="organization" required minlength="2" maxlength="80"></label>
+      <label class="fld"><span>اسم العميل *</span><input id="oName" name="name" autocomplete="name" required minlength="2" maxlength="80"></label>
+      <label class="fld"><span>اسم المحل</span><input id="oShop" name="shop" autocomplete="organization" maxlength="80"></label>
       <div class="row">
         <label class="fld"><span>رقم الهاتف *</span><input id="oPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="09XXXXXXXX" dir="ltr"></label>
         <label class="fld"><span>المدينة *</span><input id="oCity" name="city" autocomplete="address-level2" required minlength="2" maxlength="60"></label>
@@ -703,6 +1550,7 @@ nav a[aria-current="page"]{color:var(--wine)}
       <label class="fld"><span>ملاحظات</span><textarea id="oNote" name="note" rows="2" maxlength="600" placeholder="المقاسات، الألوان، موعد التسليم…"></textarea></label>
       <input class="hp" id="oWebsite" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
       <p class="form-err" id="formErr" role="alert" hidden></p>
+      <button class="btn line" type="button" id="orderPdf">احفظ الطلب PDF</button>
       <button class="btn solid" type="submit" id="send">إرسال الطلب</button>
       <button class="btn line" type="button" id="sendWa"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/></svg> أو ابعته على واتساب</button>
       <p class="fine">ما فيش دفع على الموقع — الطلب يوصل لإدارة بيـوري ويتواصلوا معاك لتأكيد السعر والتوفر.</p>
@@ -713,6 +1561,7 @@ nav a[aria-current="page"]{color:var(--wine)}
       <p>رقم الطلب</p>
       <b class="ono" id="doneNo" dir="ltr"></b>
       <p id="doneTxt">إدارة بيـوري حتتواصل معاك على رقمك قريباً لتأكيد السعر والتوفر.</p>
+      <button class="btn line" type="button" id="receiptPdf">احفظ الطلب PDF</button>
       <button class="btn line" type="button" data-close>متابعة التصفح</button>
     </div>
   </dialog>
@@ -747,6 +1596,7 @@ nav a[aria-current="page"]{color:var(--wine)}
           <p class="msg">أهلاً بيك في بيـوري 🌸 اسأل على الأقسام، الألوان، أو طريقة الطلب بالجملة، ونجاوبك هنا.</p>
           <button class="ai-cta" id="aiStart" type="button">ابدأ المحادثة <span aria-hidden="true">←</span></button>
         </div>
+        <a class="ai-feature" href="lavermo.html"><bdi lang="en">Lavermo</bdi> · تشكيلة بيوري الخاصة بإصدار محدود <span aria-hidden="true">←</span></a>
         <div class="ai-sep">أو تواصل معنا مباشرة</div>
         <a class="ai-ch" href="https://wa.me/218919282214" target="_blank" rel="noopener">
           <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></span>
@@ -769,9 +1619,10 @@ nav a[aria-current="page"]{color:var(--wine)}
           <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
         </div>
         <div class="ai-chips" id="aiChips">
+          <button type="button" data-q="شن يميّز تشكيلة Lavermo؟">شن يميّز Lavermo؟</button>
           <button type="button" data-q="شن الأقسام اللي عندكم؟">الأقسام</button>
           <button type="button" data-q="كيف نطلب بالجملة؟">طريقة الطلب</button>
-          <button type="button" data-q="بكم الأسعار؟">الأسعار</button>
+          <button type="button" data-q="وريني اختيارات من الأكثر طلباً">الأكثر طلباً</button>
           <button type="button" data-q="وين مقركم؟">وين مقركم؟</button>
         </div>
       </div>
@@ -787,15 +1638,6 @@ nav a[aria-current="page"]{color:var(--wine)}
 </div>
 
 <script>
-// Client strip: rotate tiles and always enlarge the middle one, like the reference.
-(function(){
-  const strip=document.getElementById('clients');
-  if(!strip) return;
-  const mark=()=>{const k=[...strip.children]; k.forEach(e=>e.classList.remove('big')); k[Math.floor(k.length/2)].classList.add('big');};
-  mark();
-  document.getElementById('cNext').addEventListener('click',()=>{strip.appendChild(strip.firstElementChild); mark();});
-  document.getElementById('cPrev').addEventListener('click',()=>{strip.prepend(strip.lastElementChild); mark();});
-})();
 // Product carousels. RTL: the left arrow moves toward later items.
 document.querySelectorAll('.car').forEach(c=>{
   const t=c.querySelector('.track');
@@ -806,18 +1648,71 @@ document.querySelectorAll('.car').forEach(c=>{
 // ── Header: condense on scroll, phone menu ──────────────────────────
 (function(){
   const head = document.getElementById('siteHead'); if (!head) return;
-  const on = () => head.classList.toggle('scrolled', scrollY > 60);
+  const on = () => head.classList.toggle('scrolled', !head.classList.contains('site-head--campaign') && scrollY > 60);
   addEventListener('scroll', on, {passive: true}); on();
   const m = document.getElementById('menuD'), b = document.getElementById('menuBtn');
   if (m && b) {
-    b.addEventListener('click', () => m.showModal());
+    b.addEventListener('click', () => {
+      m.showModal();
+      b.setAttribute('aria-expanded', 'true');
+      head.classList.add('is-drawer-open');
+    });
+    m.addEventListener('close', () => {
+      b.setAttribute('aria-expanded', 'false');
+      head.classList.remove('is-drawer-open');
+    });
     m.addEventListener('click', e => { if (e.target.closest('a')) m.close(); });
+  }
+  const trigger = document.getElementById('collectionTrigger');
+  if (!trigger) return;
+  const panel = document.getElementById('collectionNav');
+  const bar = trigger.closest('.hbar');
+  const desktop = matchMedia('(min-width:921px)');
+  const setOpen = open => {
+    panel.hidden = !open;
+    trigger.setAttribute('aria-expanded', String(open));
+    head.classList.toggle('is-mega-open', open);
+  };
+  trigger.addEventListener('click', () => setOpen(panel.hidden));
+  document.addEventListener('pointerdown', e => {
+    if (!trigger.contains(e.target) && !panel.contains(e.target)) setOpen(false);
+  });
+  const openCollections = m.querySelector('[data-menu-collections]');
+  const back = m.querySelector('[data-menu-back]');
+  const mainView = m.querySelector('[data-menu-view="main"]');
+  const collectionView = m.querySelector('[data-menu-view="collections"]');
+  const showCollections = open => {
+    mainView.hidden = open;
+    collectionView.hidden = !open;
+    back.hidden = !open;
+    openCollections.setAttribute('aria-expanded', String(open));
+  };
+  openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
+  back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
+  m.addEventListener('close', () => showCollections(false));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !panel.hidden) {
+      setOpen(false);
+      if (bar.contains(document.activeElement)) trigger.focus();
+    }
+  });
+  desktop.addEventListener('change', () => setOpen(false));
+
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('campaign-copy-visible');
+        observer.unobserve(entry.target);
+      });
+    }, {threshold: 0.25});
+    document.querySelectorAll('.campaign:not(:first-child) .campaign-copy').forEach(copy => observer.observe(copy));
   }
 })();
 // ── Catalogue + order basket ───────────────────────────────────────
 // Wholesale: no prices. The basket becomes one itemised WhatsApp message to the team.
 (function(){
-  const DATA = JSON.parse(document.getElementById('catalog-data').textContent);
+  const DATA = window.PUREY_CATALOG || JSON.parse(document.getElementById('catalog-data').textContent);
   const BY = Object.fromEntries(DATA.map(p => [p.id, p]));
   const CAT = {c:'بجامات قطني', s:'بجامات ستان', r:'ارواب وعرائيسي', l:'لانجري', u:'طواقم داخلي'};
   const SLUG = {cotton:'c', satin:'s', robes:'r', lingerie:'l', sets:'u'};
@@ -841,14 +1736,16 @@ document.querySelectorAll('.car').forEach(c=>{
              : '<button class="add" type="button">' + BAGI + ' أضف للطلب</button>';
   }
   function card(p){
-    return '<article class="pc" data-id="' + p.id + '"><button class="pc-hit" type="button" aria-label="عرض ' + esc(p.n) + '"><div class="photo">' +
-      (bag[p.id] ? '<span class="tag">في طلبك</span>' : '') + '<img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div></button>' +
-      '<h3>' + esc(p.n) + '</h3><div class="act">' + act(p) + '</div></article>';
+    const href = 'product-' + p.id + '.html', name = esc(p.n);
+    return '<article class="pc" data-id="' + p.id + '"><a class="pc-hit" href="' + href + '" aria-label="عرض ' + name + '"><div class="photo">' +
+      (bag[p.id] ? '<span class="tag">في طلبك</span>' : '') + '<img src="' + p.i + '" alt="" loading="lazy" decoding="async"></div></a>' +
+      '<h3><a href="' + href + '">' + name + '</a></h3><p class="pc-meta">السعر عند الطلب · <bdi>' + p.id.toUpperCase() + '</bdi></p>' +
+      '<div class="act"><div class="pc-order">' + act(p) + '</div><button class="quick-shop" type="button" aria-label="عرض سريع ' + name + '">عرض سريع</button></div></article>';
   }
   function refreshCard(id){
     if (!grid) return;
     const el = grid.querySelector('.pc[data-id="' + id + '"]'); if (!el) return;
-    el.querySelector('.act').innerHTML = act(BY[id]);
+    el.querySelector('.pc-order').innerHTML = act(BY[id]);
     const ph = el.querySelector('.photo'), tag = ph.querySelector('.tag');
     if (bag[id] && !tag) ph.insertAdjacentHTML('afterbegin', '<span class="tag">في طلبك</span>');
     if (!bag[id] && tag) tag.remove();
@@ -856,22 +1753,34 @@ document.querySelectorAll('.car').forEach(c=>{
 
   // category page: one category's products, searchable, 24 at a time
   const PAGE = grid ? grid.dataset.cat : null, PER = 24;
+  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE;
   const norm = s => String(s).toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
   let items = [], shown = 0;
   function status(){ shownEl.textContent = items.length ? 'عرض ' + shown + ' من ' + items.length : ''; more.hidden = shown >= items.length; $('empty').hidden = !!items.length; }
   function addMore(){ const next = items.slice(shown, shown + PER); grid.insertAdjacentHTML('beforeend', next.map(card).join('')); shown += next.length; status(); }
-  function filter(q){
-    const words = norm(q).split(/\s+/).filter(Boolean);
-    items = DATA.filter(p => p.c === PAGE && words.every(w => norm(p.n + ' ' + p.id).includes(w)));
+  function filter(){
+    const color = $('catalogColor').value, sort = $('catalogSort').value;
+    const words = norm($('q').value).split(/\s+/).filter(Boolean);
+    items = DATA.filter(p => inCollection(p) && norm(p.n).includes(color) && words.every(w => norm(p.n + ' ' + p.id).includes(w)));
+    if (sort === 'name') items.sort((a, b) => a.n.localeCompare(b.n, 'ar'));
+    if (sort === 'code') items.sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric:true}));
     shown = 0; grid.innerHTML = ''; addMore();
   }
   if (grid) {
     more.addEventListener('click', addMore);
-    const q = $('q'); if (q) q.addEventListener('input', () => filter(q.value));
+    const q = $('q'), color = $('catalogColor'), sort = $('catalogSort');
+    const catalog = DATA.filter(inCollection);
+    for (const label of ['أسود','أبيض','عاجي','وردي','أحمر','أزرق','أخضر','رمادي','بني','بيج','كحلي','بنفسجي']) {
+      if (catalog.some(p => norm(p.n).includes(norm(label)))) color.add(new Option(label, norm(label)));
+    }
+    if (color.options.length === 1) color.hidden = true;
+    q.addEventListener('input', filter);
+    color.addEventListener('change', filter);
+    sort.addEventListener('change', filter);
     grid.addEventListener('click', e => {
       const pc = e.target.closest('.pc'); if (!pc) return;
       const id = pc.dataset.id;
-      if (e.target.closest('.pc-hit')) return openQV(id);
+      if (e.target.closest('.quick-shop')) return openQV(id);
       if (e.target.closest('.add')) return setQty(id, DEFAULT_QTY, true);
       const d = e.target.closest('[data-d]'); if (d) setQty(id, (bag[id] || 0) + Number(d.dataset.d));
     });
@@ -919,13 +1828,61 @@ document.querySelectorAll('.car').forEach(c=>{
   const read = k => { try { return localStorage.getItem(k) || ''; } catch { return ''; } };
   // Same basket, same ref: a retry after a dropped connection is still one order.
   let orderRef = read('purey.orderRef') || uuid(); store('purey.orderRef', orderRef);
-  ['oName', 'oPhone', 'oCity'].forEach(id => { const el = $(id); el.value = read('purey.' + id); el.addEventListener('input', () => { store('purey.' + id, el.value); el.removeAttribute('aria-invalid'); errEl.hidden = true; }); });
+  ['oName', 'oShop', 'oPhone', 'oCity'].forEach(id => { const el = $(id); el.value = read('purey.' + id); el.addEventListener('input', () => { store('purey.' + id, el.value); el.removeAttribute('aria-invalid'); errEl.hidden = true; }); });
+
+  let receipt;
+  const orderSnapshot = ref => ({
+    ref, customer:{
+      name:$('oName').value.trim(), shop:$('oShop').value.trim(), phone:$('oPhone').value.trim(),
+      city:$('oCity').value.trim(), note:$('oNote').value.trim(),
+    }, items:Object.entries(bag).map(([id, qty]) => ({...BY[id], qty})), total:pieces(),
+  });
+  async function printOrder(order){
+    if (!order?.items.length) return;
+    const popup = window.open('', '_blank');
+    if (!popup) return toast('اسمح بفتح نافذة جديدة عشان تحفظ الطلب PDF.');
+    popup.opener = null;
+    const doc = popup.document;
+    const details = [
+      ['اسم العميل', order.customer.name], ['اسم المحل', order.customer.shop],
+      ['رقم الهاتف', order.customer.phone], ['المدينة', order.customer.city],
+    ].map(([label,value]) => '<div><dt>' + label + '</dt><dd dir="auto">' + esc(value || '—') + '</dd></div>').join('');
+    const notes = order.customer.note ? '<p class="notes"><b>ملاحظات الطلب</b><br>' + esc(order.customer.note) + '</p>' : '';
+    doc.open();
+    doc.write('<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><title>PUREY Order ' + esc(order.ref) + '</title>' +
+      '<style>@page{size:A4;margin:16mm}body{font:16px/1.5 Arial,sans-serif;color:#39121e;margin:0}' +
+      'header{display:flex;justify-content:space-between;gap:18px;align-items:center;border-bottom:3px solid #550f25;padding:0 0 15px;margin-bottom:18px}h1,p,h2,dl,dd{margin:0}h1{font-size:26px}h2{font-size:17px;margin:16px 0 8px}' +
+      '.brand{font:bold 31px Georgia;letter-spacing:.12em}.ref{display:block;font-size:12px;overflow-wrap:anywhere}.details{display:grid;grid-template-columns:1fr 1fr;column-gap:20px;row-gap:8px;border:1px solid #e8d8dc;padding:12px 15px;break-inside:avoid}dt{color:#72535a;font-size:12px}dd{text-align:right;font-weight:600;overflow-wrap:anywhere}.notes{margin-top:10px;white-space:pre-wrap;overflow-wrap:anywhere}.totals{border-top:2px solid #550f25;margin-top:15px;padding-top:9px;font-weight:600;break-inside:avoid}' +
+      'article{display:flex;align-items:center;gap:18px;border-bottom:1px solid #ddd;padding:10px 0;break-inside:avoid}' +
+      'img{width:90px;height:100px;object-fit:contain}strong{display:block}button{margin:14px 0;padding:8px 14px}' +
+      '@media print{button{display:none}}</style>' +
+      '<header><div><h1>ملخّص طلب الجملة</h1><bdi class="ref">' + esc(order.ref) + '</bdi></div><bdi class="brand">PUREY</bdi></header>' +
+      '<h2>بيانات العميل</h2><dl class="details">' + details + '</dl>' + notes +
+      '<button type="button">حفظ PDF / طباعة</button><h2>المنتجات المطلوبة</h2>' +
+      order.items.map(item => '<article><img alt="" src="' + esc(new URL(item.i, location.href).href) + '"><div><strong>' +
+        esc(item.n) + '</strong><p>رمز <bdi>' + esc(item.id.toUpperCase()) + '</bdi> · ' + item.qty + ' قطعة</p></div></article>').join('') +
+      '<p class="totals">المجموع: ' + order.total + ' قطعة · ' + order.items.length + ' صنف</p>');
+    doc.close();
+    const button = doc.querySelector('button');
+    button.disabled = true;
+    try {
+      await Promise.all(Array.from(doc.images, image => image.decode()));
+      button.disabled = false;
+      button.addEventListener('click', () => popup.print());
+      if (!popup.closed) popup.print();
+    } catch {
+      if (!popup.closed) button.textContent = 'ما قدرناش نحمّل كل الصور. سكّر النافذة وجرّب مرة ثانية.';
+    }
+  }
+  $('orderPdf').addEventListener('click', () => printOrder(orderSnapshot(orderRef)));
+  $('receiptPdf').addEventListener('click', () => printOrder(receipt));
 
   function waText(){
     const ids = Object.keys(bag);
     const lines = ids.map((id, i) => (i + 1) + ') ' + BY[id].n + ' — ' + bag[id] + ' قطعة (رمز ' + id.toUpperCase() + ')');
     const name = $('oName').value.trim(), phone = $('oPhone').value.trim(), city = $('oCity').value.trim(), note = $('oNote').value.trim();
-    const extra = [name && ('الاسم: ' + name), phone && ('الهاتف: ' + phone), city && ('المدينة: ' + city), note && ('ملاحظات: ' + note)].filter(Boolean);
+    const shop = $('oShop').value.trim();
+    const extra = [name && ('الاسم: ' + name), shop && ('اسم المحل: ' + shop), phone && ('الهاتف: ' + phone), city && ('المدينة: ' + city), note && ('ملاحظات: ' + note)].filter(Boolean);
     return ['مرحباً بيـوري، أبي أطلب جملة:', '', ...lines, '', 'المجموع: ' + pieces() + ' قطعة · ' + ids.length + ' صنف', ...extra].join(String.fromCharCode(10));
   }
   $('sendWa').addEventListener('click', () => { if (Object.keys(bag).length) window.open(WA + encodeURIComponent(waText()), '_blank', 'noopener'); });
@@ -934,7 +1891,7 @@ document.querySelectorAll('.car').forEach(c=>{
   const phoneOk = v => { const d = toWestern(v).replace(/\D/g, '').replace(/^00/, ''); return /^0?9[1-5]\d{7}$/.test(d) || /^2189[1-5]\d{7}$/.test(d) || (d.length >= 10 && d.length <= 15 && !d.startsWith('0')); };
   function fail(msg, field){ errEl.textContent = msg; errEl.hidden = false; if (field) { field.setAttribute('aria-invalid', 'true'); field.focus(); } }
   const ERR = {
-    name: ['اكتب الاسم أو اسم المحل.', 'oName'], phone: ['اكتب رقم هاتف صحيح، مثلاً 0912345678.', 'oPhone'], city: ['اكتب المدينة.', 'oCity'],
+    name: ['اكتب اسم العميل.', 'oName'], phone: ['اكتب رقم هاتف صحيح، مثلاً 0912345678.', 'oPhone'], city: ['اكتب المدينة.', 'oCity'],
     items: ['في صنف في طلبك مش متوفر الآن. احذفه وجرّب مرة ثانية.'], rate: ['وصلت طلبات كثيرة من نفس الجهاز. استنى شوية وجرّب، أو ابعت الطلب على واتساب.'],
   };
 
@@ -946,6 +1903,7 @@ document.querySelectorAll('.car').forEach(c=>{
     if (name.length < 2) return fail(ERR.name[0], $('oName'));
     if (!phoneOk(phone)) return fail(ERR.phone[0], $('oPhone'));
     if (city.length < 2) return fail(ERR.city[0], $('oCity'));
+    const submitted = orderSnapshot(orderRef);
     sendBtn.setAttribute('aria-busy', 'true'); sendBtn.textContent = 'جاري الإرسال…';
     let data = null, status = 0;
     try {
@@ -953,11 +1911,12 @@ document.querySelectorAll('.car').forEach(c=>{
       const res = await fetch(ORDER_ENDPOINT, { method: 'POST', headers: {'Content-Type': 'application/json'}, signal: ctrl.signal,
         body: JSON.stringify({ site: ORDER_SITE, ref: orderRef, website: $('oWebsite').value,
           customer: { name, phone: toWestern(phone), city, note: $('oNote').value.trim() },
-          items: ids.map(id => ({ code: id.toUpperCase(), qty: bag[id] })) }) });
+          items: submitted.items.map(item => ({ code: item.id.toUpperCase(), qty: item.qty })) }) });
       clearTimeout(bail); status = res.status; data = await res.json().catch(() => null);
     } catch { /* offline / blocked — handled below */ }
     sendBtn.removeAttribute('aria-busy'); sendBtn.textContent = 'إرسال الطلب';
     if (data && data.ok && data.order_no) {
+      receipt = {...submitted, ref:String(data.order_no)};
       $('doneNo').textContent = data.order_no;
       bag = {}; save(); grid && grid.querySelectorAll('.pc').forEach(el => refreshCard(el.dataset.id)); renderBag();
       orderRef = uuid(); store('purey.orderRef', orderRef);
@@ -1001,95 +1960,31 @@ document.querySelectorAll('.car').forEach(c=>{
   function toast(t){ $('toastTxt').textContent = t; toastEl.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('on'), 3200); }
   $('toastGo').addEventListener('click', () => { toastEl.classList.remove('on'); openBag(); });
 
-  if (grid) filter('');
+  if (grid) filter();
+  const product = document.querySelector('.product-view');
+  if (product) {
+    const id = product.dataset.product;
+    const qty = $('productQty'), add = $('productAdd');
+    qty.textContent = bag[id] || DEFAULT_QTY;
+    if (bag[id]) add.textContent = 'حدّث الكمية في الطلب';
+    const changeQty = step => { qty.textContent = Math.min(9999, Math.max(1, Number(qty.textContent) + step)); };
+    $('productMinus').addEventListener('click', () => changeQty(-1));
+    $('productPlus').addEventListener('click', () => changeQty(1));
+    add.addEventListener('click', () => {
+      setQty(id, Number(qty.textContent), false);
+      add.textContent = 'حدّث الكمية في الطلب';
+      $('productFeedback').textContent = 'الكمية في طلبك: ' + qty.textContent + ' قطعة';
+    });
+    $('productZoom').addEventListener('click', e => {
+      const zoomed = e.currentTarget.closest('.product-stage').classList.toggle('is-zoomed');
+      e.currentTarget.setAttribute('aria-pressed', String(zoomed));
+      e.currentTarget.textContent = zoomed ? 'تصغير الصورة' : 'تكبير الصورة';
+    });
+  }
   renderBag();
 })();
 
-// ── Flann website chat ──────────────────────────────────────────────
-// Replies come from Purey's own Flann account (POST /api/site-chat, site "purey"),
-// grounded in its brand brief and the product catalogue in the CMS. The table
-// below is the offline path only: if Flann can't be reached the visitor is still
-// routed, never stranded. It states nothing Flann doesn't know (no prices, stock or MOQ).
-(function(){
-  const FLANN_ENDPOINT = 'https://getflann.com/api/site-chat';
-  const FLANN_SITE = 'purey';
-  const WA_NUMBER = '218919282214';
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const $ = id => document.getElementById(id);
-  const aiPanel = $('aiPanel'), aiLaunch = $('aiLaunch'), aiThread = $('aiThread'), aiText = $('aiText'), aiSend = $('aiSend');
-  const body = aiPanel.querySelector('.ai-body');
-  const ANSWERS = [
-    [/قسم|أقسام|اقسام|شن عندكم|تشكيل|انواع|أنواع/, 'عندنا خمس أقسام: بجامات قطني، بجامات ستان، ارواب وعرائيسي، لانجري، وطواقم داخلي. قولنا شن القسم اللي يهمك ونبعتولك التشكيلة على واتساب.'],
-    [/سعر|أسعار|اسعار|بكم|قداش|كم/, 'أسعارنا جملة وتتحدد حسب الكمية. ابعت القسم والكمية على واتساب والفريق يردلك بالسعر.'],
-    [/حبة|قطاعي|فرد|افراد|أفراد|واحدة|وحدة/, 'البيع عندنا جملة فقط للتجار وأصحاب المحلات — ما نبيعوش بالحبة.'],
-    [/وين|مكان|عنوان|مقر|موقع|محل/, 'مقرنا في طرابلس، شارع الرشيد. للتفاصيل راسلنا على واتساب 0919282214.'],
-    [/طلب|نطلب|اطلب|أطلب|كيف/, 'الطلب يكون على واتساب: ابعت القسم واللون والكمية، والفريق يأكدلك التوفر والسعر.'],
-  ];
-  const FALLBACK = 'نقدر نعاونك في الأقسام والطلب بالجملة. اكتب سؤالك هنا أو راسلنا على واتساب.';
-  const chatLog = [];
-  const thread = (() => {
-    const v4 = () => crypto.randomUUID ? crypto.randomUUID() : 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => { const r = Math.random() * 16 | 0; return (c === 'x' ? r : (r & 3 | 8)).toString(16); });
-    try { let t = sessionStorage.getItem('purey.thread'); if (!t) { t = v4(); sessionStorage.setItem('purey.thread', t); } return t; }
-    catch { return v4(); }
-  })();
-
-  function open(on){
-    aiPanel.toggleAttribute('data-open', on);
-    aiLaunch.setAttribute('aria-expanded', on ? 'true' : 'false');
-    document.documentElement.classList.toggle('ai-open', on);
-    if (on) setTimeout(() => $('aiClose').focus(), 60);
-  }
-  function view(v){ aiPanel.setAttribute('data-view', v); if (v === 'chat') setTimeout(() => aiText.focus(), 80); }
-  function scroll(){ body.scrollTop = 1e6; }
-  function bubble(text, who){ const b = document.createElement('div'); b.className = 'bub ' + who; b.textContent = text; aiThread.appendChild(b); scroll(); return b; }
-  function handoff(){
-    const b = document.createElement('div'); b.className = 'bub bot';
-    const p = document.createElement('div'); p.textContent = 'نوصّلك بالفريق على واتساب ويردّوا عليك مباشرة.';
-    const last = chatLog.filter(m => m.role === 'me').slice(-1)[0];
-    const a = document.createElement('a'); a.className = 'ai-cta';
-    a.href = 'https://wa.me/' + WA_NUMBER + (last ? '?text=' + encodeURIComponent(last.text) : '');
-    a.target = '_blank'; a.rel = 'noopener'; a.textContent = 'فتح واتساب ←';
-    b.append(p, a); aiThread.appendChild(b); scroll();
-  }
-  async function answer(q){
-    const typing = document.createElement('div'); typing.className = 'bub bot typing'; typing.innerHTML = '<i></i><i></i><i></i>';
-    aiThread.appendChild(typing); scroll();
-    const started = Date.now(); let data = null;
-    try {
-      const ctrl = new AbortController(); const bail = setTimeout(() => ctrl.abort(), 20000);
-      const res = await fetch(FLANN_ENDPOINT, { method: 'POST', headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({site: FLANN_SITE, message: q, thread}), signal: ctrl.signal });
-      clearTimeout(bail);
-      data = await res.json().catch(() => null);
-    } catch { /* offline path below */ }
-    await new Promise(r => setTimeout(r, Math.max(0, (reduced ? 120 : 700) - (Date.now() - started))));
-    typing.remove();
-    if (data && data.ok && data.reply) {
-      bubble(data.reply, 'bot'); chatLog.push({role: 'bot', text: data.reply});
-      if (data.handoff) handoff();
-      return;
-    }
-    const hit = ANSWERS.find(([re]) => re.test(q));
-    bubble(hit ? hit[1] : FALLBACK, 'bot');
-    if (data && data.handoff) handoff();
-  }
-  function ask(q){ if (!q.trim()) return; bubble(q, 'me'); chatLog.push({role: 'me', text: q}); answer(q); }
-  function grow(){ aiText.style.height = 'auto'; aiText.style.height = Math.min(aiText.scrollHeight, 88) + 'px'; }
-  function ready(){ aiSend.toggleAttribute('data-ready', aiText.value.trim().length > 0); }
-  function submit(){ const v = aiText.value; if (!v.trim()) return; view('chat'); ask(v); aiText.value = ''; grow(); ready(); }
-
-  aiLaunch.addEventListener('click', () => open(!aiPanel.hasAttribute('data-open')));
-  $('aiClose').addEventListener('click', () => { open(false); aiLaunch.focus(); });
-  $('aiScrim').addEventListener('click', () => { open(false); aiLaunch.focus(); });
-  $('aiBack').addEventListener('click', () => view('home'));
-  $('aiStart').addEventListener('click', () => view('chat'));
-  $('aiChips').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; view('chat'); ask(b.dataset.q); });
-  aiText.addEventListener('input', () => { grow(); ready(); });
-  aiText.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); } });
-  aiSend.addEventListener('click', submit);
-  addEventListener('keydown', e => { if (e.key === 'Escape' && aiPanel.hasAttribute('data-open')) { open(false); aiLaunch.focus(); } });
-})();
 </script>
-
+<script defer src="purey-chat.js"></script>
 </body>
 </html>

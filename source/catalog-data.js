@@ -251,7 +251,12 @@ function parse(block, prefix, dir) {
     return { id: prefix + n, c, n: name.trim(), src: src ? ROOT + dir + src : null, img: dir ? `img/p/${prefix}${n}.webp` : `img/${n}.webp` };
   });
 }
-const all = [...parse(first, 'o', null), ...parse(cotton, 'c', CO), ...parse(silk, 's', SI), ...parse(under, 'u', UN), ...parse(ling, 'l', LI)];
+const lavermo = require('./lavermo-products.json');
+const additions = lavermo.newProducts.map(p => ({id:p.id, c:p.c, n:p.n, src:p.dest, img:`img/p/${p.id}.webp`}));
+const all = [...parse(first, 'o', null), ...parse(cotton, 'c', CO), ...parse(silk, 's', SI), ...parse(under, 'u', UN), ...parse(ling, 'l', LI), ...additions];
+const lavermoIds = new Set(lavermo.collectionProductIds);
+for (const id of lavermoIds) if (!all.some(p => p.id === id)) throw new Error('Unknown Lavermo product: ' + id);
+for (const p of all) if (lavermoIds.has(p.id)) p.brand = 'lavermo';
 module.exports = all;
 if (require.main === module) {
   const count = {}; for (const p of all) count[p.c] = (count[p.c] || 0) + 1;

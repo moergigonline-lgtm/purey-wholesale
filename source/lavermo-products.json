@@ -1,0 +1,888 @@
+{
+  "promptVersion": "Original PUREY wholesale catalogue prompt, recovered 2026-11-19",
+  "newProducts": [
+    {
+      "id": "v001",
+      "sourceIndex": 1,
+      "c": "s",
+      "slug": "black-star-ruffle",
+      "n": "بجامة ستان بنجوم وكشكش أبيض وأسود",
+      "detail": "Black long-sleeve button pajama shirt and full trousers with tiny silver star motifs and contrasting white organza ruffles at cuffs and trouser hems; use the garments on the rail only.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.29.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v001-black-star-ruffle.png"
+    },
+    {
+      "id": "v002",
+      "sourceIndex": 6,
+      "c": "s",
+      "slug": "ivory-star-ruffle",
+      "n": "بجامة ستان بنجوم وكشكش عاجي",
+      "detail": "Pale butter ivory long-sleeve V-neck button pajama shirt and full trousers, tiny tonal star motifs and matching delicate organza ruffle cuffs and ankle hems.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.31 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v002-ivory-star-ruffle.png"
+    },
+    {
+      "id": "v003",
+      "sourceIndex": 16,
+      "c": "s",
+      "slug": "black-swan-feather",
+      "n": "بجامة ستان بريش وتطريز بجعة أسود",
+      "detail": "Black satin long-sleeve notched-collar button shirt and full trousers, white pearl buttons, small authentic silver swan chest embellishment, wispy black-and-white feather cuffs on wrists and trouser hems. No tea cup, slippers or bag.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.34 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v003-black-swan-feather.png"
+    },
+    {
+      "id": "v004",
+      "sourceIndex": 63,
+      "c": "s",
+      "slug": "black-piped-classic",
+      "n": "بجامة ستان ببايبينغ عاجي أسود",
+      "detail": "Solid black satin classic notched-collar button shirt with slim ivory piping at collar, placket, chest pocket and cuffs, matching long trousers. Preserve only the original trim.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.45 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v004-black-piped-classic.png"
+    },
+    {
+      "id": "v005",
+      "sourceIndex": 111,
+      "c": "s",
+      "slug": "silver-smocked-shorts",
+      "n": "طقم ستان بكشكش وشورت فضي",
+      "detail": "Pale silver satin thin-strap camisole with wide gathered smocked bust, tiny center bow, ruffled hem, matching satin shorts as draped below on the chair. Two pieces only.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.38 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v005-silver-smocked-shorts.png"
+    },
+    {
+      "id": "v006",
+      "sourceIndex": 81,
+      "c": "c",
+      "slug": "cotton-81-1",
+      "n": "بجامة أكمام قصيرة بنجوم أسود",
+      "detail": "Exactly ONE colorway: black. short-sleeve notched-collar button pajama shirt and long trousers with tiny scattered star and cursive motifs, black piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.47 (7).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v006-cotton-81-1.png"
+    },
+    {
+      "id": "v007",
+      "sourceIndex": 81,
+      "c": "c",
+      "slug": "cotton-81-2",
+      "n": "بجامة أكمام قصيرة بنجوم عاجي",
+      "detail": "Exactly ONE colorway: ivory. short-sleeve notched-collar button pajama shirt and long trousers with tiny scattered star and cursive motifs, black piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.47 (7).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v007-cotton-81-2.png"
+    },
+    {
+      "id": "v008",
+      "sourceIndex": 83,
+      "c": "c",
+      "slug": "cotton-83-1",
+      "n": "بجامة بحمالات ونقشة طيور بيج رمادي",
+      "detail": "Exactly ONE colorway: taupe. sleeveless tank with round black-bound neckline and long trousers, scattered fine tiny flying bird motifs. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v008-cotton-83-1.png"
+    },
+    {
+      "id": "v009",
+      "sourceIndex": 83,
+      "c": "c",
+      "slug": "cotton-83-2",
+      "n": "بجامة بحمالات ونقشة طيور عاجي",
+      "detail": "Exactly ONE colorway: ivory. sleeveless tank with round black-bound neckline and long trousers, scattered fine tiny flying bird motifs. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v009-cotton-83-2.png"
+    },
+    {
+      "id": "v010",
+      "sourceIndex": 84,
+      "c": "c",
+      "slug": "cotton-84-1",
+      "n": "بجامة بحمالات ونقشات صغيرة عاجي",
+      "detail": "Exactly ONE colorway: ivory. sleeveless tank with round black-bound neckline and long trousers, tiny contrasting novelty motifs, preserve exact source print. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v010-cotton-84-1.png"
+    },
+    {
+      "id": "v011",
+      "sourceIndex": 84,
+      "c": "c",
+      "slug": "cotton-84-2",
+      "n": "بجامة بحمالات ونقشات صغيرة أسود",
+      "detail": "Exactly ONE colorway: black. sleeveless tank with round black-bound neckline and long trousers, tiny contrasting novelty motifs, preserve exact source print. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v011-cotton-84-2.png"
+    },
+    {
+      "id": "v012",
+      "sourceIndex": 85,
+      "c": "c",
+      "slug": "cotton-85-1",
+      "n": "بجامة بنقشات صغيرة أسود",
+      "detail": "Exactly ONE colorway: black. long-sleeve round-neck pullover and long trousers, sparse tiny novelty outline motifs. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v012-cotton-85-1.png"
+    },
+    {
+      "id": "v013",
+      "sourceIndex": 85,
+      "c": "c",
+      "slug": "cotton-85-2",
+      "n": "بجامة بنقشات صغيرة أزرق فاتح",
+      "detail": "Exactly ONE colorway: powder blue. long-sleeve round-neck pullover and long trousers, sparse tiny novelty outline motifs. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v013-cotton-85-2.png"
+    },
+    {
+      "id": "v014",
+      "sourceIndex": 87,
+      "c": "c",
+      "slug": "cotton-87-1",
+      "n": "بجامة بخطوط أفقية عاجي ووردي",
+      "detail": "Exactly ONE colorway: warm ivory pink stripes. long-sleeve notched-collar button shirt and long trousers, thin multicolor horizontal stripes and square chest patch. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (5).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v014-cotton-87-1.png"
+    },
+    {
+      "id": "v015",
+      "sourceIndex": 87,
+      "c": "c",
+      "slug": "cotton-87-2",
+      "n": "بجامة بخطوط أفقية عاجي وأخضر",
+      "detail": "Exactly ONE colorway: ivory sage stripes. long-sleeve notched-collar button shirt and long trousers, thin multicolor horizontal stripes and square chest patch. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (5).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v015-cotton-87-2.png"
+    },
+    {
+      "id": "v016",
+      "sourceIndex": 87,
+      "c": "c",
+      "slug": "cotton-87-3",
+      "n": "بجامة بخطوط أفقية عاجي وبيج",
+      "detail": "Exactly ONE colorway: ivory taupe stripes. long-sleeve notched-collar button shirt and long trousers, thin multicolor horizontal stripes and square chest patch. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48 (5).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v016-cotton-87-3.png"
+    },
+    {
+      "id": "v017",
+      "sourceIndex": 88,
+      "c": "c",
+      "slug": "cotton-88-1",
+      "n": "بجامة أكمام قصيرة بقلب رمادي",
+      "detail": "Exactly ONE colorway: grey. short-sleeve round-neck pullover and long trousers, thin black binding and small heart outline on left chest. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v017-cotton-88-1.png"
+    },
+    {
+      "id": "v018",
+      "sourceIndex": 88,
+      "c": "c",
+      "slug": "cotton-88-2",
+      "n": "بجامة أكمام قصيرة بقلب عاجي",
+      "detail": "Exactly ONE colorway: ivory. short-sleeve round-neck pullover and long trousers, thin black binding and small heart outline on left chest. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.48.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v018-cotton-88-2.png"
+    },
+    {
+      "id": "v019",
+      "sourceIndex": 89,
+      "c": "c",
+      "slug": "cotton-89-1",
+      "n": "بجامة برسمة وبنطلون منقوش فحمي",
+      "detail": "Exactly ONE colorway: charcoal grey. long-sleeve plain round-neck pullover with wide rectangular authentic graphic across chest and pale full trousers with fine allover illustrated botanical pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v019-cotton-89-1.png"
+    },
+    {
+      "id": "v020",
+      "sourceIndex": 89,
+      "c": "c",
+      "slug": "cotton-89-2",
+      "n": "بجامة برسمة وبنطلون منقوش بني",
+      "detail": "Exactly ONE colorway: brown. long-sleeve plain round-neck pullover with wide rectangular authentic graphic across chest and pale full trousers with fine allover illustrated botanical pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v020-cotton-89-2.png"
+    },
+    {
+      "id": "v021",
+      "sourceIndex": 89,
+      "c": "c",
+      "slug": "cotton-89-3",
+      "n": "بجامة برسمة وبنطلون منقوش وردي مطفي",
+      "detail": "Exactly ONE colorway: dusty pink. long-sleeve plain round-neck pullover with wide rectangular authentic graphic across chest and pale full trousers with fine allover illustrated botanical pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v021-cotton-89-3.png"
+    },
+    {
+      "id": "v022",
+      "sourceIndex": 90,
+      "c": "c",
+      "slug": "cotton-90-1",
+      "n": "بجامة ببنطلون كاروهات أصفر خردلي",
+      "detail": "Exactly ONE colorway: mustard yellow. long-sleeve round-neck pullover with small diagonal black authentic chest graphic and full checkered plaid trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v022-cotton-90-1.png"
+    },
+    {
+      "id": "v023",
+      "sourceIndex": 90,
+      "c": "c",
+      "slug": "cotton-90-2",
+      "n": "بجامة ببنطلون كاروهات كريمي",
+      "detail": "Exactly ONE colorway: warm cream. long-sleeve round-neck pullover with small diagonal black authentic chest graphic and full checkered plaid trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v023-cotton-90-2.png"
+    },
+    {
+      "id": "v024",
+      "sourceIndex": 90,
+      "c": "c",
+      "slug": "cotton-90-3",
+      "n": "بجامة ببنطلون كاروهات خوخي",
+      "detail": "Exactly ONE colorway: peach. long-sleeve round-neck pullover with small diagonal black authentic chest graphic and full checkered plaid trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v024-cotton-90-3.png"
+    },
+    {
+      "id": "v025",
+      "sourceIndex": 91,
+      "c": "c",
+      "slug": "cotton-91-1",
+      "n": "بجامة بقلوب أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve round-neck pullover with large original outlined heart chest graphic, full trousers with scattered small contrasting hearts. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v025-cotton-91-1.png"
+    },
+    {
+      "id": "v026",
+      "sourceIndex": 91,
+      "c": "c",
+      "slug": "cotton-91-2",
+      "n": "بجامة بقلوب بني غامق",
+      "detail": "Exactly ONE colorway: dark brown. long-sleeve round-neck pullover with large original outlined heart chest graphic, full trousers with scattered small contrasting hearts. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v026-cotton-91-2.png"
+    },
+    {
+      "id": "v027",
+      "sourceIndex": 91,
+      "c": "c",
+      "slug": "cotton-91-3",
+      "n": "بجامة بقلوب كحلي",
+      "detail": "Exactly ONE colorway: navy. long-sleeve round-neck pullover with large original outlined heart chest graphic, full trousers with scattered small contrasting hearts. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v027-cotton-91-3.png"
+    },
+    {
+      "id": "v028",
+      "sourceIndex": 92,
+      "c": "c",
+      "slug": "cotton-92-1",
+      "n": "بجامة برسمة وبنطلون مخطط وردي",
+      "detail": "Exactly ONE colorway: pink. long-sleeve round-neck pullover with original character chest illustration and full grey horizontally striped trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v028-cotton-92-1.png"
+    },
+    {
+      "id": "v029",
+      "sourceIndex": 92,
+      "c": "c",
+      "slug": "cotton-92-2",
+      "n": "بجامة برسمة وبنطلون مخطط كريمي",
+      "detail": "Exactly ONE colorway: cream. long-sleeve round-neck pullover with original character chest illustration and full grey horizontally striped trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v029-cotton-92-2.png"
+    },
+    {
+      "id": "v030",
+      "sourceIndex": 92,
+      "c": "c",
+      "slug": "cotton-92-3",
+      "n": "بجامة برسمة وبنطلون مخطط أبيض",
+      "detail": "Exactly ONE colorway: white. long-sleeve round-neck pullover with original character chest illustration and full grey horizontally striped trousers. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v030-cotton-92-3.png"
+    },
+    {
+      "id": "v031",
+      "sourceIndex": 93,
+      "c": "c",
+      "slug": "cotton-93-1",
+      "n": "بجامة بنقشات صغيرة وردي",
+      "detail": "Exactly ONE colorway: pink. long-sleeve button notched-collar pajama shirt and full trousers with same scattered tiny dark motifs, preserve source pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v031-cotton-93-1.png"
+    },
+    {
+      "id": "v032",
+      "sourceIndex": 93,
+      "c": "c",
+      "slug": "cotton-93-2",
+      "n": "بجامة بنقشات صغيرة عاجي",
+      "detail": "Exactly ONE colorway: ivory. long-sleeve button notched-collar pajama shirt and full trousers with same scattered tiny dark motifs, preserve source pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v032-cotton-93-2.png"
+    },
+    {
+      "id": "v033",
+      "sourceIndex": 93,
+      "c": "c",
+      "slug": "cotton-93-3",
+      "n": "بجامة بنقشات صغيرة خوخي",
+      "detail": "Exactly ONE colorway: peach. long-sleeve button notched-collar pajama shirt and full trousers with same scattered tiny dark motifs, preserve source pattern. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.49.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v033-cotton-93-3.png"
+    },
+    {
+      "id": "v034",
+      "sourceIndex": 94,
+      "c": "c",
+      "slug": "cotton-94-1",
+      "n": "بجامة بخطوط منقطة وردي",
+      "detail": "Exactly ONE colorway: pink. long-sleeve notched-collar button pajama shirt and full trousers with narrow dotted vertical stripe pattern, fine piping and chest pocket. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v034-cotton-94-1.png"
+    },
+    {
+      "id": "v035",
+      "sourceIndex": 94,
+      "c": "c",
+      "slug": "cotton-94-2",
+      "n": "بجامة بخطوط منقطة أسود",
+      "detail": "Exactly ONE colorway: black. long-sleeve notched-collar button pajama shirt and full trousers with narrow dotted vertical stripe pattern, fine piping and chest pocket. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v035-cotton-94-2.png"
+    },
+    {
+      "id": "v036",
+      "sourceIndex": 94,
+      "c": "c",
+      "slug": "cotton-94-3",
+      "n": "بجامة بخطوط منقطة أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve notched-collar button pajama shirt and full trousers with narrow dotted vertical stripe pattern, fine piping and chest pocket. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v036-cotton-94-3.png"
+    },
+    {
+      "id": "v037",
+      "sourceIndex": 95,
+      "c": "c",
+      "slug": "cotton-95-1",
+      "n": "بجامة بنقشة حلقات وردي",
+      "detail": "Exactly ONE colorway: pink. long-sleeve notched-collar button pajama shirt and full trousers with repeated linked-circle motifs and small authentic chest monogram. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v037-cotton-95-1.png"
+    },
+    {
+      "id": "v038",
+      "sourceIndex": 95,
+      "c": "c",
+      "slug": "cotton-95-2",
+      "n": "بجامة بنقشة حلقات عنابي غامق",
+      "detail": "Exactly ONE colorway: black burgundy. long-sleeve notched-collar button pajama shirt and full trousers with repeated linked-circle motifs and small authentic chest monogram. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v038-cotton-95-2.png"
+    },
+    {
+      "id": "v039",
+      "sourceIndex": 95,
+      "c": "c",
+      "slug": "cotton-95-3",
+      "n": "بجامة بنقشة حلقات أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve notched-collar button pajama shirt and full trousers with repeated linked-circle motifs and small authentic chest monogram. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v039-cotton-95-3.png"
+    },
+    {
+      "id": "v040",
+      "sourceIndex": 96,
+      "c": "c",
+      "slug": "cotton-96-1",
+      "n": "بجامة بنقشة هندسية أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve notched-collar button pajama shirt and full trousers with large geometric chain pattern and matching piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v040-cotton-96-1.png"
+    },
+    {
+      "id": "v041",
+      "sourceIndex": 96,
+      "c": "c",
+      "slug": "cotton-96-2",
+      "n": "بجامة بنقشة هندسية خردلي",
+      "detail": "Exactly ONE colorway: mustard ochre. long-sleeve notched-collar button pajama shirt and full trousers with large geometric chain pattern and matching piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v041-cotton-96-2.png"
+    },
+    {
+      "id": "v042",
+      "sourceIndex": 96,
+      "c": "c",
+      "slug": "cotton-96-3",
+      "n": "بجامة بنقشة هندسية زيتي",
+      "detail": "Exactly ONE colorway: olive green. long-sleeve notched-collar button pajama shirt and full trousers with large geometric chain pattern and matching piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (3).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v042-cotton-96-3.png"
+    },
+    {
+      "id": "v043",
+      "sourceIndex": 97,
+      "c": "c",
+      "slug": "cotton-97-1",
+      "n": "بجامة بنقشة توال أزرق وعاجي",
+      "detail": "Exactly ONE colorway: blue ivory. long-sleeve notched-collar button shirt and full trousers with detailed toile floral landscape print. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v043-cotton-97-1.png"
+    },
+    {
+      "id": "v044",
+      "sourceIndex": 97,
+      "c": "c",
+      "slug": "cotton-97-2",
+      "n": "بجامة بنقشة توال وردي وعاجي",
+      "detail": "Exactly ONE colorway: pink ivory. long-sleeve notched-collar button shirt and full trousers with detailed toile floral landscape print. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v044-cotton-97-2.png"
+    },
+    {
+      "id": "v045",
+      "sourceIndex": 97,
+      "c": "c",
+      "slug": "cotton-97-3",
+      "n": "بجامة بنقشة توال بيج وعاجي",
+      "detail": "Exactly ONE colorway: taupe ivory. long-sleeve notched-collar button shirt and full trousers with detailed toile floral landscape print. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v045-cotton-97-3.png"
+    },
+    {
+      "id": "v046",
+      "sourceIndex": 99,
+      "c": "c",
+      "slug": "cotton-99-1",
+      "n": "بجامة مخططة بجيب مطرّز وردي",
+      "detail": "Exactly ONE colorway: pink. long-sleeve notched-collar button shirt and full trousers with fine vertical stripes and authentic small chest crest. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (6).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v046-cotton-99-1.png"
+    },
+    {
+      "id": "v047",
+      "sourceIndex": 99,
+      "c": "c",
+      "slug": "cotton-99-2",
+      "n": "بجامة مخططة بجيب مطرّز فحمي",
+      "detail": "Exactly ONE colorway: charcoal grey. long-sleeve notched-collar button shirt and full trousers with fine vertical stripes and authentic small chest crest. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (6).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v047-cotton-99-2.png"
+    },
+    {
+      "id": "v048",
+      "sourceIndex": 99,
+      "c": "c",
+      "slug": "cotton-99-3",
+      "n": "بجامة مخططة بجيب مطرّز أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve notched-collar button shirt and full trousers with fine vertical stripes and authentic small chest crest. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50 (6).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v048-cotton-99-3.png"
+    },
+    {
+      "id": "v049",
+      "sourceIndex": 100,
+      "c": "c",
+      "slug": "cotton-100-1",
+      "n": "بجامة بنقشة زهور صغيرة وردي وعاجي",
+      "detail": "Exactly ONE colorway: pink ivory. long-sleeve notched-collar button shirt and full trousers with fine allover floral microprint and self piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v049-cotton-100-1.png"
+    },
+    {
+      "id": "v050",
+      "sourceIndex": 100,
+      "c": "c",
+      "slug": "cotton-100-2",
+      "n": "بجامة بنقشة زهور صغيرة أحمر",
+      "detail": "Exactly ONE colorway: red. long-sleeve notched-collar button shirt and full trousers with fine allover floral microprint and self piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v050-cotton-100-2.png"
+    },
+    {
+      "id": "v051",
+      "sourceIndex": 100,
+      "c": "c",
+      "slug": "cotton-100-3",
+      "n": "بجامة بنقشة زهور صغيرة أسود",
+      "detail": "Exactly ONE colorway: black. long-sleeve notched-collar button shirt and full trousers with fine allover floral microprint and self piping. Isolate this specific colorway from the multi-variant source collage; do not combine variants or copy the models. Retain the source garment graphic exactly without adding or inventing branding.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.50.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v051-cotton-100-3.png"
+    },
+    {
+      "id": "v052",
+      "sourceIndex": 143,
+      "c": "r",
+      "slug": "ivory-embroidered-long",
+      "n": "قميص نوم طويل مطرّز عاجي",
+      "detail": "One long ivory nightdress, long softly gathered sleeves, floral embroidered lace yoke and empire waist, soft opaque skirt. No robe or trousers.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.46 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v052-ivory-embroidered-long.png"
+    },
+    {
+      "id": "v053",
+      "sourceIndex": 144,
+      "c": "r",
+      "slug": "ivory-embroidered-short",
+      "n": "قميص نوم بأكمام قصيرة مطرّز عاجي",
+      "detail": "One ivory knee-length nightdress, short puff sleeves with delicate lace edges, embroidered floral yoke and empire waist, opaque flowing skirt.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.46 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v053-ivory-embroidered-short.png"
+    },
+    {
+      "id": "v054",
+      "sourceIndex": 189,
+      "c": "c",
+      "slug": "ivory-micro-heart-shorts",
+      "n": "بجامة شورت بقلوب صغيرة عاجي",
+      "detail": "Exactly two pieces: warm ivory short-sleeve notched-collar button pajama shirt and matching shorts, tiny ochre hearts and original small cursive chest embroidery. Preserve source motif and color, no props.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.53 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v054-ivory-micro-heart-shorts.png"
+    },
+    {
+      "id": "v055",
+      "sourceIndex": 110,
+      "c": "l",
+      "slug": "raspberry-lace-nightdress",
+      "n": "قميص نوم ستان بأكمام تول توتي",
+      "detail": "Raspberry red satin long flowing nightdress, deep V floral lace embroidered neckline with tiny bow, sheer dotted tulle long sleeves, lace wrists and gathered empire waist. Preserve sleeve and bodice construction.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.38 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v055-raspberry-lace-nightdress.png"
+    },
+    {
+      "id": "v056",
+      "sourceIndex": 115,
+      "c": "l",
+      "slug": "silver-lace-nightdress",
+      "n": "قميص نوم ستان بأكمام تول فضي",
+      "detail": "Silver grey satin long flowing nightdress, deep V floral lace embroidered neckline with tiny bow, sheer dotted tulle long sleeves, lace wrists and gathered empire waist. Preserve sleeve and bodice construction.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.39.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v056-silver-lace-nightdress.png"
+    },
+    {
+      "id": "v057",
+      "sourceIndex": 125,
+      "c": "l",
+      "slug": "white-lace-nightdress",
+      "n": "قميص نوم ستان بأكمام تول أبيض",
+      "detail": "White satin long flowing nightdress, deep V floral lace embroidered neckline with tiny bow, sheer dotted tulle long sleeves, lace wrists and gathered empire waist. Pearl buttons down the bodice. Preserve sleeve and bodice construction.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.41.jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v057-white-lace-nightdress.png"
+    },
+    {
+      "id": "v058",
+      "sourceIndex": 114,
+      "c": "s",
+      "slug": "raspberry-houndstooth",
+      "n": "بجامة ستان جاكار توتي",
+      "detail": "Raspberry red satin tonal houndstooth jacquard notched-collar button shirt with black piping and original black R chest embroidery, matching long trousers with black piped hems. No props.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.22.39 (2).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v058-raspberry-houndstooth.png"
+    },
+    {
+      "id": "v059",
+      "sourceIndex": 40,
+      "c": "s",
+      "slug": "blush-lettered-stripe",
+      "n": "بجامة ستان بخطوط كتابية وردي فاتح",
+      "detail": "Pale pink satin long-sleeve notched-collar button pajama shirt and full trousers. Narrow vertical dark text stripes and tiny hearts, black piping and original intertwined chest monogram. Preserve authentic garment print and embroidery exactly, without adding extra logos or source accessories.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.40 (1).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v059-blush-lettered-stripe.png"
+    },
+    {
+      "id": "v060",
+      "sourceIndex": 65,
+      "c": "s",
+      "slug": "blush-micro-monogram",
+      "n": "بجامة ستان بنقشة صغيرة وردي فاتح",
+      "detail": "Pale blush satin long-sleeve classic notched-collar button pajama shirt and full trousers, tiny spaced dark dots and micro monograms, black buttons, fine black piping and original black intertwined chest monogram. Preserve authentic source print exactly.",
+      "refs": [
+        "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\WhatsApp Image 2026-11-15 at 13.21.45 (4).jpeg"
+      ],
+      "dest": "C:\\Users\\Admin\\Desktop\\Client Accounts\\Purey Wholesale\\Lavermo\\Edited Photos\\v060-blush-micro-monogram.png"
+    }
+  ],
+  "sourcePhotoCount": 200,
+  "note": "200 source photos reviewed against the existing catalogue; repeated views grouped. Only missing garments/colourways generated. Source folder membership is retained as provenance and is not proof of manufacturer or brand.",
+  "collectionProductIds": [
+    "c67",
+    "c73",
+    "c84",
+    "l029",
+    "l036",
+    "l037",
+    "l042",
+    "l105",
+    "l106",
+    "l107",
+    "l108",
+    "l109",
+    "l110",
+    "l144",
+    "l145",
+    "l146",
+    "l147",
+    "l148",
+    "l149",
+    "l166",
+    "o01",
+    "o02",
+    "o03",
+    "o04",
+    "o05",
+    "o06",
+    "o09",
+    "o10",
+    "o13",
+    "o14",
+    "o15",
+    "o16",
+    "o17",
+    "o18",
+    "s02",
+    "s04",
+    "s05",
+    "s06",
+    "s07",
+    "s09",
+    "s10",
+    "s12",
+    "s13",
+    "s14",
+    "s15",
+    "s16",
+    "s17",
+    "s18",
+    "s19",
+    "s20",
+    "s21",
+    "s28",
+    "s30",
+    "s33",
+    "s34",
+    "s35",
+    "s36",
+    "u01",
+    "u02",
+    "u03",
+    "u04",
+    "u05",
+    "u06",
+    "u07",
+    "u08",
+    "u09",
+    "u10",
+    "u11",
+    "u12",
+    "u13",
+    "u14",
+    "u15",
+    "u16",
+    "u17",
+    "u25",
+    "u26",
+    "u27",
+    "u28",
+    "u29",
+    "u30",
+    "u31",
+    "u32",
+    "u33",
+    "u34",
+    "u35",
+    "u36",
+    "u37",
+    "u38",
+    "u39",
+    "u40",
+    "u48",
+    "u49",
+    "u50",
+    "u51",
+    "u52",
+    "u53",
+    "u55",
+    "v001",
+    "v002",
+    "v003",
+    "v004",
+    "v005",
+    "v006",
+    "v007",
+    "v008",
+    "v009",
+    "v010",
+    "v011",
+    "v012",
+    "v013",
+    "v014",
+    "v015",
+    "v016",
+    "v017",
+    "v018",
+    "v019",
+    "v020",
+    "v021",
+    "v022",
+    "v023",
+    "v024",
+    "v025",
+    "v026",
+    "v027",
+    "v028",
+    "v029",
+    "v030",
+    "v031",
+    "v032",
+    "v033",
+    "v034",
+    "v035",
+    "v036",
+    "v037",
+    "v038",
+    "v039",
+    "v040",
+    "v041",
+    "v042",
+    "v043",
+    "v044",
+    "v045",
+    "v046",
+    "v047",
+    "v048",
+    "v049",
+    "v050",
+    "v051",
+    "v052",
+    "v053",
+    "v054",
+    "v055",
+    "v056",
+    "v057",
+    "v058",
+    "v059",
+    "v060"
+  ],
+  "collection": "lavermo",
+  "collectionAuthority": "User confirmed all 200 photos in Lavermo belong under the Lavermo category, 2026-11-19."
+}

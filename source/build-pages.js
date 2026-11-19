@@ -4,7 +4,7 @@
 const fs = require('fs'), path = require('path');
 const all = require('./catalog-data.js');
 const [SRC, OUT] = process.argv.slice(2);
-const src = fs.readFileSync(SRC, 'utf8');
+const src = fs.readFileSync(SRC, 'utf8').replace(/\r\n/g, '\n');
 
 function cut(a, b, from = 0) {
   const i = src.indexOf(a, from); if (i < 0) throw new Error('miss start: ' + a);
@@ -14,11 +14,11 @@ function cut(a, b, from = 0) {
 function rep(s, a, b) { if (!s.includes(a)) throw new Error('miss: ' + a.slice(0, 70)); return s.split(a).join(b); }
 
 const CATS = [
-  { k: 'c', slug: 'cotton', ar: 'بجامات قطني', en: 'Cotton', cover: 'cover-cotton', pos: 'l', obj: '40% 62%' },
-  { k: 's', slug: 'satin', ar: 'بجامات ستان', en: 'Satin', cover: 'cover-satin', pos: 'c', obj: '50% 50%' },
-  { k: 'r', slug: 'robes', ar: 'ارواب وعرائيسي', en: 'Robes · Bridal', cover: 'cover-robes', pos: 'l', obj: '62% 50%' },
-  { k: 'l', slug: 'lingerie', ar: 'لانجري', en: 'Lingerie', cover: 'cover-lingerie', pos: 'l', obj: '75% 40%' },
-  { k: 'u', slug: 'sets', ar: 'طواقم داخلي', en: 'Sets', cover: 'cover-sets', pos: 'l', obj: '50% 40%', banner: 'banner-sets', bobj: '70% 50%' },
+  { k: 'c', slug: 'cotton', ar: 'بجامات قطني', en: 'Cotton', obj: '40% 62%' },
+  { k: 's', slug: 'satin', ar: 'بجامات ستان', en: 'Satin', obj: '50% 50%' },
+  { k: 'r', slug: 'robes', ar: 'أرواب وعرائسي', en: 'Robes · Bridal', obj: '62% 50%' },
+  { k: 'l', slug: 'lingerie', ar: 'لانجري', en: 'Lingerie', obj: '75% 40%' },
+  { k: 'u', slug: 'sets', ar: 'طواقم داخلي', en: 'Sets', obj: '50% 40%' },
 ];
 const count = {}; for (const p of all) count[p.c] = (count[p.c] || 0) + 1;
 
@@ -28,19 +28,21 @@ const fonts = cut('<link rel="stylesheet" href="https://fonts.googleapis.com', '
 let header = cut('  <!-- HEADER -->', '  <main id="top">');
 let homeTop = cut('    <!-- HERO -->', '    <!-- CATALOGUE -->');
 // product data always comes from catalog-data.js, never the copy embedded in the source page
-const dataScript = '    <script type="application/json" id="catalog-data">' + JSON.stringify(all.map((p) => ({ id: p.id, c: p.c, n: p.n, i: p.img }))) + '</script>\n';
+const catalogJSON = JSON.stringify(all.map((p) => ({ id: p.id, c: p.c, n: p.n, i: p.img, ...(p.brand ? {brand:p.brand} : {}) })));
+const dataScript = '    <script type="application/json" id="catalog-data">' + catalogJSON + '</script>\n';
 let about = cut('    <!-- ABOUT -->', '    <!-- BAND -->');
 const band = cut('    <!-- BAND -->', '  </main>');
 let footer = cut('  <!-- FOOTER -->', '<!-- SHOP:');
 const shop = cut('<!-- SHOP:', '<!-- FLANN WEBSITE CHAT -->');
-const chat = cut('<!-- FLANN WEBSITE CHAT -->', '<script>\n// Client strip');
-let script = cut('<script>\n// Client strip', null);
+const chat = cut('<!-- FLANN WEBSITE CHAT -->', '<script>\n// Product carousels.');
+let script = cut('<script>\n// Product carousels.', null);
 
 // ── shared CSS additions: nav state, category page ──
 style = rep(style, '@media (prefers-reduced-motion:reduce)', `/* ── navigation + category pages ────────────────────────────────────── */
 nav a[aria-current="page"]{color:var(--wine)}
 /* ── site header ─────────────────────────────────────────────────────── */
-.page{overflow:clip}
+.page{overflow:clip;margin-block:0}
+.page:has(.site-head--campaign){max-width:none}
 .announce{display:block; background:var(--wine); color:#f6e9e8; text-align:center; font:400 13px/1.5 var(--f-sans); padding:9px var(--pad); transition:color .15s}
 .announce:hover{color:#fff}
 .announce bdi{font-weight:500}
@@ -65,6 +67,97 @@ nav a[aria-current="page"]{color:var(--wine)}
 .mainnav a::after{content:""; position:absolute; left:50%; right:50%; bottom:9px; height:1px; background:var(--wine); transition:left .3s cubic-bezier(.2,.7,.2,1), right .3s cubic-bezier(.2,.7,.2,1)}
 .mainnav a:hover,.mainnav a[aria-current="page"]{color:var(--wine)}
 .mainnav a:hover::after,.mainnav a[aria-current="page"]::after{left:0; right:0}
+@media (min-width:921px){
+  .hbar{grid-template-columns:minmax(0,1fr) auto;padding-block:14px 10px;column-gap:24px;row-gap:7px}
+  .h-start{display:none}
+  .site-head .logo{grid-column:1/-1;grid-row:1}
+  .mainnav{grid-column:1;grid-row:2;justify-content:flex-start;gap:clamp(10px,1.75vw,30px);border:0}
+  .mainnav a{font:600 clamp(13px,1.25vw,17px)/1.1 var(--f-sans);padding:12px 1px}
+  .mainnav a::after{bottom:5px}
+  .h-icons{grid-column:2;grid-row:2}
+}
+@media (max-width:920px){
+  .h-loc,.h-icons .hide-m,.h-icons .sep,.mainnav{display:none}
+  .menu-btn{display:grid}
+  .site-head .logo img{height:49px}
+}
+.site-head--campaign{
+  position:relative;height:0;overflow:visible;background:transparent;color:#fff;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+}
+.site-head--campaign .hbar{
+  position:relative;grid-template-columns:1fr auto 1fr;
+  gap:4px 20px;max-width:none;margin:0;padding:8px clamp(18px,4vw,66px) 2px;transition:background-color .24s,color .24s;
+}
+.site-head--campaign .logo{grid-column:1/-1;grid-row:1;color:inherit}
+.campaign-wordmark{
+  display:flex;align-items:center;gap:.11em;
+  font:600 18vw/.78 var(--f-latin-script);letter-spacing:.08em;
+}
+.site-head--campaign .logo .campaign-icon{
+  height:.59em;width:auto;flex:none;filter:brightness(0) invert(1);
+}
+.site-head--campaign .mainnav{
+  grid-column:1/3;grid-row:2;justify-content:flex-start;align-items:center;gap:clamp(20px,3.25vw,54px);
+}
+.site-head--campaign .mainnav a,.mega-trigger{
+  padding:12px 0;color:inherit;font:500 clamp(18px,1.55vw,23px)/1.3 var(--f-sans);
+}
+.site-head--campaign .mainnav a::after{background:currentColor}
+.site-head--campaign .h-icons{grid-column:3;grid-row:2;gap:clamp(7px,1vw,14px)}
+.site-head--campaign .h-icons :is(a,button),.site-head--campaign .menu-btn{
+  color:inherit;padding:0;min-width:40px;min-height:44px;
+}
+.site-head--campaign .h-icons .sep{display:none}
+.mega-trigger,.editorial-drawer button{background:none;border:0;color:inherit;cursor:pointer;font-family:inherit}
+.mega-trigger[aria-expanded="true"]{text-decoration:underline;text-underline-offset:7px}
+.mega-panel{
+  position:absolute;inset-inline:0;top:100%;background:#fff;
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:clamp(8px,1.2vw,18px);
+  padding:22px clamp(18px,4vw,66px) 30px;
+}
+.site-head--campaign.is-mega-open .hbar{background:#fff;color:#111}
+.site-head--campaign.is-mega-open .campaign-icon{filter:brightness(0)}
+@media (min-width:921px) and (hover:hover) and (pointer:fine){
+  .site-head--campaign .hbar:hover{background:#fff;color:#111}
+  .site-head--campaign .hbar:hover .campaign-icon{filter:brightness(0)}
+}
+
+.mega-panel[hidden],.editorial-drawer [hidden]{display:none}
+.site-head--campaign .mega-panel a,.drawer-collections a{position:relative;display:block;padding:0;color:#fff6ed;font-size:13px}
+.mega-panel a::after{content:none}
+.mega-panel img,.drawer-collections img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.74)}
+.mega-panel a span,.drawer-collections a span{
+  position:absolute;inset-inline:10px;bottom:10px;text-shadow:0 1px 5px #110507;
+}
+.site-head--campaign .mega-panel a{color:#111;font-size:clamp(14px,1.4vw,21px)}
+.mega-panel img{filter:none}
+.mega-panel a span{position:static;display:block;margin-top:8px;text-shadow:none}
+.mega-panel small,.drawer-collections small{display:block;font-size:11px}
+.site-head--campaign :focus-visible,.editorial-drawer :focus-visible{outline:2px solid currentColor;outline-offset:3px}
+dialog.sheet.editorial-drawer{
+  position:fixed;inset:0;margin:0;width:100%;max-width:none;height:100dvh;max-height:none;
+  padding:24px;color:#fff6ed;background:transparent;border-radius:0;overflow:auto;
+}
+.editorial-drawer::backdrop{background:#39121eba;backdrop-filter:blur(9px)}
+.editorial-drawer .drawer-controls{display:flex;align-items:center;justify-content:flex-end;gap:16px}
+.editorial-drawer .drawer-controls button{min-height:44px;font-size:17px}
+.drawer-main{display:grid;justify-items:start;gap:24px;margin-top:clamp(44px,12vh,120px)}
+.drawer-main :is(a,button){padding:0;font-size:clamp(27px,7vw,42px);font-weight:500}
+.drawer-collections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:24px}
+@media(prefers-reduced-motion:no-preference){
+  .mega-panel:not([hidden]),.editorial-drawer[open],.editorial-drawer [data-menu-view]:not([hidden]){
+    animation:editorial-menu-in .28s ease both;
+  }
+  @keyframes editorial-menu-in{from{opacity:0;transform:translateY(-9px)}to{opacity:1;transform:none}}
+}
+@media (max-width:920px){
+  .site-head--campaign .hbar{padding-inline:14px;gap:0 5px}
+  .site-head--campaign .mainnav{display:none}
+  .site-head--campaign .h-start{grid-column:1;grid-row:2}
+  .site-head--campaign .h-icons{gap:4px}
+  .campaign-wordmark{font-size:18.4vw}
+}
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
@@ -73,6 +166,7 @@ nav a[aria-current="page"]{color:var(--wine)}
 .md-list a{display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid rgba(17,17,17,.06); font:500 21px/1.2 var(--f-serif); color:var(--ink)}
 .md-list a[aria-current="page"]{color:var(--wine)}
 .md-list img{width:54px; height:54px; border-radius:14px; object-fit:cover; flex:none}
+.md-list .md-lavermo{object-fit:contain;background:#952053;padding:7px}
 .md-list .tx small{display:block; margin-top:5px; font:500 10px/1 var(--f-latin-script); letter-spacing:.28em; text-transform:uppercase; color:var(--grey-2); direction:ltr; text-align:right}
 .md-list .plain{padding-inline-start:68px}
 .md-foot{padding:16px 20px 22px; display:grid; gap:10px; border-top:1px solid rgba(17,17,17,.08)}
@@ -82,18 +176,65 @@ nav a[aria-current="page"]{color:var(--wine)}
   .menu-btn{display:grid}
   .hbar{padding-block:12px}
   .site-head .logo img{height:48px}
-  .site-head.scrolled .logo img{height:38px}
+  .site-head.scrolled .logo img:not(.campaign-icon){height:38px}
   .mainnav{display:none}
 }
 .crumbs{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13.5px; color:var(--grey-2); margin:0 0 14px; padding:0}
 .crumbs a:hover{color:var(--wine)}
 .crumbs [aria-current]{color:var(--ink)}
-.cat-hero{position:relative; border-radius:26px; overflow:hidden; height:clamp(230px,30vw,430px); background:#2a1418; color:#fff; container-type:inline-size}
-.cat-hero .cover{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
-.cat-hero .lab{margin:0; top:50%; transform:translateY(-50%); --fs:clamp(40px,7.4cqi,96px)}
-.cat-hero .lab.c{transform:translate(-50%,-50%)}
-.cat-hero .lab .en{font-size:clamp(11px,1.3cqi,14px)}
-.cat-hero.sets .lab{--fs:clamp(34px,5.6cqi,70px)}
+.cat-hero{
+  position:relative; display:flex; align-items:center; isolation:isolate; overflow:hidden;
+  min-height:clamp(265px,40vw,590px); background:#260e13; color:#fff3ed;
+  padding:clamp(26px,5vw,72px); container-type:inline-size;
+}
+.cat-hero .cover{
+  position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:left center;
+}
+.cat-hero .lab{
+  position:relative; align-items:flex-start; text-align:start; max-width:57%;
+  margin:0; --fs:clamp(47px,8.5cqi,107px);
+}
+.cat-hero .lab .ar{white-space:normal; text-wrap:balance}
+.cat-hero.satin{padding-block:clamp(22px,3vw,44px)}
+.cat-hero.satin::before{content:none}
+.cat-hero.satin .cover{object-position:left 22%}
+.cat-hero.satin .lab{
+  max-width:80%; gap:0; --fs:clamp(84px,16cqi,185px);
+  margin-inline-start:23%; transform:translateY(-10%); color:#f4d9d0;
+}
+.cat-hero.satin .lab .ar{white-space:nowrap; line-height:.73}
+.cat-hero.satin .satin-foreground{z-index:2; pointer-events:none}
+@media (max-width:620px){
+  .cat-hero.satin .cover{object-position:left center}
+  .cat-hero.satin .lab{--fs:clamp(51px,17.5cqi,82px); margin-inline-start:4%; transform:translateY(-23%)}
+}
+.cat-hero.robes{padding-block:clamp(24px,3vw,44px)}
+.cat-hero.robes .cover{object-position:left 22%}
+.cat-hero.robes .lab{
+  align-items:flex-start; gap:0; margin-inline-start:3%; max-width:55%;
+  --fs:clamp(65px,12.8cqi,143px);
+}
+.cat-hero.robes .lab .ar{white-space:nowrap}
+@media (max-width:620px){
+  .cat-hero.robes .lab{--fs:clamp(44px,14cqi,69px); margin-inline-start:0}
+}
+.cat-hero:is(.cotton,.sets) .lab{margin-inline-start:7%; --fs:clamp(64px,12cqi,144px)}
+.cat-hero.cotton .lab{margin-inline-start:2%; --fs:clamp(42px,8.4cqi,112px); max-width:65%}
+.cat-hero.sets .lab .ar + .ar{font-size:calc(var(--fs) * 1.23)}
+.cat-hero.lingerie .lab{margin-inline-start:5%; --fs:clamp(56px,12cqi,144px)}
+.cat-hero.sets .lab .ar{line-height:.83; white-space:nowrap}
+.lavermo-hero{min-height:clamp(255px,35vw,500px); border-radius:24px}
+.lavermo-hero .lavermo-mark{width:clamp(210px,36vw,435px)}
+.lavermo-details{text-align:center; padding-block:clamp(21px,4vw,44px)}
+.lavermo-details h1{font:600 clamp(30px,4.8vw,57px)/1.2 var(--f-sans); color:#7c204e; margin:0}
+.lavermo-details p{max-width:43ch;margin:13px auto 0;color:var(--ink);font:400 17px/1.55 var(--f-sans)}
+.lavermo-details .pill{font-size:16px; margin-top:16px; background:#7c204e; color:#fff; padding-block:11px}
+.lavermo-details .pill:hover{background:#64173e}
+@media (max-width:620px){
+  .cat-hero:is(.sets,.lingerie) .lab{margin-inline-start:0; --fs:clamp(36px,15cqi,68px)}
+  .cat-hero.cotton .lab{margin-inline-start:0; --fs:clamp(29px,11cqi,56px)}
+}
 .toolbar{display:flex; justify-content:space-between; align-items:center; gap:14px 24px; flex-wrap:wrap; margin:clamp(26px,3vw,40px) 0 clamp(26px,3vw,40px)}
 .toolbar .count{margin:0; font-size:14.5px; color:var(--grey-2); line-height:1.7}
 .toolbar .count b{color:var(--ink); font-weight:600}
@@ -104,15 +245,73 @@ nav a[aria-current="page"]{color:var(--wine)}
 .empty{text-align:center; color:var(--grey-2); font-size:15px; padding:40px 0}
 .others{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:clamp(12px,1.6vw,22px)}
 .other{display:block; text-align:center}
-.other .ph{display:block; aspect-ratio:4/5; border-radius:20px; overflow:hidden; background:#2a1418}
+.other .ph{display:block; aspect-ratio:4/5; overflow:hidden; background:#2a1418}
 .other .ph img{width:100%; height:100%; object-fit:cover; transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .other:hover .ph img{transform:scale(1.04)}
 .other .nm{display:block; font-family:var(--f-script); font-weight:400; font-size:clamp(24px,2.2vw,32px); line-height:1.15; margin-top:12px; transition:color .15s}
 .other:hover .nm{color:var(--wine)}
 .other .en{display:block; font-family:var(--f-latin-script); font-weight:500; text-transform:uppercase; letter-spacing:.3em; font-size:11px; color:var(--grey-2); direction:ltr; margin-top:6px}
-@media (max-width:620px){ .cat-hero .lab{--fs:clamp(24px,7.4cqi,32px)} .cat-hero.sets .lab{--fs:clamp(22px,6.5cqi,30px)} .cat-hero.robes .cover{object-position:88% 50% !important} .cat-hero.sets .cover{object-position:0% 50% !important} }
+@media (max-width:620px){
+  .cat-hero .lab{--fs:clamp(33px,11cqi,62px)}
+}
 @media (max-width:760px){ .others{grid-template-columns:repeat(2,minmax(0,1fr))} .toolbar{flex-direction:column; align-items:stretch} .search{width:100%} }
 
+.catalog-intro{padding-block:clamp(28px,4vw,58px) 0}
+.catalog-intro p{margin:0;font-size:clamp(17px,2vw,23px);color:var(--ink-2);max-width:50ch}
+.catalog-controls{display:grid;grid-template-columns:minmax(180px,2fr) minmax(115px,1fr) minmax(140px,1fr);gap:12px}
+.catalog-controls .search{width:auto}
+#catalogSort{grid-column:-2/-1}
+.catalog-controls select,.catalog-controls input{
+  width:100%;min-height:48px;border:1px solid #d9bec7;border-radius:0;background:#fff;
+  color:var(--ink);font:inherit;padding:0 12px
+}
+.catalog-controls input{padding-inline-start:42px}
+.catalog-controls :focus-visible,.product-view :focus-visible,.related-product:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+.catalog-controls .search input:focus-visible{outline:2px solid var(--wine);outline-offset:3px}
+#catalog .toolbar{display:block}
+#catalog .grid{gap:clamp(27px,4vw,56px) clamp(10px,2vw,28px)}
+#catalog .pc{text-align:start}
+#catalog .pc h3{min-height:0;margin:12px 0 4px;font-weight:600}
+#catalog .pc h3 a:hover,.related-product:hover{color:var(--wine);text-decoration:underline;text-underline-offset:4px}
+.pc .pc-meta{margin:0 0 11px;color:var(--grey-2);font-size:12px}
+.pc .act{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.pc .act .step{border-radius:100px}
+.pc .act .step{width:fit-content;min-width:128px}
+.quick-shop{
+  border-radius:100px;  min-height:44px;padding-block:6px;border:1px solid #ddcbd0;background:#fff;
+  color:var(--wine);font:500 13px var(--f-sans);cursor:pointer;transition:background-color .2s
+}
+.quick-shop:hover{background:#faf0f4}
+.product-view{
+  display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);direction:ltr;
+  gap:clamp(22px,5vw,76px);align-items:start;margin-block:12px clamp(45px,8vw,100px)
+}
+.product-view > *{direction:rtl}
+.product-stage{margin:0;position:relative;overflow:hidden;background:#f8f3f5;aspect-ratio:4/5;max-height:74svh}
+.product-stage img{display:block;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;transition:transform .35s}
+.product-stage.is-zoomed img{transform:scale(1.65)}
+.product-zoom{
+  border-radius:100px;  position:absolute;inset:auto 12px 12px auto;min-height:44px;padding-block:7px;
+  border:1px solid #d9bec7;background:var(--cream);color:var(--wine);font:inherit;cursor:pointer
+}
+.product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
+.product-info > *{margin:0}
+.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-kicker{color:var(--wine);font-weight:600}
+.product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
+.product-info .qty{justify-content:flex-start}
+.product-info .product-add,.product-info .product-ask{min-height:46px}
+.product-feedback{color:var(--wine);min-height:1.6em}
+.product-related{padding-block-end:clamp(36px,7vw,90px)}
+.related-product{display:grid;gap:8px;font-weight:600}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+@media (max-width:700px){
+  .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+  .catalog-controls .search{grid-column:1/-1}
+  .product-view{grid-template-columns:minmax(0,1fr);gap:12px}
+  .product-stage{aspect-ratio:1}
+  .pc .act .add{padding-inline:20px;font-size:13px}
+}
 @media (prefers-reduced-motion:reduce)`);
 
 // ── header/nav/footer: real links between pages ──
@@ -126,20 +325,38 @@ const ICO = {
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya';
 function headerFor(active) {
   const cur = (k) => (k === active ? ' aria-current="page"' : '');
-  const links = [['index.html', 'الرئيسية', 'home'], ...CATS.map((c) => [c.slug + '.html', c.ar, c.slug]), ['#contact', 'تواصل معنا', 'contact']];
+  const campaign = active === 'home';
+  const links = [['index.html', 'الرئيسية', 'home'],
+    ...CATS.map((c) => [c.slug + '.html', c.ar, c.slug]),
+    ['lavermo.html', 'Lavermo', 'lavermo'], ['#contact', 'تواصل معنا', 'contact']];
+  const collectionTiles = `
+      ${['lingerie','satin','cotton','robes','sets'].map(slug => CATS.find(c => c.slug === slug)).map((c) => `<a href="${c.slug}.html"><img src="img/home-edit-${c.slug}-480.webp" alt="" loading="lazy"><span>${c.ar}</span></a>`).join('')}
+      <a href="lavermo.html"><img src="img/home-edit-lavermo-480.webp" alt="" loading="lazy"><span><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a>
+  `;
+  const mega = campaign ? `<div class="mega-panel" id="collectionNav" hidden>${collectionTiles}</div>` : '';
   const drawer = [
     `<li><a class="plain" href="index.html"${cur('home')}>الرئيسية</a></li>`,
-    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><img src="img/${c.cover}.webp" alt="" loading="lazy" style="object-position:${c.obj}"><span class="tx">${c.ar}<small>${c.en} · ${count[c.k]}</small></span></a></li>`),
+    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><img src="${campaign ? `img/home-edit-${c.slug}-480.webp` : `img/collection-${c.slug}-480.webp?v=cover-sync`}" alt="" loading="lazy" style="object-position:${campaign ? 'center' : c.obj}"><span class="tx">${c.ar}<small>${c.en} · ${count[c.k]}</small></span></a></li>`),
+    `<li><a href="lavermo.html"${cur('lavermo')}><img ${campaign ? 'src="img/home-edit-lavermo-480.webp"' : 'class="md-lavermo" src="img/lavermo-lockup.webp"'} alt="" loading="lazy"><span class="tx"><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a></li>`,
     `<li><a class="plain" href="#contact">تواصل معنا</a></li>`,
   ].join('\n        ');
   return `  <a class="announce" href="https://wa.me/218919282214" target="_blank" rel="noopener">جملة فقط للتجار وأصحاب المحلات · اطلب على واتساب <bdi dir="ltr">0919282214</bdi></a>
-  <header class="site-head" id="siteHead">
+  <header class="site-head${active === 'home' ? ' site-head--campaign' : ''}" id="siteHead">
     <div class="hbar in">
       <div class="h-start">
-        <button class="menu-btn" id="menuBtn" type="button" aria-label="القائمة" aria-controls="menuD">${ICO.menu}</button>
+        <button class="menu-btn" id="menuBtn" type="button" aria-label="القائمة" aria-controls="menuD" aria-expanded="false">${ICO.menu}</button>
         <a class="h-loc" href="${MAPS}" target="_blank" rel="noopener">${ICO.pin}طرابلس، شارع الرشيد</a>
       </div>
-      <a class="logo" href="index.html"><img src="img/logo-mark.png" alt="بيـوري Purey" width="293" height="240"></a>
+      <a class="logo" href="index.html">${campaign
+        ? '<span class="campaign-wordmark" dir="ltr" lang="en"><img class="campaign-icon" src="img/logo-icon-white.png" width="293" height="179" alt="">PUREY</span>'
+        : '<img src="img/logo-mark.png" alt="بيـوري Purey" width="293" height="240">'}</a>
+      <nav class="mainnav" aria-label="القائمة">
+  ${campaign ? `<a href="index.html" aria-current="page">الرئيسية</a>
+        <button type="button" class="mega-trigger" id="collectionTrigger" aria-expanded="false" aria-controls="collectionNav">التشكيلات</button>
+        ${mega}
+        <a href="lavermo.html"><bdi lang="en">Lavermo</bdi></a>
+        <a href="#contact">تواصل معنا</a>` : links.map(([href, label, key]) => `      <a href="${href}"${cur(key)}>${label}</a>`).join('\n')}
+      </nav>
       <div class="h-icons">
         <a class="hide-m" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener" aria-label="تيك توك">${ICO.tt}</a>
         <a href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب">${ICO.wa}</a>
@@ -147,11 +364,20 @@ function headerFor(active) {
         <button class="bag-btn" id="bagBtn" type="button" aria-label="طلبك">${ICO.bag}<span class="badge" id="bagBadge"></span></button>
       </div>
     </div>
-    <nav class="mainnav in" aria-label="القائمة">
-${links.map(([href, label, key]) => `      <a href="${href}"${cur(key)}>${label}</a>`).join('\n')}
-    </nav>
   </header>
-  <dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
+  ${campaign ? `<dialog class="sheet editorial-drawer" id="menuD" aria-label="القائمة">
+    <div class="drawer-controls">
+      <button type="button" data-menu-back hidden>رجوع</button>
+      <button type="button" data-close>إغلاق</button>
+    </div>
+    <nav class="drawer-main" data-menu-view="main" aria-label="القائمة الرئيسية">
+      <a href="index.html" aria-current="page">الرئيسية</a>
+      <button type="button" data-menu-collections aria-expanded="false" aria-controls="drawerCollections">التشكيلات</button>
+      <a href="lavermo.html"><bdi lang="en">Lavermo</bdi></a>
+      <a href="#contact">تواصل معنا</a>
+    </nav>
+    <nav class="drawer-collections" id="drawerCollections" data-menu-view="collections" aria-label="التشكيلات" hidden>${collectionTiles}</nav>
+  </dialog>` : `<dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
     <button class="x" type="button" data-close aria-label="إغلاق">✕</button>
     <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey"></div>
     <ul class="md-list">
@@ -161,21 +387,17 @@ ${links.map(([href, label, key]) => `      <a href="${href}"${cur(key)}>${label}
       <a class="btn solid" href="https://wa.me/218919282214" target="_blank" rel="noopener">${ICO.wa} اطلب على واتساب</a>
       <a class="btn line" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك <bdi dir="ltr">@purey116</bdi></a>
     </div>
-  </dialog>
+  </dialog>`}
 `;
 }
 function navFor(active) {
-  const items = [['index.html', 'الرئيسية', 'home'], ...CATS.map((c) => [c.slug + '.html', c.ar, c.slug]), ['#contact', 'تواصل معنا', 'contact']];
+  const items = [['index.html', 'الرئيسية', 'home'], ...CATS.map((c) => [c.slug + '.html', c.ar, c.slug]), ['lavermo.html', 'Lavermo', 'lavermo'], ['#contact', 'تواصل معنا', 'contact']];
   return `    <nav aria-label="القائمة">\n${items.map(([href, label, key]) => `      <a href="${href}"${key === active ? ' aria-current="page"' : ''}>${label}</a>`).join('\n')}\n    </nav>`;
 }
 header = rep(header, '<a class="logo" href="#top">', '<a class="logo" href="index.html">');
 header = header.replace(/    <nav aria-label="الأقسام">[\s\S]*?<\/nav>/, '%%NAV%%');
-footer = rep(footer, `<li><a href="#c-cotton">بجامات قطني</a></li>
-          <li><a href="#c-satin">بجامات ستان</a></li>
-          <li><a href="#c-robes">ارواب وعرائيسي</a></li>
-          <li><a href="#c-lingerie">لانجري</a></li>
-          <li><a href="#c-sets">طواقم داخلي</a></li>`, CATS.map((c) => `<li><a href="${c.slug}.html">${c.ar}</a></li>`).join('\n          '));
-footer = rep(footer, '<li><a href="#about">من نحن</a></li>', '<li><a href="index.html#about">من نحن</a></li>');
+footer = rep(footer, '<!-- FOOTER COLLECTION LINKS -->',
+  [...CATS.map(({slug,ar}) => `<a href="${slug}.html">${ar}</a>`), '<a href="lavermo.html">Lavermo</a>'].join('\n        '));
 
 // home: tiles → pages, "all collections" → the tiles
 for (const c of CATS) homeTop = rep(homeTop, `href="#c-${c.slug}"`, `href="${c.slug}.html"`);
@@ -185,16 +407,68 @@ homeTop = rep(homeTop, '<a class="pill" href="https://wa.me/218919282214" target
 script = rep(script, '// ── Catalogue + order basket', `// ── Header: condense on scroll, phone menu ──────────────────────────
 (function(){
   const head = document.getElementById('siteHead'); if (!head) return;
-  const on = () => head.classList.toggle('scrolled', scrollY > 60);
+  const on = () => head.classList.toggle('scrolled', !head.classList.contains('site-head--campaign') && scrollY > 60);
   addEventListener('scroll', on, {passive: true}); on();
   const m = document.getElementById('menuD'), b = document.getElementById('menuBtn');
   if (m && b) {
-    b.addEventListener('click', () => m.showModal());
+    b.addEventListener('click', () => {
+      m.showModal();
+      b.setAttribute('aria-expanded', 'true');
+      head.classList.add('is-drawer-open');
+    });
+    m.addEventListener('close', () => {
+      b.setAttribute('aria-expanded', 'false');
+      head.classList.remove('is-drawer-open');
+    });
     m.addEventListener('click', e => { if (e.target.closest('a')) m.close(); });
+  }
+  const trigger = document.getElementById('collectionTrigger');
+  if (!trigger) return;
+  const panel = document.getElementById('collectionNav');
+  const bar = trigger.closest('.hbar');
+  const desktop = matchMedia('(min-width:921px)');
+  const setOpen = open => {
+    panel.hidden = !open;
+    trigger.setAttribute('aria-expanded', String(open));
+    head.classList.toggle('is-mega-open', open);
+  };
+  trigger.addEventListener('click', () => setOpen(panel.hidden));
+  document.addEventListener('pointerdown', e => {
+    if (!trigger.contains(e.target) && !panel.contains(e.target)) setOpen(false);
+  });
+  const openCollections = m.querySelector('[data-menu-collections]');
+  const back = m.querySelector('[data-menu-back]');
+  const mainView = m.querySelector('[data-menu-view="main"]');
+  const collectionView = m.querySelector('[data-menu-view="collections"]');
+  const showCollections = open => {
+    mainView.hidden = open;
+    collectionView.hidden = !open;
+    back.hidden = !open;
+    openCollections.setAttribute('aria-expanded', String(open));
+  };
+  openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
+  back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
+  m.addEventListener('close', () => showCollections(false));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !panel.hidden) {
+      setOpen(false);
+      if (bar.contains(document.activeElement)) trigger.focus();
+    }
+  });
+  desktop.addEventListener('change', () => setOpen(false));
+
+  if (matchMedia('(prefers-reduced-motion: no-preference)').matches && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('campaign-copy-visible');
+        observer.unobserve(entry.target);
+      });
+    }, {threshold: 0.25});
+    document.querySelectorAll('.campaign:not(:first-child) .campaign-copy').forEach(copy => observer.observe(copy));
   }
 })();
 // ── Catalogue + order basket`);
-script = rep(script, "  const strip=document.getElementById('clients');\n", "  const strip=document.getElementById('clients');\n  if(!strip) return;\n");
 script = script.replace(/\/\/ Product carousels\.[\s\S]*?\n\}\);\n(?=\/\/ ── Catalogue)/, '');
 script = rep(script, "  const tabs = [...document.querySelectorAll('.tabs [data-cat]')];\n", '');
 script = rep(script, "    const el = grid.querySelector(", "    if (!grid) return;\n    const el = grid.querySelector(");
@@ -203,22 +477,34 @@ script = rep(script, "    const el = grid.querySelector(", "    if (!grid) retur
   if (a < 0 || b < 0) throw new Error('catalogue block');
   script = script.slice(0, a) + `  // category page: one category's products, searchable, 24 at a time
   const PAGE = grid ? grid.dataset.cat : null, PER = 24;
+  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE;
   const norm = s => String(s).toLowerCase().replace(/[\\u064B-\\u0652\\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
   let items = [], shown = 0;
   function status(){ shownEl.textContent = items.length ? 'عرض ' + shown + ' من ' + items.length : ''; more.hidden = shown >= items.length; $('empty').hidden = !!items.length; }
   function addMore(){ const next = items.slice(shown, shown + PER); grid.insertAdjacentHTML('beforeend', next.map(card).join('')); shown += next.length; status(); }
-  function filter(q){
-    const words = norm(q).split(/\\s+/).filter(Boolean);
-    items = DATA.filter(p => p.c === PAGE && words.every(w => norm(p.n + ' ' + p.id).includes(w)));
+  function filter(){
+    const color = $('catalogColor').value, sort = $('catalogSort').value;
+    const words = norm($('q').value).split(/\\s+/).filter(Boolean);
+    items = DATA.filter(p => inCollection(p) && norm(p.n).includes(color) && words.every(w => norm(p.n + ' ' + p.id).includes(w)));
+    if (sort === 'name') items.sort((a, b) => a.n.localeCompare(b.n, 'ar'));
+    if (sort === 'code') items.sort((a, b) => a.id.localeCompare(b.id, undefined, {numeric:true}));
     shown = 0; grid.innerHTML = ''; addMore();
   }
   if (grid) {
     more.addEventListener('click', addMore);
-    const q = $('q'); if (q) q.addEventListener('input', () => filter(q.value));
+    const q = $('q'), color = $('catalogColor'), sort = $('catalogSort');
+    const catalog = DATA.filter(inCollection);
+    for (const label of ['أسود','أبيض','عاجي','وردي','أحمر','أزرق','أخضر','رمادي','بني','بيج','كحلي','بنفسجي']) {
+      if (catalog.some(p => norm(p.n).includes(norm(label)))) color.add(new Option(label, norm(label)));
+    }
+    if (color.options.length === 1) color.hidden = true;
+    q.addEventListener('input', filter);
+    color.addEventListener('change', filter);
+    sort.addEventListener('change', filter);
     grid.addEventListener('click', e => {
       const pc = e.target.closest('.pc'); if (!pc) return;
       const id = pc.dataset.id;
-      if (e.target.closest('.pc-hit')) return openQV(id);
+      if (e.target.closest('.quick-shop')) return openQV(id);
       if (e.target.closest('.add')) return setQty(id, DEFAULT_QTY, true);
       const d = e.target.closest('[data-d]'); if (d) setQty(id, (bag[id] || 0) + Number(d.dataset.d));
     });
@@ -229,43 +515,104 @@ script = rep(script, "    const el = grid.querySelector(", "    if (!grid) retur
 script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
   select(start || 'c', false);
   if (start) addEventListener('load', () => { $('catalog').scrollIntoView(); select(start, false); });
-  renderBag();`, `  if (grid) filter('');
+  renderBag();`, `  if (grid) filter();
+  const product = document.querySelector('.product-view');
+  if (product) {
+    const id = product.dataset.product;
+    const qty = $('productQty'), add = $('productAdd');
+    qty.textContent = bag[id] || DEFAULT_QTY;
+    if (bag[id]) add.textContent = 'حدّث الكمية في الطلب';
+    const changeQty = step => { qty.textContent = Math.min(9999, Math.max(1, Number(qty.textContent) + step)); };
+    $('productMinus').addEventListener('click', () => changeQty(-1));
+    $('productPlus').addEventListener('click', () => changeQty(1));
+    add.addEventListener('click', () => {
+      setQty(id, Number(qty.textContent), false);
+      add.textContent = 'حدّث الكمية في الطلب';
+      $('productFeedback').textContent = 'الكمية في طلبك: ' + qty.textContent + ' قطعة';
+    });
+    $('productZoom').addEventListener('click', e => {
+      const zoomed = e.currentTarget.closest('.product-stage').classList.toggle('is-zoomed');
+      e.currentTarget.setAttribute('aria-pressed', String(zoomed));
+      e.currentTarget.textContent = zoomed ? 'تصغير الصورة' : 'تكبير الصورة';
+    });
+  }
   renderBag();`);
+script = rep(script, "  const DATA = JSON.parse(document.getElementById('catalog-data').textContent);",
+  "  const DATA = window.PUREY_CATALOG || JSON.parse(document.getElementById('catalog-data').textContent);");
 
+const COLLECTION_INTROS = {
+  cotton: 'بجامات قطنية بألوان ونقشات متنوعة، من القصّات البسيطة للموديلات المطرّزة.',
+  satin: 'بجامات ستان بقصّات ناعمة ولمعة هادية، بدرجات سادة ونقشات مختلفة.',
+  robes: 'أرواب وملابس عرائس بتفاصيل من الدانتيل والتطريز.',
+  lingerie: 'تشكيلة لانجري بقصّات وتفاصيل مختلفة من الستان والدانتيل.',
+  sets: 'أطقم داخلية متناسقة بألوان وقصّات متنوعة.',
+};
 const SEARCH_ICO = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>';
-const lockup = (c, tag) => `<${tag} class="lab ${c.pos}"><span class="ar">${c.ar}</span><span class="rule" aria-hidden="true"></span><span class="en" lang="en">${c.en} · ${count[c.k]}</span></${tag}>`;
-
-function page({ title, desc, active, main, full }) {
-  const body = `<div class="page" dir="rtl" lang="ar">\n\n${headerFor(active)}\n  <main id="top">\n\n${main}\n  </main>\n\n${footer}${shop}${chat}${script}`;
-  if (!full) return `<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="claude:viewport-fit-sides" content="cover">\n${fonts}\n${style}\n\n${body}`;
-  return `<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n${fonts}\n${style}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
+function lockup(c) {
+  if (['satin','robes','sets'].includes(c.slug)) {
+    const words = c.ar.split(' ').map((word) => `<span class="ar">${word}</span>`).join(' ');
+    return `<h1 class="lab stack-title ${c.slug}-title">${words}</h1>`;
+  }
+  return `<h1 class="lab"><span class="ar">${c.ar}</span></h1>`;
 }
 
+const escapeHTML = value => String(value).replace(/[&<>"]/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;'}[char]));
+function page({ title, desc, active, main, full, product = false }) {
+  const styles = product ? '<link rel="stylesheet" href="product-pages.css">' : style;
+  const behavior = product ? '<script src="product-catalog.js"></script><script src="product-pages.js"></script>' : script;
+  const body = `<div class="page" dir="rtl" lang="ar">\n\n${headerFor(active)}\n  <main id="top">\n\n${main}\n  </main>\n\n${footer}${shop}${chat}${behavior}<script defer src="purey-chat.js"></script>`;
+  if (!full) return `<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="claude:viewport-fit-sides" content="cover">\n${fonts}\n${styles}\n\n${body}`;
+  return `<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n${fonts}\n${styles}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
+}
+
+const askSection = `
+    <section class="purey-ask" id="ask-purey" aria-labelledby="ask-purey-title">
+      <div class="purey-ask-inner">
+        <h2 id="ask-purey-title">اسألوا بيوري</h2>
+        <p>من أول تشكيلة لطلب محلكم الجاي، نعاونوا في اختيار الموديلات والمقاسات ونورّوكم الصور.</p>
+        <form class="purey-ask-form" id="pureyAskForm">
+          <input id="pureyAskText" type="text" maxlength="1200" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" required>
+          <button type="submit" aria-label="إرسال السؤال">↑</button>
+        </form>
+        <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
+        <div class="purey-ask-prompts">
+          <button type="button" data-ask-purey="شن يميّز Lavermo؟">شن يميّز Lavermo؟</button>
+          <button type="button" data-ask-purey="قداش قطعة في الدستا؟">قداش قطعة في الدستا؟</button>
+          <button type="button" data-ask-purey="وريني اختيارات من الأكثر طلباً">ورّونا اختياراتكم</button>
+        </div>
+      </div>
+    </section>`;
+fs.copyFileSync(path.join(path.dirname(SRC), 'purey-chat.js'),path.join(OUT,'purey-chat.js'));
 // home (the artifact wraps it in a document itself)
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
   title: 'بيـوري Purey', desc: 'بيـوري — جملة بجامات قطني وستان، ارواب وعرائيسي، لانجري وطواقم داخلي. طرابلس، شارع الرشيد.',
-  active: 'home', main: homeTop + about + dataScript + band, full: false,
+  active: 'home', main: homeTop + about + askSection + dataScript + band, full: false,
 }));
 
 for (const c of CATS) {
-  const others = CATS.filter((o) => o !== c).map((o) => `        <a class="other" href="${o.slug}.html"><span class="ph"><img src="img/${o.cover}.webp" alt="" loading="lazy" decoding="async" style="object-position:${o.obj}"></span><span class="nm">${o.ar}</span><span class="en">${o.en} · ${count[o.k]}</span></a>`).join('\n');
+  const others = CATS.filter((o) => o !== c).map((o) => `        <a class="other" href="${o.slug}.html"><span class="ph"><img src="img/collection-${o.slug}-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:${o.obj}"></span><span class="nm">${o.ar}</span><span class="en">${o.en} · ${count[o.k]}</span></a>`).join('\n');
   const main = `    <div class="in">
       <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="index.html#cats">الأقسام</a><span aria-hidden="true">‹</span><span aria-current="page">${c.ar}</span></nav>
-      <div class="cat-hero ${c.slug}">
-        <img class="cover" src="img/${c.banner || c.cover}.webp" alt="" decoding="async" style="object-position:${c.bobj || c.obj}">
-        ${lockup(c, 'h1')}
-      </div>
     </div>
-
+    <div class="cat-hero ${c.slug}">
+        <img class="cover" src="img/collection-${c.slug}.webp?v=cover-sync" srcset="img/collection-${c.slug}-480.webp?v=cover-sync 480w, img/collection-${c.slug}-800.webp?v=cover-sync 800w, img/collection-${c.slug}.webp?v=cover-sync 1440w" sizes="(max-width:1440px) 100vw, 1440px" alt="" fetchpriority="high">
+        ${lockup(c)}${c.slug === 'satin' ? `\n        <img class="cover ${c.slug}-foreground" src="img/collection-${c.slug}-foreground.webp" srcset="img/collection-${c.slug}-foreground-480.webp 480w, img/collection-${c.slug}-foreground-800.webp 800w, img/collection-${c.slug}-foreground.webp 1440w" sizes="(max-width:1440px) 100vw, 1440px" alt="" aria-hidden="true">` : ''}
+    </div>
+    <div class="in catalog-intro"><p>${COLLECTION_INTROS[c.slug]} متوفرة بالجملة لأصحاب المحلات.</p></div>
     <section class="in" id="catalog" aria-label="${c.ar}">
       <div class="toolbar">
-        <p class="count"><b>${count[c.k]}</b> قطعة · جملة فقط — أضف القطع والكميات وابعت الطلب كامل على واتساب</p>
-        <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحث باللون أو النوع أو الرمز" aria-label="ابحث في ${c.ar}"></label>
+        <div class="catalog-controls">
+          <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحث بالاسم أو الرمز" aria-label="ابحث في ${c.ar}"></label>
+          <select id="catalogColor" aria-label="اللون"><option value="">كل الألوان</option></select>
+          <select id="catalogSort" aria-label="ترتيب المنتجات">
+            <option value="">ترتيب المجموعة</option><option value="name">الاسم</option><option value="code">رمز القطعة</option>
+          </select>
+        </div>
       </div>
       <div class="grid" id="grid" data-cat="${c.k}"></div>
       <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف — جرّب كلمة ثانية.</p>
       <div class="more-row">
-        <span class="shown" id="shown"></span>
+        <span class="shown" id="shown" role="status"></span>
         <button class="pill" id="more" type="button">عرض المزيد</button>
       </div>
     </section>
@@ -283,4 +630,79 @@ ${band}`;
     active: c.slug, main, full: true,
   }));
 }
-console.log('ok', ['index', ...CATS.map((c) => c.slug)].map((n) => n + ' ' + Math.round(fs.statSync(path.join(OUT, n + '.html')).size / 1024) + 'KB').join(', '));
+fs.writeFileSync(path.join(OUT, 'lavermo.html'), page({
+  title: 'Lavermo — إصدار محدود | Purey',
+  desc: 'تشكيلة Lavermo بإصدار محدود من بيـوري.',
+  active: 'lavermo',
+  main: `    <div class="in">
+      <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="index.html#cats">الأقسام</a><span aria-hidden="true">‹</span><span aria-current="page" lang="en">Lavermo</span></nav>
+      <div class="lavermo-surface lavermo-hero">
+        <img class="lavermo-mark" src="img/lavermo-lockup.webp" alt="Lavermo" lang="en" width="836" height="640" fetchpriority="high">
+        <span class="lavermo-limited">إصدار محدود</span>
+      </div>
+      <section class="lavermo-details" aria-labelledby="lavermo-title">
+        <h1 id="lavermo-title">تشكيلة <bdi lang="en">Lavermo</bdi> المحدودة</h1>
+        <p>علامة بيوري الخاصة. تصاميم محدودة وحصرية لـ Lavermo، مصنّعة باهتمام بالتفاصيل من الأزرار لحد التغليف. كل موديل يجي بتغليفه الكامل.</p>
+        <p>المقاسات من S إلى XXL. البيع بالدستا، 6 أو 12 قطعة حسب الموديل. اسألنا على التوفر وإمكانية طلب نص دستا لما تختار أكثر من موديل.</p>
+        <a class="pill" href="#catalog">تصفّح التشكيلة</a>
+      </section>
+    </div>
+    <section class="in" id="catalog" aria-label="تشكيلة Lavermo">
+      <div class="toolbar"><div class="catalog-controls">
+        <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحث بالاسم أو الرمز" aria-label="ابحث في Lavermo"></label>
+        <select id="catalogColor" aria-label="اللون"><option value="">كل الألوان</option></select>
+        <select id="catalogSort" aria-label="ترتيب المنتجات"><option value="">ترتيب المجموعة</option><option value="name">الاسم</option><option value="code">رمز القطعة</option></select>
+      </div></div>
+      <div class="grid" id="grid" data-cat="lavermo"></div>
+      <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف — جرّب كلمة ثانية.</p>
+      <div class="more-row"><span class="shown" id="shown" role="status"></span><button class="pill" id="more" type="button">عرض المزيد</button></div>
+    </section>
+${dataScript}
+${band}`,
+  full: true,
+}));
+// Share assets across static product pages so navigating between items reuses the catalogue.
+fs.writeFileSync(path.join(OUT, 'product-pages.css'), style.slice('<style>'.length, -'</style>'.length));
+fs.writeFileSync(path.join(OUT, 'product-pages.js'), script.trim().slice('<script>'.length, -'</script>'.length));
+fs.writeFileSync(path.join(OUT, 'product-catalog.js'), 'window.PUREY_CATALOG = ' + catalogJSON + ';\n');
+
+for (const c of CATS) {
+  const products = all.filter(p => p.c === c.k);
+  products.forEach((p, index) => {
+    const name = escapeHTML(p.n);
+    const related = products.slice(index + 1).concat(products.slice(0, index)).slice(0, 4);
+    const suggestions = related.map(item => `<a class="related-product" href="product-${item.id}.html"><img src="${item.img}" alt="" loading="lazy" decoding="async"><span>${escapeHTML(item.n)}</span></a>`).join('');
+    const inquiry = encodeURIComponent('مرحباً، نبي نستفسر على ' + p.n + ' (' + p.id.toUpperCase() + ')');
+    const main = `<div class="in">
+      <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="${c.slug}.html">${c.ar}</a><span aria-hidden="true">‹</span><span aria-current="page">${name}</span></nav>
+      <section class="product-view" data-product="${p.id}" aria-labelledby="productTitle">
+        <figure class="product-stage">
+          <img src="${p.img}" alt="${name}" fetchpriority="high">
+          <button class="product-zoom" id="productZoom" type="button" aria-pressed="false">تكبير الصورة</button>
+        </figure>
+        <div class="product-info">
+          <a class="product-kicker" href="${c.slug}.html">${c.ar}</a>
+          <h1 id="productTitle">${name}</h1>
+          <p class="pc-meta">رمز القطعة <bdi>${p.id.toUpperCase()}</bdi></p>
+          <p class="product-note">للبيع بالجملة. فريق بيوري يأكدلك السعر والمقاسات المتوفرة على واتساب.</p>
+          <div class="qty"><span id="productQtyLabel">الكمية بالقطعة</span><div class="step" role="group" aria-labelledby="productQtyLabel">
+            <button id="productMinus" type="button" aria-label="قلّل الكمية">−</button><output id="productQty" aria-labelledby="productQtyLabel">6</output><button id="productPlus" type="button" aria-label="زِد الكمية">+</button>
+          </div></div>
+          <button class="btn solid product-add" id="productAdd" type="button">أضف للطلب</button>
+          <a class="btn line product-ask" href="https://wa.me/218919282214?text=${inquiry}" target="_blank" rel="noopener">استفسر على واتساب</a>
+          <p class="product-feedback" id="productFeedback" role="status"></p>
+        </div>
+      </section>
+      <section class="product-related" aria-labelledby="productRelated">
+        <h2 class="ttl" id="productRelated">من نفس التشكيلة</h2>
+        <div class="others">${suggestions}</div>
+      </section>
+    </div>`;
+    fs.writeFileSync(path.join(OUT, 'product-' + p.id + '.html'), page({
+      title: name + ' | بيـوري', desc: name + ' بالجملة من بيـوري، طرابلس.',
+      active: c.slug, main, full: true, product: true,
+    }));
+  });
+}
+console.log('Built ' + all.length + ' product pages.');
+console.log('ok', ['index', ...CATS.map((c) => c.slug), 'lavermo'].map((n) => n + ' ' + Math.round(fs.statSync(path.join(OUT, n + '.html')).size / 1024) + 'KB').join(', '));

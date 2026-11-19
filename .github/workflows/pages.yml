@@ -1,0 +1,32 @@
+name: Publish PUREY presentation
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: true
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v7
+      - name: Prepare presentation files
+        run: |
+          mkdir public
+          cp -a site/. public/
+          find public -maxdepth 1 -name '_*.html' -delete
+          rm -rf public/img/lavermo-gallery
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: public
+      - name: Deploy presentation
+        id: deployment
+        uses: actions/deploy-pages@v5

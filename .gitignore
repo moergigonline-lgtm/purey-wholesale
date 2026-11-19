@@ -1,3 +1,7 @@
 .claude/
 node_modules/
 *.bak.html
+.netlify/
+.env*
+site/_*.html
+site/img/lavermo-gallery/
