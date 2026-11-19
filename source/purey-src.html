@@ -817,11 +817,24 @@ nav a[aria-current="page"]{color:var(--wine)}
 .chat-product small{font:400 11px/1.4 var(--f-sans);color:#76515e;direction:ltr;text-align:right}
 .chat-product-action{font:400 12px/1.4 var(--f-sans);color:#94234f}
 @media(max-width:420px){.purey-ask-form input{font-size:16px;padding-inline:12px}.purey-ask-form button{width:46px;height:46px}.purey-ask-prompts button{padding:11px 18px}.ai-launch{min-height:44px;font-size:12px;gap:7px}.ai-launch .av{width:30px;height:30px}.ai-launch .av img{width:24px}}
-/* Keep each campaign heading and button together, clear of the floating controls. */
-.campaign{align-items:end;padding-block-end:clamp(96px,11svh,124px)}
-.campaign .campaign-copy{justify-self:center;margin-inline:0;translate:none}
+/* Place each copy block in the photograph's negative space beside the model. */
+.campaign .campaign-copy{position:absolute;right:clamp(36px,10vw,180px);top:50%;margin-inline:0;translate:0 -50%}
+.campaign-satin .campaign-copy{top:60%}
 .campaign .campaign-action{justify-self:center}
-.campaign-noir .campaign-title{color:#fff6ed;text-shadow:0 2px 8px #261015,0 0 24px #26101599}
+@media(max-width:700px){
+  .campaign .campaign-copy{right:4%;top:5%;translate:none;gap:8px}
+  .campaign-satin .campaign-copy{top:34%}
+  .campaign-bridal .campaign-copy{top:3%}
+  .campaign .campaign-title{font-size:22px}
+  .campaign-satin .campaign-title{font-size:19px}
+  .campaign .campaign-action{font-size:15px;min-height:46px;padding:9px 16px;gap:10px}
+  .campaign .campaign-action .campaign-butterfly{width:24px}
+}
+@media(max-width:360px){
+  .campaign .campaign-title{font-size:20px}
+  .campaign-satin .campaign-title{font-size:17px}
+  .campaign .campaign-action{font-size:13.5px;min-height:44px;padding-inline:13px;gap:8px}
+}
 /* Leave room for the chat launcher alongside a populated basket on narrow phones. */
 @media(max-width:420px){
   .bag-float{max-width:calc(100% - 180px);padding-inline:12px;gap:6px;font-size:13px}
