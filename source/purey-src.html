@@ -808,6 +808,13 @@ nav a[aria-current="page"]{color:var(--wine)}
 .purey-ask-prompts{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:28px}
 .purey-ask-prompts button{display:inline-flex;width:fit-content;padding:12px 24px;border:1px solid #cc9bab;border-radius:99px;color:#550f25;background:transparent;cursor:pointer;font:400 15px/1.4 var(--f-sans);transition:background .2s}
 .purey-ask-prompts button:hover{background:#f1dfe5}
+.purey-inline-chat{max-height:min(62svh,560px);overflow-y:auto;overscroll-behavior:contain;padding:clamp(12px,2.5vw,24px);margin:28px 0 18px;border:1px solid #e6cdd5;border-radius:24px;background:#f7f4f4;text-align:start;scrollbar-gutter:stable}
+.purey-inline-chat[hidden]{display:none}
+.purey-inline-chat .bub{max-width:90%;font-size:16px}
+.purey-inline-chat .chat-products{grid-template-columns:repeat(2,minmax(0,1fr))}
+.purey-inline-chat .chat-product-label{grid-column:1/-1;max-width:none;margin:12px 0 2px;font:500 13px/1.4 var(--f-sans)}
+.purey-ask-form button:disabled{opacity:.5;cursor:wait}
+@media(max-width:600px){.purey-inline-chat .chat-products{grid-template-columns:minmax(0,1fr)}.purey-inline-chat .bub{max-width:96%;font-size:15px}}
 .chat-products{display:grid;gap:8px}
 .chat-product-label{font:500 13px/1.4 var(--f-sans);color:#672042;margin:12px 0 2px}
 .chat-product{display:flex;align-items:center;gap:12px;border:1px solid #e6cdd5;border-radius:14px;background:white;padding:8px;color:#39121e}

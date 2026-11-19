@@ -66,13 +66,17 @@
   const $=id=>document.getElementById(id),panel=$('aiPanel');if(!panel)return;
   const data=root.PUREY_CATALOG||JSON.parse($('catalog-data').textContent);
   const thread=$('aiThread'),body=panel.querySelector('.ai-body'),text=$('aiText'),send=$('aiSend');
+  const inline=$('pureyInlineChat'),inlineThread=$('pureyInlineThread'),form=$('pureyAskForm'),inlineText=$('pureyAskText'),inlineSend=form?.querySelector('button[type="submit"]');
+  const threads=[thread,inlineThread].filter(Boolean);
   const state={category:null,brand:false,last:[]};let busy=false;
   let session;try{session=sessionStorage.getItem('purey.thread');if(!session){session=crypto.randomUUID();sessionStorage.setItem('purey.thread',session);}}catch{session='purey-'+Date.now();}
-  function scroll(){body.scrollTop=body.scrollHeight;}
-  function bubble(value,who){const el=document.createElement('div');el.className='bub '+who;el.textContent=value;thread.append(el);scroll();return el;}
-  function open(on){panel.toggleAttribute('data-open',on);$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);if(on)setTimeout(()=>$('aiClose').focus(),40);}
+  function scroll(){body.scrollTop=body.scrollHeight;if(inline)inline.scrollTop=inline.scrollHeight;}
+  function append(el){const nodes=threads.map(t=>{const node=el.cloneNode(true);t.append(node);return node;});scroll();return nodes;}
+  function bubble(value,who){const el=document.createElement('div');el.className='bub '+who;el.textContent=value;const nodes=append(el);return {remove(){nodes.forEach(n=>n.remove());},setAttribute(k,v){nodes.forEach(n=>n.setAttribute(k,v));}};}
+  function activateInline(){if(inline){inline.hidden=false;inlineThread.setAttribute('aria-live','polite');thread.setAttribute('aria-live','off');}}
+  function open(on){panel.toggleAttribute('data-open',on);$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);thread.setAttribute('aria-live',on?'polite':'off');if(inlineThread)inlineThread.setAttribute('aria-live',on?'off':'polite');if(on)setTimeout(()=>$('aiClose').focus(),40);}
   function view(v){panel.dataset.view=v;if(v==='chat')setTimeout(()=>text.focus(),80);}
-  function link(label,href){const a=document.createElement('a');a.className='ai-feature';a.href=href;a.textContent=label;thread.append(a);}
+  function link(label,href){const a=document.createElement('a');a.className='ai-feature';a.href=href;a.textContent=label;append(a);}
   function productCards(products,label){
     if(!products.length)return;
     const group=document.createElement('div');group.className='chat-products';group.setAttribute('aria-label',label);
@@ -82,11 +86,11 @@
       const image=document.createElement('img');image.src=p.i;image.alt=p.n;image.width=90;image.height=125;image.loading='lazy';
       const copy=document.createElement('span'),name=document.createElement('strong'),code=document.createElement('small'),cta=document.createElement('span');
       name.textContent=p.n;code.textContent=p.id.toUpperCase()+(p.brand==='lavermo'?' · Lavermo':'');cta.textContent='شوفوا التفاصيل ←';cta.className='chat-product-action';copy.append(name,code,cta);a.append(image,copy);group.append(a);
-    }thread.append(group);scroll();
+    }append(group);
   }
   function recommendations(q){const result=selectProducts(data,q,state);productCards(result.picked,'من التشكيلة');if(result.extra)productCards([result.extra],'ويكمل معاها');return result.picked.length;}
   async function ask(q){
-    q=q.trim().slice(0,1200);if(!q||busy)return;busy=true;send.disabled=true;bubble(q,'me');
+    q=q.trim().slice(0,1000);if(!q||busy)return;busy=true;send.disabled=true;if(inlineSend)inlineSend.disabled=true;threads.forEach(t=>t.setAttribute('aria-busy','true'));bubble(q,'me');
     const typing=bubble('نجهزولكم الرد…','bot');typing.setAttribute('role','status');
     try{
       const confirmed=known(q),wantProducts=productQuestion(q)||bestQuestion(q)||brandQuestion(q)||/\b[cosulv]\d{2,3}\b/i.test(q);
@@ -100,7 +104,7 @@
       if(wantProducts)recommendations(q);
       if(brandQuestion(q)||wantProducts)link('تصفّحوا Lavermo، علامة بيوري الخاصة ←','lavermo.html');
       if(!reply||priceQuestion(q)||/توصيل|شحن|دفع|مخزون|توفر/.test(norm(q)))link('تواصلوا مع الفريق على واتساب ←','https://wa.me/218919282214?text='+encodeURIComponent(q));
-    }finally{typing.remove();busy=false;send.disabled=false;scroll();}
+    }finally{typing.remove();busy=false;send.disabled=false;if(inlineSend)inlineSend.disabled=false;threads.forEach(t=>t.setAttribute('aria-busy','false'));scroll();}
   }
   function submit(){const q=text.value;if(!q.trim()||busy)return;view('chat');text.value='';text.style.height='auto';send.removeAttribute('data-ready');ask(q);}
   $('aiLaunch').addEventListener('click',()=>open(!panel.hasAttribute('data-open')));
@@ -110,7 +114,6 @@
   text.addEventListener('input',()=>{text.style.height='auto';text.style.height=Math.min(text.scrollHeight,88)+'px';send.toggleAttribute('data-ready',!!text.value.trim());});
   text.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}});send.addEventListener('click',submit);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.hasAttribute('data-open')){open(false);$('aiLaunch').focus();}});
-  const form=$('pureyAskForm');
-  if(form)form.addEventListener('submit',e=>{e.preventDefault();const input=$('pureyAskText');if(!input.value.trim()||busy)return;open(true);view('chat');ask(input.value);input.value='';});
-  document.querySelectorAll('[data-ask-purey]').forEach(button=>button.addEventListener('click',()=>{open(true);view('chat');ask(button.dataset.askPurey);}));
+  if(form)form.addEventListener('submit',e=>{e.preventDefault();if(!inlineText.value.trim()||busy)return;activateInline();ask(inlineText.value);inlineText.value='';inlineText.focus();});
+  document.querySelectorAll('[data-ask-purey]').forEach(button=>button.addEventListener('click',()=>{if(busy)return;activateInline();ask(button.dataset.askPurey);}));
 })(typeof window!=='undefined'?window:globalThis);

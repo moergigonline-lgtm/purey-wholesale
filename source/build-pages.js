@@ -5,6 +5,7 @@ const fs = require('fs'), path = require('path');
 const all = require('./catalog-data.js');
 const [SRC, OUT] = process.argv.slice(2);
 const src = fs.readFileSync(SRC, 'utf8').replace(/\r\n/g, '\n');
+const chatVersion = require('crypto').createHash('sha256').update(fs.readFileSync(path.join(path.dirname(SRC), 'purey-chat.js'))).digest('hex').slice(0,12);
 
 function cut(a, b, from = 0) {
   const i = src.indexOf(a, from); if (i < 0) throw new Error('miss start: ' + a);
@@ -560,7 +561,7 @@ const escapeHTML = value => String(value).replace(/[&<>"]/g, char => ({'&':'&amp
 function page({ title, desc, active, main, full, product = false }) {
   const styles = product ? '<link rel="stylesheet" href="product-pages.css">' : style;
   const behavior = product ? '<script src="product-catalog.js"></script><script src="product-pages.js"></script>' : script;
-  const body = `<div class="page" dir="rtl" lang="ar">\n\n${headerFor(active)}\n  <main id="top">\n\n${main}\n  </main>\n\n${footer}${shop}${chat}${behavior}<script defer src="purey-chat.js"></script>`;
+  const body = `<div class="page" dir="rtl" lang="ar">\n\n${headerFor(active)}\n  <main id="top">\n\n${main}\n  </main>\n\n${footer}${shop}${chat}${behavior}<script defer src="purey-chat.js?v=${chatVersion}"></script>`;
   if (!full) return `<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<meta name="claude:viewport-fit-sides" content="cover">\n${fonts}\n${styles}\n\n${body}`;
   return `<!doctype html>\n<html lang="ar" dir="rtl">\n<head>\n<meta charset="utf-8">\n<meta name="viewport" content="width=device-width, initial-scale=1">\n<title>${title}</title>\n<meta name="description" content="${desc}">\n<link rel="icon" href="img/favicon.png">\n${fonts}\n${styles}\n</head>\n<body>\n${body}\n</body>\n</html>\n`;
 }
@@ -570,8 +571,13 @@ const askSection = `
       <div class="purey-ask-inner">
         <h2 id="ask-purey-title">اسألوا بيوري</h2>
         <p>من أول تشكيلة لطلب محلكم الجاي، نعاونوا في اختيار الموديلات والمقاسات ونورّوكم الصور.</p>
+        <div class="purey-inline-chat" id="pureyInlineChat" hidden>
+          <div class="ai-thread" id="pureyInlineThread" role="log" aria-live="polite" aria-relevant="additions" aria-label="المحادثة مع مساعد بيوري">
+            <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
+          </div>
+        </div>
         <form class="purey-ask-form" id="pureyAskForm">
-          <input id="pureyAskText" type="text" maxlength="1200" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" required>
+          <input id="pureyAskText" type="text" maxlength="1000" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="pureyInlineThread" required>
           <button type="submit" aria-label="إرسال السؤال">↑</button>
         </form>
         <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
