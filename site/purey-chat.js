@@ -59,7 +59,7 @@
     if(typeof reply!=='string'||!reply.trim()||/[$€£]/.test(reply)||/[0-9٠-٩۰-۹][0-9٠-٩۰-۹.,\s]*(?:د\.?ل|دينار|lyd|usd|dollar|dinar)/i.test(reply)||/سعر|اسعار|ثمن|دينار|دولار|خصم|تخفيض|price|cost|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
     if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر (?:حاليا|الان|دايما)|مضمون|نضمن/.test(norm(reply)))return null;
     // The backend sometimes points to a team-contact button/form this site doesn't have: swap that sentence for the real WhatsApp channel.
-    const lines=reply.trim().split(/\n+/),fake=/نبي نتواصل مع الفريق|الفورم|inquiry form|زر/;
+    const lines=reply.trim().split(/\n+|(?<=[.؟!])\s+/),fake=/نبي نتواصل مع الفريق|الفورم|inquiry form|(?:^|\s)زر(?:\s|$)/;
     const kept=lines.filter(l=>!fake.test(norm(l)));
     if(kept.length<lines.length)kept.push('للتأكيد، تواصلوا مع الفريق على واتساب 0919282214.');
     return kept.join('\n').trim()||null;
