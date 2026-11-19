@@ -162,7 +162,10 @@ nav a:hover{color:var(--wine)}
   .campaign-satin{--campaign-wall:#150505}
 }
 @media (min-width:921px){
-  .campaign-satin picture img{translate:0 clamp(115px,11.5vw,185px)}
+  /* Full-size satin hero: show the whole 3:2 photo below the wordmark/nav instead of shifting it down and cropping the model. */
+  .campaign-satin{--hero-top:clamp(110px,11vw,170px);min-height:calc(66.667vw + var(--hero-top))}
+  .campaign-satin picture{top:var(--hero-top);height:auto;bottom:0}
+  .campaign-satin picture img{position:absolute;inset:0;width:100%;height:100%;translate:none;object-position:center top;mask-image:linear-gradient(transparent,#000 10%)}
 }
 #best + .campaign-gallery{margin-block-start:clamp(20px,2.5vw,36px)}
 /* Homepage collection lookbook */
