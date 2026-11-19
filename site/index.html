@@ -1374,6 +1374,12 @@ dialog.sheet.editorial-drawer{
 .chat-product small{font:400 11px/1.4 var(--f-sans);color:#76515e;direction:ltr;text-align:right}
 .chat-product-action{font:400 12px/1.4 var(--f-sans);color:#94234f}
 @media(max-width:420px){.purey-ask-form input{font-size:16px;padding-inline:12px}.purey-ask-form button{width:46px;height:46px}.purey-ask-prompts button{padding:11px 18px}.ai-launch{min-height:44px;font-size:12px;gap:7px}.ai-launch .av{width:30px;height:30px}.ai-launch .av img{width:24px}}
+/* Leave room for the chat launcher alongside a populated basket on narrow phones. */
+@media(max-width:420px){
+  .bag-float{max-width:calc(100% - 180px);padding-inline:12px;gap:6px;font-size:13px}
+  .bag-float svg{flex-shrink:0}
+  .bag-float span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
 </style>
 
 <div class="page" dir="rtl" lang="ar">
