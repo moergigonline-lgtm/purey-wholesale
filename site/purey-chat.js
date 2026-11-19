@@ -6,14 +6,14 @@
   const priceQuestion=q=>/سعر|اسعار|بكم|بقداش|قداش\s*(?:سوم|ثمن|حق)|ثمن|تكلف|سوم|بشحال|خصم|تخفيض|دينار|دولار|price|cost|how much|discount|lyd|usd|[$€£]/i.test(norm(q));
   const brandQuestion=q=>/lavermo|lavero|la\s*vera\s*mo|لافيرم|لافيرما|لافيرمو|لا\s*فيرمو|لافيروا/i.test(norm(q));
   const packQuestion=q=>/دستا|دسته|دستة|باك|pack|اقل كمي|ادني طلب|كم قطع|قداش قطع|كميه|نص دست|نصف دست/.test(norm(q));
-  const productQuestion=q=>/صور|صوره|وريني|ورونا|شوف|بجام|بيجام|ستان|ساتان|قطن|لانجري|روب|ارواب|عرائس|عرائسي|طقم|طواقم|موديل|كولكشن|تشكيل|بديل|لون|الوان|اسود|احمر|وردي|ابيض|عاجي|satin|cotton|lingerie|photo|robe|collection|product|recommend/i.test(norm(q));
+  const productQuestion=q=>/صور|صوره|وريني|ورونا|شوف|بجام|بيجام|ستان|ساتان|قطن|لانجري|روب|ارواب|عرائس|عرائسي|عروس|عرايس|طقم|طواقم|موديل|كولكشن|تشكيل|بديل|لون|الوان|اسود|احمر|وردي|ابيض|عاجي|خمري|عنابي|نبيتي|نبيذي|كحلي|ازرق|بيج|رمادي|satin|cotton|lingerie|photo|robe|collection|product|recommend/i.test(norm(q));
   const bestQuestion=q=>/اكثر.*طلب|اكثر.*بيع|افضل|تنصح|ترشح|اقتراح|ماشي|يمشي|bestsell|best sell|recommend/.test(norm(q));
   const featured=['o07','o13','o09','o04','o11'];
   function category(q){
     q=norm(q);
     if(/قطن|cotton/.test(q))return 'c';
     if(/ستان|ساتان|satin/.test(q))return 's';
-    if(/روب|ارواب|عرايس|عرائس|عرائسي|bridal|robe/.test(q))return 'r';
+    if(/روب|ارواب|عرايس|عرائس|عرائسي|عروس|bridal|robe/.test(q))return 'r';
     if(/لانجري|lingerie/.test(q))return 'l';
     if(/داخلي|طقم|طواقم|underwear/.test(q))return 'u';
     return null;
@@ -27,9 +27,11 @@
     if(cat)state.category=cat;
     if(brandQuestion(q))state.brand=true;
     else if(category(q))state.brand=false;
-    const colors=['اسود','ابيض','عاجي','احمر','وردي','ازرق','كحلي','بيج','رمادي','بني'];
-    const color=colors.find(c=>norm(q).includes(c));
-    let items=data.filter(p=>(!cat||p.c===cat)&&(!state.brand||p.brand==='lavermo')&&(!color||norm(p.n).includes(color)));
+    const colors=[['خمري','عنابي','نبيتي','نبيذي','بوردو','burgundy'],['خوخي','peach'],['فضي','silver'],['اسود','black'],['ابيض','white'],['عاجي','كريمي','اوف وايت','ivory'],['احمر','red'],['وردي','بمبي','زهري','pink'],['فوشي','fuchsia'],['ازرق','سماوي','blue'],['كحلي','navy'],['بيج','beige'],['رمادي','gray','grey'],['بني','brown'],['اخضر','زيتي','نعناعي','green'],['ليلكي','موف','بنفسجي','purple'],['فحمي'],['نمري','leopard'],['ذهبي','شامبين','gold'],['اصفر','yellow'],['برتقالي','orange']];
+    const nq=norm(q),color=colors.find(g=>g.some(c=>nq.includes(c)));
+    let items=data.filter(p=>(!cat||p.c===cat)&&(!state.brand||p.brand==='lavermo')&&(!color||color.some(c=>norm(p.n).includes(c))));
+    if(!items.length&&color)items=data.filter(p=>(!state.brand||p.brand==='lavermo')&&color.some(c=>norm(p.n).includes(c)));
+    if(!items.length&&color)items=data.filter(p=>(!cat||p.c===cat)&&(!state.brand||p.brand==='lavermo'));
     if(best&&!cat&&!state.brand)items=featured.map(id=>data.find(p=>p.id===id)).filter(Boolean);
     else items.sort((a,b)=>(b.brand==='lavermo')-(a.brand==='lavermo'));
     if(exact)items=[exact,...items.filter(p=>p.id!==exact.id)];
