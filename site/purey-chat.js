@@ -55,7 +55,8 @@
   function safeReply(reply){
     // Remote text is never a source of quoted prices, quantities or commercial promises.
     if(typeof reply!=='string'||!reply.trim()||/[0-9٠-٩۰-۹$€£]/.test(reply)||/سعر|اسعار|ثمن|دينار|دولار|خصم|تخفيض|price|cost|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
-    if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر|مضمون|نضمن/.test(norm(reply)))return null;
+    if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر|مضمون|نضمن|نبي نتواصل مع الفريق|inquiry form/.test(norm(reply)))return null;
+    if(/\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|million)\b|ثلاث|اربع|خمس|ستين|سبع|ثمان|تسع|عشر|الف|مليون/.test(norm(reply)))return null;
     return reply.trim().slice(0,900);
   }
   const policy={norm,known,safeReply,selectProducts,category,priceQuestion,brandQuestion,productQuestion,bestQuestion,PRICE,BRAND};
@@ -98,7 +99,7 @@
       typing.remove();bubble(reply||'نقدروا نعاونوا محلكم في Lavermo والموديلات والمقاسات وطريقة الطلب بالجملة. شن نوع التشكيلة اللي تبوها؟ ولأي تفاصيل تحتاج تأكيد، واتساب الفريق 0919282214.','bot');
       if(wantProducts)recommendations(q);
       if(brandQuestion(q)||wantProducts)link('تصفّحوا Lavermo، علامة بيوري الخاصة ←','lavermo.html');
-      if(priceQuestion(q)||/توصيل|شحن|دفع|مخزون|توفر/.test(norm(q)))link('تواصلوا مع الفريق على واتساب ←','https://wa.me/218919282214?text='+encodeURIComponent(q));
+      if(!reply||priceQuestion(q)||/توصيل|شحن|دفع|مخزون|توفر/.test(norm(q)))link('تواصلوا مع الفريق على واتساب ←','https://wa.me/218919282214?text='+encodeURIComponent(q));
     }finally{typing.remove();busy=false;send.disabled=false;scroll();}
   }
   function submit(){const q=text.value;if(!q.trim()||busy)return;view('chat');text.value='';text.style.height='auto';send.removeAttribute('data-ready');ask(q);}
