@@ -576,16 +576,16 @@ const askSection = `
             <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
           </div>
         </div>
-        <form class="purey-ask-form" id="pureyAskForm">
-          <input id="pureyAskText" type="text" maxlength="1000" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="pureyInlineThread" required>
-          <button type="submit" aria-label="إرسال السؤال">↑</button>
-        </form>
-        <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
         <div class="purey-ask-prompts">
           <button type="button" data-ask-purey="شن يميّز Lavermo؟">شن يميّز Lavermo؟</button>
           <button type="button" data-ask-purey="قداش قطعة في الدستا؟">قداش قطعة في الدستا؟</button>
           <button type="button" data-ask-purey="وريني اختيارات من الأكثر طلباً">ورّونا اختياراتكم</button>
         </div>
+        <form class="purey-ask-form" id="pureyAskForm">
+          <input id="pureyAskText" type="text" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="pureyInlineThread" required>
+          <button type="submit" aria-label="إرسال السؤال">↑</button>
+        </form>
+        <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
       </div>
     </section>`;
 fs.copyFileSync(path.join(path.dirname(SRC), 'purey-chat.js'),path.join(OUT,'purey-chat.js'));

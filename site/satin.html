@@ -1376,6 +1376,26 @@ dialog.sheet.editorial-drawer{
 .chat-product small{font:400 11px/1.4 var(--f-sans);color:#76515e;direction:ltr;text-align:right}
 .chat-product-action{font:400 12px/1.4 var(--f-sans);color:#94234f}
 @media(max-width:420px){.purey-ask-form input{font-size:16px;padding-inline:12px}.purey-ask-form button{width:46px;height:46px}.purey-ask-prompts button{padding:11px 18px}.ai-launch{min-height:44px;font-size:12px;gap:7px}.ai-launch .av{width:30px;height:30px}.ai-launch .av img{width:24px}}
+/* Chat placement + ask section refinements */
+html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
+.purey-ask{padding:clamp(48px,6vw,88px) var(--pad)}
+.purey-ask-inner{max-width:780px}
+.purey-ask p{margin:14px auto 24px}
+.purey-ask-prompts{margin:0 0 16px}
+.purey-ask-form{box-shadow:0 18px 40px -28px #550f2580}
+.purey-ask-note{margin-top:14px}
+.purey-inline-chat{max-height:min(70svh,640px);margin:0 0 16px;background:#fff}
+@media(max-width:920px){
+  .ai-launch{width:56px;height:56px;min-height:56px;padding:0;justify-content:center;gap:0}
+  .ai-launch .txt,.ai-launch .dot{display:none}
+  .ai-launch .av{width:44px;height:44px}.ai-launch .av img{width:34px}
+}
+@media(max-width:600px){
+  .purey-ask-prompts{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;scrollbar-width:none;margin-inline:calc(var(--pad) * -1);padding-inline:var(--pad)}
+  .purey-ask-prompts::-webkit-scrollbar{display:none}
+  .purey-ask-prompts button{flex:none;white-space:nowrap}
+}
+
 /* Place each copy block in the photograph's negative space beside the model. */
 .campaign .campaign-copy{position:absolute;right:clamp(36px,10vw,180px);top:50%;margin-inline:0;translate:0 -50%}
 .campaign-satin .campaign-copy{top:60%}

@@ -54,10 +54,13 @@
   }
   function safeReply(reply){
     // Remote text is never a source of quoted prices, quantities or commercial promises.
-    if(typeof reply!=='string'||!reply.trim()||/[0-9٠-٩۰-۹$€£]/.test(reply)||/سعر|اسعار|ثمن|دينار|دولار|خصم|تخفيض|price|cost|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
-    if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر|مضمون|نضمن|نبي نتواصل مع الفريق|inquiry form/.test(norm(reply)))return null;
-    if(/\b(?:one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|million)\b|ثلاث|اربع|خمس|ستين|سبع|ثمان|تسع|عشر|الف|مليون/.test(norm(reply)))return null;
-    return reply.trim().slice(0,900);
+    if(typeof reply!=='string'||!reply.trim()||/[$€£]/.test(reply)||/[0-9٠-٩۰-۹][0-9٠-٩۰-۹.,\s]*(?:د\.?ل|دينار|lyd|usd|dollar|dinar)/i.test(reply)||/سعر|اسعار|ثمن|دينار|دولار|خصم|تخفيض|price|cost|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
+    if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر (?:حاليا|الان|دايما)|مضمون|نضمن/.test(norm(reply)))return null;
+    // The backend sometimes points to a team-contact button/form this site doesn't have: swap that sentence for the real WhatsApp channel.
+    const lines=reply.trim().split(/\n+/),fake=/نبي نتواصل مع الفريق|الفورم|inquiry form|زر/;
+    const kept=lines.filter(l=>!fake.test(norm(l)));
+    if(kept.length<lines.length)kept.push('للتأكيد، تواصلوا مع الفريق على واتساب 0919282214.');
+    return kept.join('\n').trim()||null;
   }
   const policy={norm,known,safeReply,selectProducts,category,priceQuestion,brandQuestion,productQuestion,bestQuestion,PRICE,BRAND};
   root.PureyChatPolicy=policy;
@@ -90,14 +93,14 @@
   }
   function recommendations(q){const result=selectProducts(data,q,state);productCards(result.picked,'من التشكيلة');if(result.extra)productCards([result.extra],'ويكمل معاها');return result.picked.length;}
   async function ask(q){
-    q=q.trim().slice(0,1000);if(!q||busy)return;busy=true;send.disabled=true;if(inlineSend)inlineSend.disabled=true;threads.forEach(t=>t.setAttribute('aria-busy','true'));bubble(q,'me');
+    q=q.trim();if(!q||busy)return;busy=true;send.disabled=true;if(inlineSend)inlineSend.disabled=true;threads.forEach(t=>t.setAttribute('aria-busy','true'));bubble(q,'me');
     const typing=bubble('نجهزولكم الرد…','bot');typing.setAttribute('role','status');
     try{
       const confirmed=known(q),wantProducts=productQuestion(q)||bestQuestion(q)||brandQuestion(q)||/\b[cosulv]\d{2,3}\b/i.test(q);
       let reply=confirmed;
       if(!reply&&wantProducts)reply=bestQuestion(q)?'هذي اختيارات من قسم «الأكثر طلباً» في الموقع، ومعاها اقتراح يكمل التشكيلة. ترتيب المبيعات الفعلي والتوفر يأكدهم الفريق. وLavermo علامتنا الخاصة بموديلات محدودة وتفاصيل مميزة.':'هذي موديلات من الكتالوج تناسب طلبكم. افتحوا الصورة للتفاصيل وإضافة الموديل للطلب. ونرشحوا Lavermo، علامة بيوري الخاصة، لتشكيلة محلكم.';
       if(!reply){
-        const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),12000);
+        const ctrl=new AbortController(),timer=setTimeout(()=>ctrl.abort(),45000);
         try{const response=await fetch('https://getflann.com/api/site-chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({site:'purey',message:q,thread:session}),signal:ctrl.signal});if(response.ok){const result=await response.json();if(result.ok)reply=safeReply(result.reply);}}catch{}finally{clearTimeout(timer);}
       }
       typing.remove();bubble(reply||'نقدروا نعاونوا محلكم في Lavermo والموديلات والمقاسات وطريقة الطلب بالجملة. شن نوع التشكيلة اللي تبوها؟ ولأي تفاصيل تحتاج تأكيد، واتساب الفريق 0919282214.','bot');
@@ -111,9 +114,11 @@
   $('aiClose').addEventListener('click',()=>{open(false);$('aiLaunch').focus();});
   $('aiScrim').addEventListener('click',()=>open(false));$('aiStart').addEventListener('click',()=>view('chat'));$('aiBack').addEventListener('click',()=>view('home'));
   $('aiChips').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b){view('chat');ask(b.dataset.q);}});
-  text.addEventListener('input',()=>{text.style.height='auto';text.style.height=Math.min(text.scrollHeight,88)+'px';send.toggleAttribute('data-ready',!!text.value.trim());});
+  text.addEventListener('input',()=>{text.style.height='auto';text.style.height=Math.min(text.scrollHeight,180)+'px';send.toggleAttribute('data-ready',!!text.value.trim());});
   text.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}});send.addEventListener('click',submit);
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.hasAttribute('data-open')){open(false);$('aiLaunch').focus();}});
+  const askSection=document.getElementById('ask-purey');
+  if(askSection&&'IntersectionObserver' in root)new IntersectionObserver(e=>document.documentElement.classList.toggle('ask-visible',e[0].isIntersecting),{threshold:.15}).observe(askSection);
   if(form)form.addEventListener('submit',e=>{e.preventDefault();if(!inlineText.value.trim()||busy)return;activateInline();ask(inlineText.value);inlineText.value='';inlineText.focus();});
   document.querySelectorAll('[data-ask-purey]').forEach(button=>button.addEventListener('click',()=>{if(busy)return;activateInline();ask(button.dataset.askPurey);}));
 })(typeof window!=='undefined'?window:globalThis);
