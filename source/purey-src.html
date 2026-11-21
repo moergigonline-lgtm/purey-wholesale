@@ -1007,6 +1007,31 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
   .lookbook-count{font-size:12.5px; margin-top:4px; color:rgba(255,255,255,.75)}
 }
 @media (prefers-reduced-motion:reduce){ .lookbook-tile img,.lookbook-copy::before{transition:none} .lookbook-tile:hover img{transform:none} }
+
+/* ── split hero: Lavermo look (left) | Purey look (right), one blended photograph.
+   The header sits in the flow above it so the brand tabs rest on the photo's top edge. */
+.page:has(.campaign-split) .site-head--campaign{height:auto;background:#14060a}
+.campaign-split{display:grid;align-items:end;justify-items:center;padding:0 20px clamp(48px,6vw,92px);
+  min-height:clamp(520px,58vw,860px);background:#1a0609}
+.campaign-split img{object-position:center 18%}
+.campaign-split::after{content:"";position:absolute;inset:auto 0 0;height:42%;z-index:-1;pointer-events:none;
+  background:linear-gradient(to top,rgba(20,6,10,.82),transparent)}
+/* Lavermo selected: the Purey half (physical right) steps back */
+.campaign-split .split-dim{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .5s ease;
+  background:linear-gradient(to left,rgba(14,4,7,.66) 0 42%,transparent 58%)}
+html[data-brand="lavermo"] .campaign-split .split-dim{opacity:1}
+.campaign-split .campaign-copy{position:relative;right:auto;left:auto;top:auto;bottom:auto;translate:none;
+  justify-self:center;justify-items:center;text-align:center;gap:16px}
+.campaign-split .campaign-title{contain:none;white-space:normal;font:400 clamp(30px,3.1vw,46px)/1.15 var(--f-serif);
+  text-shadow:0 2px 24px rgba(0,0,0,.45)}
+.campaign-split .campaign-action{justify-self:center}
+@media(max-width:700px){
+  .campaign-split{min-height:max(500px,calc(100svh - 240px));padding-bottom:clamp(88px,12svh,116px)}
+  .campaign-split img{object-position:54% top}
+  .campaign-split .campaign-title{font-size:clamp(26px,7.4vw,32px)}
+  .campaign-split .campaign-action{min-height:48px;padding-inline:26px;font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){ .campaign-split .split-dim{transition:none} }
 </style>
 
 <div class="page" dir="rtl" lang="ar">
@@ -1045,11 +1070,12 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
 
     <!-- HERO -->
     <div class="campaigns">
-      <section class="campaign campaign-satin" aria-labelledby="purey-campaign">
+      <section class="campaign campaign-split" aria-labelledby="purey-campaign">
         <picture>
-          <source media="(max-width: 700px)" srcset="img/purey-satin-mobile-480.webp 480w, img/purey-satin-mobile-800.webp 800w" sizes="100vw">
-          <img src="img/purey-satin-wide-1440.webp" srcset="img/purey-satin-wide-800.webp 800w, img/purey-satin-wide-1440.webp 1440w" sizes="100vw" alt="عارضة بقميص نوم من الستان العنابي على أريكة مخملية" fetchpriority="high">
+          <source media="(max-width: 700px)" srcset="img/hero-split-mobile-440.webp 440w, img/hero-split-mobile-680.webp 680w" sizes="100vw">
+          <img src="img/hero-split-1600.webp" srcset="img/hero-split-1000.webp 1000w, img/hero-split-1600.webp 1600w" sizes="100vw" width="1600" height="960" alt="إطلالتان: قميص نوم أسود بالدانتيل مع روب من Lavermo، وقميص نوم ستان عنابي من بيوري" fetchpriority="high">
         </picture>
+        <span class="split-dim" aria-hidden="true"></span>
         <div class="campaign-copy">
           <h1 class="campaign-title" id="purey-campaign">أفضل كولكشن في ليبيا</h1>
           <a class="campaign-action" href="#cats"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح كل التشكيلات</span></a>
