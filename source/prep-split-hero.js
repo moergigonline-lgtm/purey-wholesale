@@ -25,8 +25,5 @@ async function blend({ w, h, L, lx, lw, R, rx, rw, f }) {
   const wide = await blend({ w: 1600, h: 960, L: 'purey-noir-wide-1440.webp', lx: 60, lw: 960, R: 'purey-satin-wide-1440.webp', rx: 0, rw: 900, f: 260 });
   await sharp(wide).webp({ quality: 82 }).toFile(P('hero-split-1600.webp'));
   await sharp(wide).resize({ width: 1000 }).webp({ quality: 80 }).toFile(P('hero-split-1000.webp'));
-  const mob = await blend({ w: 680, h: 1200, L: 'purey-noir-mobile-800.webp', lx: 120, lw: 410, R: 'purey-satin-mobile-800.webp', rx: 225, rw: 340, f: 70 });
-  await sharp(mob).webp({ quality: 80 }).toFile(P('hero-split-mobile-680.webp'));
-  await sharp(mob).resize({ width: 440 }).webp({ quality: 80 }).toFile(P('hero-split-mobile-440.webp'));
   console.log('split hero written');
 })().catch((e) => { console.error(e); process.exit(1); });
