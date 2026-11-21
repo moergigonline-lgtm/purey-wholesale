@@ -69,15 +69,15 @@ nav a[aria-current="page"]{color:var(--wine)}
 .announce bdi{font-weight:500}
 .site-head{position:sticky; top:0; z-index:60; background:rgba(255,255,255,.95); -webkit-backdrop-filter:saturate(1.2) blur(10px); backdrop-filter:saturate(1.2) blur(10px); transition:box-shadow .3s}
 .site-head.scrolled{box-shadow:0 12px 30px -20px rgba(60,12,20,.4)}
-.hbar{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding-block:18px 14px; transition:padding .3s}
-.site-head.scrolled .hbar{padding-block:9px 7px}
+.hbar{display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding-block:10px 8px; transition:padding .3s}
+.site-head.scrolled .hbar{padding-block:6px 5px}
 .h-start{justify-self:start; display:flex; align-items:center; gap:14px}
 .h-loc{display:inline-flex; align-items:center; gap:8px; font:400 13.5px/1 var(--f-sans); color:var(--ink-2); transition:color .15s}
 .h-loc:hover{color:var(--wine)}
 .h-loc svg,.h-icons svg,.menu-btn svg{width:21px; height:21px; fill:none; stroke:currentColor; stroke-width:1.5; stroke-linecap:round; stroke-linejoin:round}
 .site-head .logo{justify-self:center}
-.site-head .logo img{height:clamp(54px,5vw,72px); width:auto; display:block; transition:height .3s}
-.site-head.scrolled .logo img{height:42px}
+.site-head .logo img{height:clamp(40px,3.6vw,52px); width:auto; display:block; transition:height .3s}
+.site-head.scrolled .logo img{height:32px}
 .h-icons{justify-self:end; display:flex; align-items:center; gap:clamp(14px,1.6vw,22px)}
 .h-icons a,.h-icons button,.menu-btn{display:grid; place-items:center; color:var(--ink); background:none; border:0; padding:4px; cursor:pointer; transition:color .15s}
 .h-icons a:hover,.h-icons button:hover,.menu-btn:hover{color:var(--wine)}
@@ -89,7 +89,7 @@ nav a[aria-current="page"]{color:var(--wine)}
 .mainnav a:hover,.mainnav a[aria-current="page"]{color:var(--wine)}
 .mainnav a:hover::after,.mainnav a[aria-current="page"]::after{left:0; right:0}
 @media (min-width:921px){
-  .hbar{grid-template-columns:minmax(0,1fr) auto;padding-block:14px 10px;column-gap:24px;row-gap:7px}
+  .hbar{grid-template-columns:minmax(0,1fr) auto;padding-block:8px 4px;column-gap:24px;row-gap:2px}
   .h-start{display:none}
   .site-head .logo{grid-column:1/-1;grid-row:1}
   .mainnav{grid-column:1;grid-row:2;justify-content:flex-start;gap:clamp(10px,1.75vw,30px);border:0}
@@ -100,7 +100,7 @@ nav a[aria-current="page"]{color:var(--wine)}
 @media (max-width:920px){
   .h-loc,.h-icons .hide-m,.h-icons .sep,.mainnav{display:none}
   .menu-btn{display:grid}
-  .site-head .logo img{height:49px}
+  .site-head .logo img{height:40px}
 }
 .site-head--campaign{
   position:relative;height:0;overflow:visible;background:transparent;color:#fff;
@@ -108,12 +108,12 @@ nav a[aria-current="page"]{color:var(--wine)}
 }
 .site-head--campaign .hbar{
   position:relative;grid-template-columns:1fr auto 1fr;
-  gap:4px 20px;max-width:none;margin:0;padding:8px clamp(18px,4vw,66px) 2px;transition:background-color .24s,color .24s;
+  gap:0 20px;max-width:none;margin:0;padding:8px clamp(18px,4vw,66px) 0;transition:background-color .24s,color .24s;
 }
 .site-head--campaign .logo{grid-column:1/-1;grid-row:1;color:inherit}
 .campaign-wordmark{
   display:flex;align-items:center;gap:.11em;
-  font:600 18vw/.78 var(--f-latin-script);letter-spacing:.08em;
+  font:600 clamp(46px,6.4vw,92px)/.78 var(--f-latin-script);letter-spacing:.08em;
 }
 .site-head--campaign .logo .campaign-icon{
   height:.59em;width:auto;flex:none;filter:brightness(0) invert(1);
@@ -122,7 +122,7 @@ nav a[aria-current="page"]{color:var(--wine)}
   grid-column:1/3;grid-row:2;justify-content:flex-start;align-items:center;gap:clamp(20px,3.25vw,54px);
 }
 .site-head--campaign .mainnav a,.mega-trigger{
-  padding:12px 0;color:inherit;font:500 clamp(18px,1.55vw,23px)/1.3 var(--f-sans);
+  padding:8px 0 10px;color:inherit;font:500 clamp(16px,1.3vw,19px)/1.3 var(--f-sans);
 }
 .site-head--campaign .mainnav a::after{background:currentColor}
 .site-head--campaign .h-icons{grid-column:3;grid-row:2;gap:clamp(7px,1vw,14px)}
@@ -175,9 +175,11 @@ dialog.sheet.editorial-drawer{
 @media (max-width:920px){
   .site-head--campaign .hbar{padding-inline:14px;gap:0 5px}
   .site-head--campaign .mainnav{display:none}
-  .site-head--campaign .h-start{grid-column:1;grid-row:2}
-  .site-head--campaign .h-icons{gap:4px}
-  .campaign-wordmark{font-size:18.4vw}
+  .site-head--campaign .hbar{padding-block:6px}
+  .site-head--campaign .logo{grid-row:1;justify-self:center}
+  .site-head--campaign .h-start{grid-column:1;grid-row:1;position:relative;z-index:2;justify-self:start}
+  .site-head--campaign .h-icons{grid-column:3;grid-row:1;gap:0;position:relative;z-index:2;justify-self:end}
+  .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
 .menu-d:not([open]){display:none}
@@ -195,9 +197,9 @@ dialog.sheet.editorial-drawer{
   .announce{font-size:12px; padding-block:7px}
   .h-loc,.h-icons .hide-m,.h-icons .sep{display:none}
   .menu-btn{display:grid}
-  .hbar{padding-block:12px}
-  .site-head .logo img{height:48px}
-  .site-head.scrolled .logo img:not(.campaign-icon){height:38px}
+  .hbar{padding-block:6px}
+  .site-head .logo img{height:38px}
+  .site-head.scrolled .logo img:not(.campaign-icon){height:32px}
   .mainnav{display:none}
 }
 .crumbs{display:flex; flex-wrap:wrap; gap:8px; align-items:center; font-size:13.5px; color:var(--grey-2); margin:0 0 14px; padding:0}
