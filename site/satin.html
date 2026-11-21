@@ -1858,6 +1858,42 @@ dialog.sheet.editorial-drawer{
   .campaign-split .campaign-action{min-height:48px;padding-inline:26px;font-size:15px}
 }
 
+/* ── AI launcher + chat: the butterfly says AI and opens straight into the conversation.
+   The panel grows out of the launcher's corner; white surfaces, wine accents. */
+.ai-launch,.ai-launch:hover{display:inline-flex;align-items:center;gap:8px;width:auto;height:52px;min-height:52px;padding:0 18px 0 14px;
+  background:var(--wine);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:999px;
+  box-shadow:0 16px 34px -14px rgba(60,12,20,.7),0 0 0 4px rgba(139,17,25,.12)}
+.ai-launch{transition:transform .25s cubic-bezier(.2,.8,.2,1),opacity .2s,box-shadow .25s}
+.ai-launch:hover{transform:translateY(-2px)}
+.ai-launch:active{transform:scale(.96)}
+.ai-launch .ai-fly{width:34px;height:auto;display:block}
+.ai-tag{font:700 15px/1 "IBM Plex Sans Arabic",system-ui,sans-serif;letter-spacing:.08em}
+.ai-hrow .sub .ai-tag{font-size:10.5px;letter-spacing:.06em;padding:3px 6px;border-radius:6px;background:rgba(255,255,255,.16)}
+@media(max-width:920px){
+  .ai-launch,.ai-launch:hover{width:auto;height:50px;min-height:50px;padding:0 15px 0 11px;gap:6px}
+  .ai-launch .ai-fly{width:30px}
+}
+.ai-panel{background:#fff;transform:translateY(10px) scale(.86);transform-origin:bottom right;
+  transition:opacity .2s ease,transform .32s cubic-bezier(.2,.9,.25,1.05)}
+.ai-panel[data-open]{transform:none}
+.ai-head{padding:14px 14px 14px 16px}
+.ai-hrow{gap:10px}
+.ai-hrow .av{width:40px;height:40px}
+.ai-hrow > div{flex:1;min-width:0}
+.ai-x{margin-inline-start:0;width:38px;height:38px;color:#fff;text-decoration:none}
+.ai-x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ai-body{background:#fff;padding:16px 14px 8px}
+.ai-chips{margin-top:14px}
+.ai-composer{background:#fff;border-top:1px solid #eee}
+.ai-field{background:#f5f5f5;box-shadow:none}
+.ai-field:focus-within{box-shadow:inset 0 0 0 1.5px var(--wine);background:#fff}
+.ai-send{background:#d9d9d9}
+@media (max-width:520px){
+  .ai-panel{transform:translateY(24px);transform-origin:bottom center}
+  .ai-panel[data-open]{transform:none}
+}
+@media(prefers-reduced-motion:reduce){.ai-panel,.ai-launch{transition:opacity .15s}}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
@@ -2090,48 +2126,24 @@ dialog.sheet.editorial-drawer{
 
 <!-- FLANN WEBSITE CHAT -->
 <div class="ai" dir="rtl" lang="ar">
-  <button class="ai-launch" id="aiLaunch" type="button" aria-expanded="false" aria-controls="aiPanel" aria-label="اسأل بيـوري">
-    <span class="av" aria-hidden="true"><img src="img/logo-icon-white.png" alt=""></span>
-    <span class="txt">اسأل بيـوري</span>
-    <span class="dot" aria-hidden="true"></span>
+  <button class="ai-launch" id="aiLaunch" type="button" aria-expanded="false" aria-controls="aiPanel" aria-label="مساعد بيـوري الذكي">
+    <img class="ai-fly" src="img/logo-icon-white.png" alt="" width="293" height="179">
+    <span class="ai-tag" lang="en" aria-hidden="true">AI</span>
   </button>
   <div class="ai-scrim" id="aiScrim" aria-hidden="true"></div>
-  <div class="ai-panel" id="aiPanel" data-view="home" role="dialog" aria-label="مساعد بيـوري">
+  <div class="ai-panel" id="aiPanel" data-view="chat" role="dialog" aria-label="مساعد بيـوري">
     <div class="ai-head">
       <div class="ai-hrow">
-        <button class="ai-back" id="aiBack" type="button" aria-label="رجوع">→</button>
         <span class="av" aria-hidden="true"><img src="img/logo-icon-white.png" alt=""></span>
         <div>
           <h3>مساعد بيـوري</h3>
-          <div class="sub"><i aria-hidden="true"></i>يجاوبك الآن · جملة فقط للتجار</div>
+          <div class="sub"><span class="ai-tag" lang="en">AI</span>يجاوبك الآن · جملة فقط للتجار</div>
         </div>
-        <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق">✕</button>
+        <a class="ai-x ai-wa" href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب الفريق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></a>
+        <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </div>
     <div class="ai-body">
-      <div class="ai-view home">
-        <div class="ai-card">
-          <p class="msg">أهلاً بيك في بيـوري 🌸 اسأل على الأقسام، الألوان، أو طريقة الطلب بالجملة، ونجاوبك هنا.</p>
-          <button class="ai-cta" id="aiStart" type="button">ابدأ المحادثة <span aria-hidden="true">←</span></button>
-        </div>
-        <a class="ai-feature" href="lavermo.html"><bdi lang="en">Lavermo</bdi> · تشكيلة بيوري الخاصة بإصدار محدود <span aria-hidden="true">←</span></a>
-        <div class="ai-sep">أو تواصل معنا مباشرة</div>
-        <a class="ai-ch" href="https://wa.me/218919282214" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></span>
-          <span><span class="nm">واتساب</span><span class="rt"><bdi dir="ltr">0919282214</bdi></span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-        <a class="ai-ch" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3v11.6a3.6 3.6 0 1 1-3.6-3.6"/><path d="M14 3c.5 2.7 2.4 4.5 5.2 4.8"/></svg></span>
-          <span><span class="nm">تيك توك</span><span class="rt"><bdi dir="ltr">@purey116</bdi></span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-        <a class="ai-ch" href="https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.6a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.4" r="2.5"/></svg></span>
-          <span><span class="nm">مقرنا</span><span class="rt">طرابلس، شارع الرشيد</span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-      </div>
       <div class="ai-view chat">
         <div class="ai-thread" id="aiThread">
           <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
@@ -2488,36 +2500,31 @@ document.querySelectorAll('.car').forEach(c=>{
   {
     const tabs = [...document.querySelectorAll('.brand-tab')];
     const best = document.querySelector('.best');
+    // each tab has its own hand-picked bestsellers; the two lists never share a product
+    const BEST = {"all":["o07","u64","o12","s42","o11"],"lavermo":["o10","o13","l029","o09","s33"]};
     const bestOrig = best ? [...best.children] : [];
-    let bestLav = null;
+    const bestSets = {};
     const lavCount = k => DATA.filter(p => p.c === k && p.brand === 'lavermo').length;
     const keep = new Map();
     const remember = (el, prop) => { if (el && !keep.has(el)) keep.set(el, el[prop]); return el; };
-    function bestFor(lav) {
+    function bestFor(b) {
       if (!best) return;
-      if (lav && !bestLav) {
-        const ids = bestOrig.map(a => a.dataset.id).filter(id => (DATA.find(p => p.id === id) || {}).brand === 'lavermo');
-        for (const k of ['s', 'u', 'l', 'c', 'r']) {
-          if (ids.length >= 5) break;
-          const p = DATA.find(p => p.brand === 'lavermo' && p.c === k && !ids.includes(p.id)); if (p) ids.push(p.id);
-        }
-        bestLav = ids.map(id => {
-          const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
-          const p = DATA.find(p => p.id === id), a = document.createElement('article');
-          a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
-          a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
-          a.addEventListener('click', () => openQV(id));
-          a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
-          return a;
-        });
-      }
-      best.replaceChildren(...(lav ? bestLav : bestOrig));
+      bestSets[b] = bestSets[b] || BEST[b].map(id => {
+        const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
+        const p = DATA.find(p => p.id === id), a = document.createElement('article');
+        a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
+        a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
+        a.addEventListener('click', () => openQV(id));
+        a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
+        return a;
+      });
+      best.replaceChildren(...bestSets[b]);
     }
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
       tabs.forEach(t => { const on = t.dataset.brand === BRAND; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
-      bestFor(lav);
+      bestFor(BRAND);
       for (const [slug, k] of Object.entries(SLUG)) {
         const n = remember(document.getElementById('lookbook-count-' + slug), 'textContent');
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
@@ -2568,6 +2575,6 @@ document.querySelectorAll('.car').forEach(c=>{
 })();
 
 </script>
-<script defer src="purey-chat.js?v=9854d696fc69"></script>
+<script defer src="purey-chat.js?v=ec866b1f7d62"></script>
 </body>
 </html>

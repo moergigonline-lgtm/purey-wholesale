@@ -22,12 +22,30 @@ const CATS = [
   { k: 'u', slug: 'sets', ar: 'طواقم داخلي', en: 'Sets', obj: '50% 40%' },
 ];
 const count = {}; for (const p of all) count[p.c] = (count[p.c] || 0) + 1;
+// Home bestsellers per brand tab: PUREY shows only Purey pieces, Lavermo only Lavermo pieces.
+const BEST = {
+  all: ['o07', 'u64', 'o12', 's42', 'o11'],
+  lavermo: ['o10', 'o13', 'l029', 'o09', 's33'],
+};
+for (const [b, ids] of Object.entries(BEST)) for (const id of ids) {
+  const p = all.find((x) => x.id === id);
+  if (!p) throw new Error('bestseller missing: ' + id);
+  if ((p.brand === 'lavermo') !== (b === 'lavermo')) throw new Error('bestseller ' + id + ' is in the wrong brand list');
+}
 
 // ── pieces of the source ──
 let style = cut('<style>', '</style>') + '</style>';
 const fonts = cut('<link rel="stylesheet" href="https://fonts.googleapis.com', '\n');
 let header = cut('  <!-- HEADER -->', '  <main id="top">');
 let homeTop = cut('    <!-- HERO -->', '    <!-- CATALOGUE -->');
+{ // first paint shows the PUREY bestsellers; the brand tabs swap the list in place
+  const CAT_AR = { c: 'بجامات قطني', s: 'بجامات ستان', r: 'ارواب وعرائيسي', l: 'لانجري', u: 'طواقم داخلي' };
+  const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const art = (id) => { const p = all.find((x) => x.id === id); return `        <article data-id="${p.id}" tabindex="0" role="button"><div class="cut"><img src="${p.img}" alt="${esc(p.n)}" loading="lazy" decoding="async"></div><h3>${esc(p.n)}</h3><p class="meta">${CAT_AR[p.c]}</p></article>`; };
+  const before = homeTop;
+  homeTop = homeTop.replace(/(<div class="best">\n)[\s\S]*?(\n      <\/div>\n      <div class="center">)/, (m, a, b) => a + BEST.all.map(art).join('\n') + b);
+  if (homeTop === before) throw new Error('bestseller block not found');
+}
 // product data always comes from catalog-data.js, never the copy embedded in the source page
 const catalogJSON = JSON.stringify(all.map((p) => ({ id: p.id, c: p.c, n: p.n, i: p.img, ...(p.brand ? {brand:p.brand} : {}) })));
 const dataScript = '    <script type="application/json" id="catalog-data">' + catalogJSON + '</script>\n';
@@ -534,36 +552,31 @@ script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
   {
     const tabs = [...document.querySelectorAll('.brand-tab')];
     const best = document.querySelector('.best');
+    // each tab has its own hand-picked bestsellers; the two lists never share a product
+    const BEST = ${JSON.stringify(BEST)};
     const bestOrig = best ? [...best.children] : [];
-    let bestLav = null;
+    const bestSets = {};
     const lavCount = k => DATA.filter(p => p.c === k && p.brand === 'lavermo').length;
     const keep = new Map();
     const remember = (el, prop) => { if (el && !keep.has(el)) keep.set(el, el[prop]); return el; };
-    function bestFor(lav) {
+    function bestFor(b) {
       if (!best) return;
-      if (lav && !bestLav) {
-        const ids = bestOrig.map(a => a.dataset.id).filter(id => (DATA.find(p => p.id === id) || {}).brand === 'lavermo');
-        for (const k of ['s', 'u', 'l', 'c', 'r']) {
-          if (ids.length >= 5) break;
-          const p = DATA.find(p => p.brand === 'lavermo' && p.c === k && !ids.includes(p.id)); if (p) ids.push(p.id);
-        }
-        bestLav = ids.map(id => {
-          const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
-          const p = DATA.find(p => p.id === id), a = document.createElement('article');
-          a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
-          a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
-          a.addEventListener('click', () => openQV(id));
-          a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
-          return a;
-        });
-      }
-      best.replaceChildren(...(lav ? bestLav : bestOrig));
+      bestSets[b] = bestSets[b] || BEST[b].map(id => {
+        const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
+        const p = DATA.find(p => p.id === id), a = document.createElement('article');
+        a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
+        a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
+        a.addEventListener('click', () => openQV(id));
+        a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
+        return a;
+      });
+      best.replaceChildren(...bestSets[b]);
     }
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
       tabs.forEach(t => { const on = t.dataset.brand === BRAND; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
-      bestFor(lav);
+      bestFor(BRAND);
       for (const [slug, k] of Object.entries(SLUG)) {
         const n = remember(document.getElementById('lookbook-count-' + slug), 'textContent');
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);

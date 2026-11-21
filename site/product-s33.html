@@ -170,48 +170,24 @@
 
 <!-- FLANN WEBSITE CHAT -->
 <div class="ai" dir="rtl" lang="ar">
-  <button class="ai-launch" id="aiLaunch" type="button" aria-expanded="false" aria-controls="aiPanel" aria-label="اسأل بيـوري">
-    <span class="av" aria-hidden="true"><img src="img/logo-icon-white.png" alt=""></span>
-    <span class="txt">اسأل بيـوري</span>
-    <span class="dot" aria-hidden="true"></span>
+  <button class="ai-launch" id="aiLaunch" type="button" aria-expanded="false" aria-controls="aiPanel" aria-label="مساعد بيـوري الذكي">
+    <img class="ai-fly" src="img/logo-icon-white.png" alt="" width="293" height="179">
+    <span class="ai-tag" lang="en" aria-hidden="true">AI</span>
   </button>
   <div class="ai-scrim" id="aiScrim" aria-hidden="true"></div>
-  <div class="ai-panel" id="aiPanel" data-view="home" role="dialog" aria-label="مساعد بيـوري">
+  <div class="ai-panel" id="aiPanel" data-view="chat" role="dialog" aria-label="مساعد بيـوري">
     <div class="ai-head">
       <div class="ai-hrow">
-        <button class="ai-back" id="aiBack" type="button" aria-label="رجوع">→</button>
         <span class="av" aria-hidden="true"><img src="img/logo-icon-white.png" alt=""></span>
         <div>
           <h3>مساعد بيـوري</h3>
-          <div class="sub"><i aria-hidden="true"></i>يجاوبك الآن · جملة فقط للتجار</div>
+          <div class="sub"><span class="ai-tag" lang="en">AI</span>يجاوبك الآن · جملة فقط للتجار</div>
         </div>
-        <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق">✕</button>
+        <a class="ai-x ai-wa" href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب الفريق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></a>
+        <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
       </div>
     </div>
     <div class="ai-body">
-      <div class="ai-view home">
-        <div class="ai-card">
-          <p class="msg">أهلاً بيك في بيـوري 🌸 اسأل على الأقسام، الألوان، أو طريقة الطلب بالجملة، ونجاوبك هنا.</p>
-          <button class="ai-cta" id="aiStart" type="button">ابدأ المحادثة <span aria-hidden="true">←</span></button>
-        </div>
-        <a class="ai-feature" href="lavermo.html"><bdi lang="en">Lavermo</bdi> · تشكيلة بيوري الخاصة بإصدار محدود <span aria-hidden="true">←</span></a>
-        <div class="ai-sep">أو تواصل معنا مباشرة</div>
-        <a class="ai-ch" href="https://wa.me/218919282214" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></span>
-          <span><span class="nm">واتساب</span><span class="rt"><bdi dir="ltr">0919282214</bdi></span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-        <a class="ai-ch" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3v11.6a3.6 3.6 0 1 1-3.6-3.6"/><path d="M14 3c.5 2.7 2.4 4.5 5.2 4.8"/></svg></span>
-          <span><span class="nm">تيك توك</span><span class="rt"><bdi dir="ltr">@purey116</bdi></span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-        <a class="ai-ch" href="https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya" target="_blank" rel="noopener">
-          <span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.6a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.4" r="2.5"/></svg></span>
-          <span><span class="nm">مقرنا</span><span class="rt">طرابلس، شارع الرشيد</span></span>
-          <span class="cv" aria-hidden="true">←</span>
-        </a>
-      </div>
       <div class="ai-view chat">
         <div class="ai-thread" id="aiThread">
           <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
@@ -235,6 +211,6 @@
   </div>
 </div>
 
-<script src="product-catalog.js"></script><script src="product-pages.js"></script><script defer src="purey-chat.js?v=9854d696fc69"></script>
+<script src="product-catalog.js"></script><script src="product-pages.js"></script><script defer src="purey-chat.js?v=ec866b1f7d62"></script>
 </body>
 </html>

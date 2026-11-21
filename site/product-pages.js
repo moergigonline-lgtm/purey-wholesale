@@ -331,36 +331,31 @@ document.querySelectorAll('.car').forEach(c=>{
   {
     const tabs = [...document.querySelectorAll('.brand-tab')];
     const best = document.querySelector('.best');
+    // each tab has its own hand-picked bestsellers; the two lists never share a product
+    const BEST = {"all":["o07","u64","o12","s42","o11"],"lavermo":["o10","o13","l029","o09","s33"]};
     const bestOrig = best ? [...best.children] : [];
-    let bestLav = null;
+    const bestSets = {};
     const lavCount = k => DATA.filter(p => p.c === k && p.brand === 'lavermo').length;
     const keep = new Map();
     const remember = (el, prop) => { if (el && !keep.has(el)) keep.set(el, el[prop]); return el; };
-    function bestFor(lav) {
+    function bestFor(b) {
       if (!best) return;
-      if (lav && !bestLav) {
-        const ids = bestOrig.map(a => a.dataset.id).filter(id => (DATA.find(p => p.id === id) || {}).brand === 'lavermo');
-        for (const k of ['s', 'u', 'l', 'c', 'r']) {
-          if (ids.length >= 5) break;
-          const p = DATA.find(p => p.brand === 'lavermo' && p.c === k && !ids.includes(p.id)); if (p) ids.push(p.id);
-        }
-        bestLav = ids.map(id => {
-          const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
-          const p = DATA.find(p => p.id === id), a = document.createElement('article');
-          a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
-          a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
-          a.addEventListener('click', () => openQV(id));
-          a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
-          return a;
-        });
-      }
-      best.replaceChildren(...(lav ? bestLav : bestOrig));
+      bestSets[b] = bestSets[b] || BEST[b].map(id => {
+        const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
+        const p = DATA.find(p => p.id === id), a = document.createElement('article');
+        a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
+        a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
+        a.addEventListener('click', () => openQV(id));
+        a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
+        return a;
+      });
+      best.replaceChildren(...bestSets[b]);
     }
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
       tabs.forEach(t => { const on = t.dataset.brand === BRAND; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
-      bestFor(lav);
+      bestFor(BRAND);
       for (const [slug, k] of Object.entries(SLUG)) {
         const n = remember(document.getElementById('lookbook-count-' + slug), 'textContent');
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
