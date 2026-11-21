@@ -977,21 +977,34 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
 .lookbook-tile:is(:hover,:focus-visible) img{opacity:1}
 .lookbook-tile:is(:hover,:focus-visible) .lookbook-copy::before{width:44px}
 @media (hover:hover) and (pointer:fine){ .lookbook-tile:hover img{transform:scale(1.03)} }
+.gallery-sub,.gallery-links{display:none}
 @media (max-width:760px){
-  /* phones: one swipeable strip of compact cards instead of full-height photos */
-  .campaign-gallery{padding-block:28px 30px}
-  .gallery-title{margin-bottom:18px}
-  .lookbook{display:flex; gap:8px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
-    scroll-padding-inline:16px; padding-inline:16px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+  /* phones: a wine campaign band (big serif title, short line, underlined text
+     links) over one swipeable row of large portrait cards, label under each photo */
+  .campaign-gallery{--nb:var(--wine); background:var(--wine); padding-block:44px 34px; text-align:center}
+  .gallery-title{margin:0 0 12px; padding-inline:20px; font:400 clamp(46px,13vw,58px)/1.05 var(--f-serif)}
+  .gallery-sub{display:block; margin:0 auto 22px; padding-inline:24px; max-width:330px;
+    font:300 15px/1.6 var(--f-sans); color:rgba(255,255,255,.9)}
+  .gallery-links{display:flex; justify-content:center; gap:28px; margin-bottom:30px}
+  .gallery-links a{color:#fff; font:600 14px/1 var(--f-sans); letter-spacing:.02em;
+    text-decoration:underline; text-underline-offset:7px; text-decoration-thickness:1.5px}
+  .gallery-links bdi{font:italic 500 1.2em/1 var(--f-latin-script)}
+  .lookbook{display:flex; gap:12px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
+    scroll-padding-inline:20px; padding-inline:20px; background:none; scrollbar-width:none}
   .lookbook::-webkit-scrollbar{display:none}
   .lookbook .lookbook-tile,.lookbook .lookbook-lingerie,.lookbook .lookbook-satin,.lookbook .lookbook-robes,
   .lookbook .lookbook-sets,.lookbook .lookbook-cotton,.lookbook .lookbook-lavermo{
-    flex:0 0 clamp(132px,38vw,170px); aspect-ratio:3/4; min-height:0; scroll-snap-align:start}
-  .lookbook-tile img{object-position:var(--mobile-crop,center); opacity:.9}
-  .lookbook-copy{bottom:12px; padding:0 8px}
-  .lookbook-copy::before{width:16px; margin-bottom:7px}
-  .lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{font-size:14px}
-  .lookbook-count{font-size:11px; margin-top:3px}
+    flex:0 0 72vw; max-width:300px; aspect-ratio:auto; min-height:0; scroll-snap-align:start;
+    display:flex; flex-direction:column; overflow:visible; background:none}
+  .lookbook-tile img{position:static; width:100%; height:auto; aspect-ratio:4/5; opacity:1;
+    object-position:var(--mobile-crop,center)}
+  .lookbook-tile::after{display:none}
+  .lookbook-tile:hover img{transform:none}
+  .lookbook-copy{position:static; padding:16px 4px 0}
+  .lookbook-copy::before{display:none}
+  .lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{
+    font:400 30px/1.1 var(--f-serif)}
+  .lookbook-count{font-size:12.5px; margin-top:4px; color:rgba(255,255,255,.75)}
 }
 @media (prefers-reduced-motion:reduce){ .lookbook-tile img,.lookbook-copy::before{transition:none} .lookbook-tile:hover img{transform:none} }
 </style>
@@ -1060,9 +1073,11 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
     <!-- COLLECTION LOOKBOOK -->
     <section class="campaign-gallery" id="cats" aria-labelledby="gallery-title">
       <h2 class="gallery-title" id="gallery-title">التشكيلات</h2>
+      <p class="gallery-sub">ستة أقسام وأكثر من 400 موديل بالجملة، من الستان للدانتيل.</p>
+      <div class="gallery-links"><a href="#catalog">تصفّح الكتالوج</a><a href="lavermo.html">علامتنا <bdi lang="en">Lavermo</bdi></a></div>
       <div class="lookbook">
         <a class="lookbook-tile lookbook-lingerie" href="#c-lingerie" aria-labelledby="lookbook-title-lingerie lookbook-count-lingerie">
-          <img src="img/lookbook-edit-lingerie-480.webp" srcset="img/lookbook-edit-lingerie-480.webp 480w, img/lookbook-edit-lingerie-800.webp 800w, img/lookbook-edit-lingerie-1120.webp 1120w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/lookbook-edit-lingerie-480.webp" srcset="img/lookbook-edit-lingerie-480.webp 480w, img/lookbook-edit-lingerie-800.webp 800w, img/lookbook-edit-lingerie-1120.webp 1120w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-lingerie">لانجري</span>
             <span class="lookbook-count" id="lookbook-count-lingerie">59 موديل</span>
@@ -1070,7 +1085,7 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
           </span>
         </a>
         <a class="lookbook-tile lookbook-satin" href="#c-satin" aria-labelledby="lookbook-title-satin lookbook-count-satin">
-          <img src="img/lookbook-edit-satin-480.webp" srcset="img/lookbook-edit-satin-480.webp 480w, img/lookbook-edit-satin-800.webp 800w, img/lookbook-edit-satin-1120.webp 1120w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/lookbook-edit-satin-480.webp" srcset="img/lookbook-edit-satin-480.webp 480w, img/lookbook-edit-satin-800.webp 800w, img/lookbook-edit-satin-1120.webp 1120w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-satin">بيجامات ستان</span>
             <span class="lookbook-count" id="lookbook-count-satin">58 موديل</span>
@@ -1078,7 +1093,7 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
           </span>
         </a>
         <a class="lookbook-tile lookbook-robes" href="#c-robes" aria-labelledby="lookbook-title-robes lookbook-count-robes">
-          <img src="img/home-edit-robes-480.webp" srcset="img/home-edit-robes-480.webp 480w, img/home-edit-robes-800.webp 800w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/home-edit-robes-480.webp" srcset="img/home-edit-robes-480.webp 480w, img/home-edit-robes-800.webp 800w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-robes">أرواب وعرائسي</span>
             <span class="lookbook-count" id="lookbook-count-robes">87 موديل</span>
@@ -1086,7 +1101,7 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
           </span>
         </a>
         <a class="lookbook-tile lookbook-cotton" href="#c-cotton" aria-labelledby="lookbook-title-cotton lookbook-count-cotton">
-          <img src="img/lookbook-edit-cotton-480.webp" srcset="img/lookbook-edit-cotton-480.webp 480w, img/lookbook-edit-cotton-800.webp 800w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/lookbook-edit-cotton-480.webp" srcset="img/lookbook-edit-cotton-480.webp 480w, img/lookbook-edit-cotton-800.webp 800w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-cotton">بيجامات قطني</span>
             <span class="lookbook-count" id="lookbook-count-cotton">119 موديل</span>
@@ -1094,7 +1109,7 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
           </span>
         </a>
         <a class="lookbook-tile lookbook-sets" href="#c-sets" aria-labelledby="lookbook-title-sets lookbook-count-sets">
-          <img src="img/lookbook-edit-sets-480.webp" srcset="img/lookbook-edit-sets-480.webp 480w, img/lookbook-edit-sets-800.webp 800w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/lookbook-edit-sets-480.webp" srcset="img/lookbook-edit-sets-480.webp 480w, img/lookbook-edit-sets-800.webp 800w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-sets">طواقم داخلي</span>
             <span class="lookbook-count" id="lookbook-count-sets">120 موديل</span>
@@ -1102,7 +1117,7 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
           </span>
         </a>
         <a class="lookbook-tile lookbook-lavermo" href="lavermo.html" aria-labelledby="lookbook-title-lavermo lookbook-count-lavermo">
-          <img src="img/home-edit-lavermo-480.webp" srcset="img/home-edit-lavermo-480.webp 480w, img/home-edit-lavermo-800.webp 800w" sizes="(max-width: 760px) 40vw, 33vw" alt="" loading="lazy" decoding="async">
+          <img src="img/home-edit-lavermo-480.webp" srcset="img/home-edit-lavermo-480.webp 480w, img/home-edit-lavermo-800.webp 800w" sizes="(max-width: 760px) 72vw, 33vw" alt="" loading="lazy" decoding="async">
           <span class="lookbook-copy">
             <span class="lookbook-name" id="lookbook-title-lavermo"><bdi lang="en">Lavermo</bdi></span>
             <span class="lookbook-count" id="lookbook-count-lavermo">157 موديل · إصدار محدود</span>
