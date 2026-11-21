@@ -1832,10 +1832,6 @@ dialog.sheet.editorial-drawer{
 .campaign-split img{object-position:center 18%}
 .campaign-split::after{content:"";position:absolute;inset:auto 0 0;height:42%;z-index:-1;pointer-events:none;
   background:linear-gradient(to top,rgba(20,6,10,.82),transparent)}
-/* Lavermo selected: the Purey half (physical right) steps back */
-.campaign-split .split-dim{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;transition:opacity .5s ease;
-  background:linear-gradient(to left,rgba(14,4,7,.66) 0 42%,transparent 58%)}
-html[data-brand="lavermo"] .campaign-split .split-dim{opacity:1}
 .campaign-split .campaign-copy{position:relative;right:auto;left:auto;top:auto;bottom:auto;translate:none;
   justify-self:center;justify-items:center;text-align:center;gap:16px}
 .campaign-split .campaign-title{contain:none;white-space:normal;font:400 clamp(30px,3.1vw,46px)/1.15 var(--f-serif);
@@ -1847,7 +1843,6 @@ html[data-brand="lavermo"] .campaign-split .split-dim{opacity:1}
   .campaign-split .campaign-title{font-size:clamp(26px,7.4vw,32px)}
   .campaign-split .campaign-action{min-height:48px;padding-inline:26px;font-size:15px}
 }
-@media(prefers-reduced-motion:reduce){ .campaign-split .split-dim{transition:none} }
 
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
