@@ -583,7 +583,7 @@ const askSection = `
         </div>
         <form class="purey-ask-form" id="pureyAskForm">
           <input id="pureyAskText" type="text" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="pureyInlineThread" required>
-          <button type="submit" aria-label="إرسال السؤال">↑</button>
+          <button type="submit" aria-label="إرسال السؤال"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
         </form>
         <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
       </div>
