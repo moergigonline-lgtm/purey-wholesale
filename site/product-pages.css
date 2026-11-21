@@ -1472,3 +1472,32 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
 .step button{color:var(--wine)}
 /* product page: the two actions are one column of equal-width buttons */
 .product-info :is(.product-add,.product-ask){width:min(100%,280px); justify-self:start}
+
+/* ── chat: Purey's replies in a blush bubble, visitor in wine ─────────── */
+.bub.bot{background:#f6e7ea; color:#3a1520; box-shadow:none; border:1px solid #efd6db}
+.bub.bot a{color:var(--wine)}
+
+/* ── collection cards (#cats): always-visible caption bar, 2×3 on phones ──
+   The name and an arrow sit on a glass bar across the bottom of every card,
+   so each one reads as a button without hover (phones have none). */
+.lookbook-tile::after{background:linear-gradient(to top,#21111799,transparent 38%)}
+.lookbook-copy{inset:auto 0 0 0; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:14px clamp(14px,1.6vw,22px); background:rgba(40,12,22,.5);
+  -webkit-backdrop-filter:blur(10px) saturate(1.2); backdrop-filter:blur(10px) saturate(1.2);
+  border-top:1px solid rgba(255,246,237,.18)}
+.lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{
+  font:500 clamp(17px,1.5vw,24px)/1.3 var(--f-sans); transform:none !important; min-width:0}
+.lookbook-cta{position:static; flex:none; opacity:1; transform:none !important; display:inline-flex; align-items:center; gap:8px;
+  min-height:36px; padding:0 14px; border-radius:100px; background:#fff6ed; color:#39121e; font:500 13px/1 var(--f-sans)}
+.lookbook-cta::after{content:"←"; font-weight:400}
+@media (hover:hover) and (pointer:fine){ .lookbook-tile:hover .lookbook-cta{background:#fff} }
+@media (max-width:760px){
+  .lookbook{grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px}
+  .lookbook .lookbook-tile,.lookbook .lookbook-lingerie,.lookbook .lookbook-satin,.lookbook .lookbook-robes,
+  .lookbook .lookbook-sets,.lookbook .lookbook-cotton,.lookbook .lookbook-lavermo{grid-column:auto; aspect-ratio:3/4; min-height:0}
+  .lookbook-copy{padding:10px 10px 10px 8px; gap:6px}
+  .lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{font-size:15px}
+  /* the whole card is the tap target; the label becomes a compact arrow chip */
+  .lookbook-cta{width:32px; height:32px; min-height:32px; padding:0; justify-content:center; font-size:0}
+  .lookbook-cta::after{font-size:15px}
+}
