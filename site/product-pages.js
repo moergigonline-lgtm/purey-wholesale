@@ -114,7 +114,13 @@ document.querySelectorAll('.car').forEach(c=>{
 
   // category page: one category's products, searchable, 24 at a time
   const PAGE = grid ? grid.dataset.cat : null, PER = 24;
-  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE;
+  // brand: 'all' (PUREY) or 'lavermo'; ?brand= wins, then the remembered choice
+  let BRAND = (() => {
+    const u = new URLSearchParams(location.search).get('brand');
+    if (u) return u === 'lavermo' ? 'lavermo' : 'all';
+    try { return localStorage.getItem('purey.brand') === 'lavermo' ? 'lavermo' : 'all'; } catch { return 'all'; }
+  })();
+  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE && (BRAND !== 'lavermo' || p.brand === 'lavermo');
   const norm = s => String(s).toLowerCase().replace(/[\u064B-\u0652\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
   let items = [], shown = 0;
   function status(){ shownEl.textContent = items.length ? 'عرض ' + shown + ' من ' + items.length : ''; more.hidden = shown >= items.length; $('empty').hidden = !!items.length; }
@@ -130,7 +136,7 @@ document.querySelectorAll('.car').forEach(c=>{
   if (grid) {
     more.addEventListener('click', addMore);
     const q = $('q'), color = $('catalogColor'), sort = $('catalogSort');
-    const catalog = DATA.filter(inCollection);
+    const catalog = DATA.filter(p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE);
     for (const label of ['أسود','أبيض','عاجي','وردي','أحمر','أزرق','أخضر','رمادي','بني','بيج','كحلي','بنفسجي']) {
       if (catalog.some(p => norm(p.n).includes(norm(label)))) color.add(new Option(label, norm(label)));
     }
@@ -321,7 +327,66 @@ document.querySelectorAll('.car').forEach(c=>{
   function toast(t){ $('toastTxt').textContent = t; toastEl.classList.add('on'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('on'), 3200); }
   $('toastGo').addEventListener('click', () => { toastEl.classList.remove('on'); openBag(); });
 
-  if (grid) filter();
+  // ── brand tabs: PUREY (everything) | Lavermo (house label only) ──
+  {
+    const tabs = [...document.querySelectorAll('.brand-tab')];
+    const best = document.querySelector('.best');
+    const bestOrig = best ? [...best.children] : [];
+    let bestLav = null;
+    const lavCount = k => DATA.filter(p => p.c === k && p.brand === 'lavermo').length;
+    const keep = new Map();
+    const remember = (el, prop) => { if (el && !keep.has(el)) keep.set(el, el[prop]); return el; };
+    function bestFor(lav) {
+      if (!best) return;
+      if (lav && !bestLav) {
+        const ids = bestOrig.map(a => a.dataset.id).filter(id => (DATA.find(p => p.id === id) || {}).brand === 'lavermo');
+        for (const k of ['s', 'u', 'l', 'c', 'r']) {
+          if (ids.length >= 5) break;
+          const p = DATA.find(p => p.brand === 'lavermo' && p.c === k && !ids.includes(p.id)); if (p) ids.push(p.id);
+        }
+        bestLav = ids.map(id => {
+          const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
+          const p = DATA.find(p => p.id === id), a = document.createElement('article');
+          a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
+          a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
+          a.addEventListener('click', () => openQV(id));
+          a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
+          return a;
+        });
+      }
+      best.replaceChildren(...(lav ? bestLav : bestOrig));
+    }
+    function applyBrand() {
+      const lav = BRAND === 'lavermo';
+      document.documentElement.dataset.brand = BRAND;
+      tabs.forEach(t => { const on = t.dataset.brand === BRAND; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+      bestFor(lav);
+      for (const [slug, k] of Object.entries(SLUG)) {
+        const n = remember(document.getElementById('lookbook-count-' + slug), 'textContent');
+        if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
+        const tile = remember(document.querySelector('.lookbook-' + slug), 'href');
+        if (tile) tile.href = keep.get(tile) + (lav ? '?brand=lavermo' : '');
+      }
+      const sub = remember(document.querySelector('.gallery-sub'), 'textContent');
+      if (sub) sub.textContent = lav ? DATA.filter(p => p.brand === 'lavermo').length + ' موديل من علامتنا الخاصة Lavermo، بإصدار محدود.' : keep.get(sub);
+      const title = remember(document.querySelector('.campaign-title'), 'textContent');
+      if (title) title.textContent = lav ? 'تشكيلة Lavermo الخاصة' : keep.get(title);
+      const act = remember(document.querySelector('.campaign-action'), 'href');
+      const actLabel = remember(document.querySelector('.campaign-action-label'), 'textContent');
+      if (act) act.href = lav ? 'lavermo.html' : keep.get(act);
+      if (actLabel) actLabel.textContent = lav ? 'تصفّح Lavermo' : keep.get(actLabel);
+      if (grid) filter();
+    }
+    const pick = b => { BRAND = b; try { localStorage.setItem('purey.brand', b); } catch {} applyBrand(); };
+    tabs.forEach(t => {
+      t.addEventListener('click', () => pick(t.dataset.brand));
+      t.addEventListener('keydown', e => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault(); const o = tabs.find(x => x !== t); o.focus(); pick(o.dataset.brand);
+      });
+    });
+    if (tabs.length || BRAND === 'lavermo') applyBrand(); else if (grid) filter();
+  }
   const product = document.querySelector('.product-view');
   if (product) {
     const id = product.dataset.product;

@@ -1823,3 +1823,32 @@ dialog.sheet.editorial-drawer{
   .pc .act .add{padding-inline:20px;font-size:13px}
 }
 @media (prefers-reduced-motion:reduce){ .lookbook-tile img,.lookbook-copy::before{transition:none} .lookbook-tile:hover img{transform:none} }
+
+.brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
+.brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
+  border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.brand-tab + .brand-tab{border-inline-start:1px solid #e7e7e7}
+.brand-tab:hover{color:#444}
+.brand-tab[aria-selected="true"]{background:#fff;color:var(--wine)}
+.brand-tab::after{content:"";position:absolute;inset:auto 0 -1px;height:2px;background:currentColor;transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.brand-tab[aria-selected="true"]::after{transform:none}
+.brand-tab:focus-visible{outline:2px solid currentColor;outline-offset:-6px}
+.bt-purey{font:600 clamp(21px,2.2vw,31px)/1 var(--f-latin-script);letter-spacing:.16em;padding-inline-start:.16em}
+.bt-lavermo{display:block;width:clamp(92px,8.6vw,128px);aspect-ratio:791/209;background:currentColor;
+  -webkit-mask:url(img/lavermo-word.webp) center/contain no-repeat;mask:url(img/lavermo-word.webp) center/contain no-repeat}
+.bt-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* home: the bar sits on the photograph, under the campaign header */
+.site-head--campaign .brand-tabs{position:relative;margin-top:clamp(6px,1vw,14px);background:rgba(18,4,8,.3);
+  -webkit-backdrop-filter:blur(10px) saturate(1.1);backdrop-filter:blur(10px) saturate(1.1);border-color:rgba(255,255,255,.16)}
+.site-head--campaign .brand-tab{background:transparent;color:rgba(255,255,255,.55)}
+.site-head--campaign .brand-tab + .brand-tab{border-color:rgba(255,255,255,.16)}
+.site-head--campaign .brand-tab:hover{color:rgba(255,255,255,.85)}
+.site-head--campaign .brand-tab[aria-selected="true"]{background:#fff;color:var(--wine)}
+@media (max-width:920px){
+  .site-head--campaign .brand-tabs{margin-top:4px}
+  .brand-tab{min-height:50px}
+  .bt-purey{font-size:20px}
+  .bt-lavermo{width:86px}
+}
+@media (prefers-reduced-motion:reduce){.brand-tab,.brand-tab::after{transition:none}}

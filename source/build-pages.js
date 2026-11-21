@@ -324,6 +324,14 @@ const ICO = {
   menu: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M10 17h10"/></svg>',
 };
 const MAPS = 'https://www.google.com/maps/search/?api=1&query=Al+Rasheed+Street+Tripoli+Libya';
+// Brand switch on top of the hero (home and category pages): PUREY shows everything,
+// Lavermo shows only the house label. The choice is remembered across pages.
+function brandTabs() {
+  return `    <div class="brand-tabs" role="tablist" aria-label="العلامة">
+      <button type="button" role="tab" class="brand-tab" data-brand="all" aria-selected="true"><span class="bt-purey" lang="en" dir="ltr" aria-hidden="true">PUREY</span><span class="bt-sr">كل منتجات بيوري</span></button>
+      <button type="button" role="tab" class="brand-tab" data-brand="lavermo" aria-selected="false" tabindex="-1"><span class="bt-lavermo" aria-hidden="true"></span><span class="bt-sr">منتجات Lavermo فقط</span></button>
+    </div>`;
+}
 function headerFor(active) {
   const cur = (k) => (k === active ? ' aria-current="page"' : '');
   const campaign = active === 'home';
@@ -364,7 +372,7 @@ function headerFor(active) {
         <span class="sep" aria-hidden="true"></span>
         <button class="bag-btn" id="bagBtn" type="button" aria-label="طلبك">${ICO.bag}<span class="badge" id="bagBadge"></span></button>
       </div>
-    </div>
+    </div>${campaign ? '\n' + brandTabs() : ''}
   </header>
   ${campaign ? `<dialog class="sheet editorial-drawer" id="menuD" aria-label="القائمة">
     <div class="drawer-controls">
@@ -478,7 +486,13 @@ script = rep(script, "    const el = grid.querySelector(", "    if (!grid) retur
   if (a < 0 || b < 0) throw new Error('catalogue block');
   script = script.slice(0, a) + `  // category page: one category's products, searchable, 24 at a time
   const PAGE = grid ? grid.dataset.cat : null, PER = 24;
-  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE;
+  // brand: 'all' (PUREY) or 'lavermo'; ?brand= wins, then the remembered choice
+  let BRAND = (() => {
+    const u = new URLSearchParams(location.search).get('brand');
+    if (u) return u === 'lavermo' ? 'lavermo' : 'all';
+    try { return localStorage.getItem('purey.brand') === 'lavermo' ? 'lavermo' : 'all'; } catch { return 'all'; }
+  })();
+  const inCollection = p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE && (BRAND !== 'lavermo' || p.brand === 'lavermo');
   const norm = s => String(s).toLowerCase().replace(/[\\u064B-\\u0652\\u0640]/g, '').replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي');
   let items = [], shown = 0;
   function status(){ shownEl.textContent = items.length ? 'عرض ' + shown + ' من ' + items.length : ''; more.hidden = shown >= items.length; $('empty').hidden = !!items.length; }
@@ -494,7 +508,7 @@ script = rep(script, "    const el = grid.querySelector(", "    if (!grid) retur
   if (grid) {
     more.addEventListener('click', addMore);
     const q = $('q'), color = $('catalogColor'), sort = $('catalogSort');
-    const catalog = DATA.filter(inCollection);
+    const catalog = DATA.filter(p => PAGE === 'lavermo' ? p.brand === 'lavermo' : p.c === PAGE);
     for (const label of ['أسود','أبيض','عاجي','وردي','أحمر','أزرق','أخضر','رمادي','بني','بيج','كحلي','بنفسجي']) {
       if (catalog.some(p => norm(p.n).includes(norm(label)))) color.add(new Option(label, norm(label)));
     }
@@ -516,7 +530,66 @@ script = rep(script, "    const el = grid.querySelector(", "    if (!grid) retur
 script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
   select(start || 'c', false);
   if (start) addEventListener('load', () => { $('catalog').scrollIntoView(); select(start, false); });
-  renderBag();`, `  if (grid) filter();
+  renderBag();`, `  // ── brand tabs: PUREY (everything) | Lavermo (house label only) ──
+  {
+    const tabs = [...document.querySelectorAll('.brand-tab')];
+    const best = document.querySelector('.best');
+    const bestOrig = best ? [...best.children] : [];
+    let bestLav = null;
+    const lavCount = k => DATA.filter(p => p.c === k && p.brand === 'lavermo').length;
+    const keep = new Map();
+    const remember = (el, prop) => { if (el && !keep.has(el)) keep.set(el, el[prop]); return el; };
+    function bestFor(lav) {
+      if (!best) return;
+      if (lav && !bestLav) {
+        const ids = bestOrig.map(a => a.dataset.id).filter(id => (DATA.find(p => p.id === id) || {}).brand === 'lavermo');
+        for (const k of ['s', 'u', 'l', 'c', 'r']) {
+          if (ids.length >= 5) break;
+          const p = DATA.find(p => p.brand === 'lavermo' && p.c === k && !ids.includes(p.id)); if (p) ids.push(p.id);
+        }
+        bestLav = ids.map(id => {
+          const orig = bestOrig.find(a => a.dataset.id === id); if (orig) return orig;
+          const p = DATA.find(p => p.id === id), a = document.createElement('article');
+          a.dataset.id = id; a.tabIndex = 0; a.setAttribute('role', 'button');
+          a.innerHTML = '<div class="cut"><img src="' + p.i + '" alt="' + esc(p.n) + '" loading="lazy" decoding="async"></div><h3>' + esc(p.n) + '</h3><p class="meta">' + CAT[p.c] + '</p>';
+          a.addEventListener('click', () => openQV(id));
+          a.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openQV(id); } });
+          return a;
+        });
+      }
+      best.replaceChildren(...(lav ? bestLav : bestOrig));
+    }
+    function applyBrand() {
+      const lav = BRAND === 'lavermo';
+      document.documentElement.dataset.brand = BRAND;
+      tabs.forEach(t => { const on = t.dataset.brand === BRAND; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+      bestFor(lav);
+      for (const [slug, k] of Object.entries(SLUG)) {
+        const n = remember(document.getElementById('lookbook-count-' + slug), 'textContent');
+        if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
+        const tile = remember(document.querySelector('.lookbook-' + slug), 'href');
+        if (tile) tile.href = keep.get(tile) + (lav ? '?brand=lavermo' : '');
+      }
+      const sub = remember(document.querySelector('.gallery-sub'), 'textContent');
+      if (sub) sub.textContent = lav ? DATA.filter(p => p.brand === 'lavermo').length + ' موديل من علامتنا الخاصة Lavermo، بإصدار محدود.' : keep.get(sub);
+      const title = remember(document.querySelector('.campaign-title'), 'textContent');
+      if (title) title.textContent = lav ? 'تشكيلة Lavermo الخاصة' : keep.get(title);
+      const act = remember(document.querySelector('.campaign-action'), 'href');
+      const actLabel = remember(document.querySelector('.campaign-action-label'), 'textContent');
+      if (act) act.href = lav ? 'lavermo.html' : keep.get(act);
+      if (actLabel) actLabel.textContent = lav ? 'تصفّح Lavermo' : keep.get(actLabel);
+      if (grid) filter();
+    }
+    const pick = b => { BRAND = b; try { localStorage.setItem('purey.brand', b); } catch {} applyBrand(); };
+    tabs.forEach(t => {
+      t.addEventListener('click', () => pick(t.dataset.brand));
+      t.addEventListener('keydown', e => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(e.key)) return;
+        e.preventDefault(); const o = tabs.find(x => x !== t); o.focus(); pick(o.dataset.brand);
+      });
+    });
+    if (tabs.length || BRAND === 'lavermo') applyBrand(); else if (grid) filter();
+  }
   const product = document.querySelector('.product-view');
   if (product) {
     const id = product.dataset.product;
@@ -588,6 +661,37 @@ const askSection = `
         <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
       </div>
     </section>`;
+// ── brand tabs (PUREY | Lavermo), full width on top of the hero ──
+style = style.replace(/<\/style>$/, `
+.brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
+.brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
+  border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
+  -webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.brand-tab + .brand-tab{border-inline-start:1px solid #e7e7e7}
+.brand-tab:hover{color:#444}
+.brand-tab[aria-selected="true"]{background:#fff;color:var(--wine)}
+.brand-tab::after{content:"";position:absolute;inset:auto 0 -1px;height:2px;background:currentColor;transform:scaleX(0);transition:transform .3s cubic-bezier(.2,.7,.2,1)}
+.brand-tab[aria-selected="true"]::after{transform:none}
+.brand-tab:focus-visible{outline:2px solid currentColor;outline-offset:-6px}
+.bt-purey{font:600 clamp(21px,2.2vw,31px)/1 var(--f-latin-script);letter-spacing:.16em;padding-inline-start:.16em}
+.bt-lavermo{display:block;width:clamp(92px,8.6vw,128px);aspect-ratio:791/209;background:currentColor;
+  -webkit-mask:url(img/lavermo-word.webp) center/contain no-repeat;mask:url(img/lavermo-word.webp) center/contain no-repeat}
+.bt-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+/* home: the bar sits on the photograph, under the campaign header */
+.site-head--campaign .brand-tabs{position:relative;margin-top:clamp(6px,1vw,14px);background:rgba(18,4,8,.3);
+  -webkit-backdrop-filter:blur(10px) saturate(1.1);backdrop-filter:blur(10px) saturate(1.1);border-color:rgba(255,255,255,.16)}
+.site-head--campaign .brand-tab{background:transparent;color:rgba(255,255,255,.55)}
+.site-head--campaign .brand-tab + .brand-tab{border-color:rgba(255,255,255,.16)}
+.site-head--campaign .brand-tab:hover{color:rgba(255,255,255,.85)}
+.site-head--campaign .brand-tab[aria-selected="true"]{background:#fff;color:var(--wine)}
+@media (max-width:920px){
+  .site-head--campaign .brand-tabs{margin-top:4px}
+  .brand-tab{min-height:50px}
+  .bt-purey{font-size:20px}
+  .bt-lavermo{width:86px}
+}
+@media (prefers-reduced-motion:reduce){.brand-tab,.brand-tab::after{transition:none}}
+</style>`);
 fs.copyFileSync(path.join(path.dirname(SRC), 'purey-chat.js'),path.join(OUT,'purey-chat.js'));
 // home (the artifact wraps it in a document itself)
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
@@ -600,6 +704,7 @@ for (const c of CATS) {
   const main = `    <div class="in">
       <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="index.html#cats">الأقسام</a><span aria-hidden="true">‹</span><span aria-current="page">${c.ar}</span></nav>
     </div>
+${brandTabs()}
     <div class="cat-hero ${c.slug}">
         <img class="cover" src="img/collection-${c.slug}.webp?v=cover-sync" srcset="img/collection-${c.slug}-480.webp?v=cover-sync 480w, img/collection-${c.slug}-800.webp?v=cover-sync 800w, img/collection-${c.slug}.webp?v=cover-sync 1440w" sizes="(max-width:1440px) 100vw, 1440px" alt="" fetchpriority="high">
         ${lockup(c)}${c.slug === 'satin' ? `\n        <img class="cover ${c.slug}-foreground" src="img/collection-${c.slug}-foreground.webp" srcset="img/collection-${c.slug}-foreground-480.webp 480w, img/collection-${c.slug}-foreground-800.webp 800w, img/collection-${c.slug}-foreground.webp 1440w" sizes="(max-width:1440px) 100vw, 1440px" alt="" aria-hidden="true">` : ''}
