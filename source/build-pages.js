@@ -22,6 +22,8 @@ const CATS = [
   { k: 'u', slug: 'sets', ar: 'طواقم داخلي', en: 'Sets', obj: '50% 40%' },
 ];
 const count = {}; for (const p of all) count[p.c] = (count[p.c] || 0) + 1;
+// The current collection photographs (same as the home lookbook); the old collection-* crops are retired.
+const COLLECTION_IMG = { lingerie: 'lookbook-edit-lingerie', satin: 'lookbook-edit-satin', robes: 'home-edit-robes', cotton: 'lookbook-edit-cotton', sets: 'lookbook-edit-sets' };
 // Home bestsellers per brand tab: PUREY shows only Purey pieces, Lavermo only Lavermo pieces.
 const BEST = {
   all: ['o07', 'u64', 'o12', 's42', 'o11'],
@@ -363,7 +365,7 @@ function headerFor(active) {
   const mega = campaign ? `<div class="mega-panel" id="collectionNav" hidden>${collectionTiles}</div>` : '';
   const drawer = [
     `<li><a class="plain" href="index.html"${cur('home')}>الرئيسية</a></li>`,
-    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><img src="${campaign ? `img/home-edit-${c.slug}-480.webp` : `img/collection-${c.slug}-480.webp?v=cover-sync`}" alt="" loading="lazy" style="object-position:${campaign ? 'center' : c.obj}"><span class="tx">${c.ar}<small>${c.en} · ${count[c.k]}</small></span></a></li>`),
+    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><img src="${campaign ? `img/home-edit-${c.slug}-480.webp` : `img/${COLLECTION_IMG[c.slug]}-480.webp`}" alt="" loading="lazy" style="object-position:center"><span class="tx">${c.ar}<small>${c.en} · ${count[c.k]}</small></span></a></li>`),
     `<li><a href="lavermo.html"${cur('lavermo')}><img ${campaign ? 'src="img/home-edit-lavermo-480.webp"' : 'class="md-lavermo" src="img/lavermo-lockup.webp"'} alt="" loading="lazy"><span class="tx"><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a></li>`,
     `<li><a class="plain" href="#contact">تواصل معنا</a></li>`,
   ].join('\n        ');
@@ -713,7 +715,7 @@ fs.writeFileSync(path.join(OUT, 'index.html'), page({
 }));
 
 for (const c of CATS) {
-  const others = CATS.filter((o) => o !== c).map((o) => `        <a class="other" href="${o.slug}.html"><span class="ph"><img src="img/collection-${o.slug}-480.webp?v=cover-sync" alt="" loading="lazy" decoding="async" style="object-position:${o.obj}"></span><span class="nm">${o.ar}</span><span class="en">${o.en} · ${count[o.k]}</span></a>`).join('\n');
+  const others = CATS.filter((o) => o !== c).map((o) => `        <a class="other" href="${o.slug}.html"><span class="ph"><img src="img/${COLLECTION_IMG[o.slug]}-480.webp" alt="" loading="lazy" decoding="async"></span><span class="nm">${o.ar}</span><span class="en">${o.en} · ${count[o.k]}</span></a>`).join('\n');
   const main = `    <div class="in">
       <nav class="crumbs" aria-label="مسار التصفح"><a href="index.html">الرئيسية</a><span aria-hidden="true">‹</span><a href="index.html#cats">الأقسام</a><span aria-hidden="true">‹</span><span aria-current="page">${c.ar}</span></nav>
     </div>

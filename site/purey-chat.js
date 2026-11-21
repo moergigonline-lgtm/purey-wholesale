@@ -83,7 +83,7 @@
   function append(el){const nodes=threads.map(t=>{const node=el.cloneNode(true);t.append(node);return node;});scroll();return nodes;}
   function bubble(value,who){const el=document.createElement('div');el.className='bub '+who;el.textContent=value;const nodes=append(el);return {remove(){nodes.forEach(n=>n.remove());},setAttribute(k,v){nodes.forEach(n=>n.setAttribute(k,v));}};}
   function activateInline(){if(inline){inline.hidden=false;inlineThread.setAttribute('aria-live','polite');thread.setAttribute('aria-live','off');}}
-  function open(on){panel.toggleAttribute('data-open',on);$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);thread.setAttribute('aria-live',on?'polite':'off');if(inlineThread)inlineThread.setAttribute('aria-live',on?'off':'polite');if(on){view('chat');scroll();setTimeout(()=>(matchMedia('(hover:hover) and (pointer:fine)').matches?text:$('aiClose')).focus({preventScroll:true}),60);}}
+  function open(on){panel.toggleAttribute('data-open',on);panel.inert=!on;$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);thread.setAttribute('aria-live',on?'polite':'off');if(inlineThread)inlineThread.setAttribute('aria-live',on?'off':'polite');if(on){view('chat');scroll();setTimeout(()=>(matchMedia('(hover:hover) and (pointer:fine)').matches?text:$('aiClose')).focus({preventScroll:true}),60);}}
   function view(v){panel.dataset.view=v;if(v==='chat')setTimeout(()=>text.focus(),80);}
   function link(label,href){const a=document.createElement('a');a.className='ai-feature';a.href=href;a.textContent=label;append(a);}
   function productCards(products,label){
@@ -116,9 +116,10 @@
     }finally{typing.remove();busy=false;send.disabled=false;if(inlineSend)inlineSend.disabled=false;threads.forEach(t=>t.setAttribute('aria-busy','false'));scroll();}
   }
   function submit(){const q=text.value;if(!q.trim()||busy)return;view('chat');text.value='';text.style.height='auto';send.removeAttribute('data-ready');ask(q);}
+  panel.inert=!panel.hasAttribute('data-open');
   $('aiLaunch').addEventListener('click',()=>open(!panel.hasAttribute('data-open')));
   $('aiClose').addEventListener('click',()=>{open(false);$('aiLaunch').focus();});
-  $('aiScrim').addEventListener('click',()=>open(false));
+  $('aiScrim').addEventListener('click',()=>{open(false);$('aiLaunch').focus();});
   $('aiChips').addEventListener('click',e=>{const b=e.target.closest('[data-q]');if(b){view('chat');ask(b.dataset.q);}});
   text.addEventListener('input',()=>{text.style.height='auto';text.style.height=Math.min(text.scrollHeight,180)+'px';send.toggleAttribute('data-ready',!!text.value.trim());});
   text.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();submit();}});send.addEventListener('click',submit);
