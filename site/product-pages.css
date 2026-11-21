@@ -1520,13 +1520,20 @@ html.ask-visible .ai-launch{opacity:0;transform:scale(.9);pointer-events:none}
 .lookbook-tile:is(:hover,:focus-visible) .lookbook-copy::before{width:44px}
 @media (hover:hover) and (pointer:fine){ .lookbook-tile:hover img{transform:scale(1.03)} }
 @media (max-width:760px){
-  .lookbook{grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px}
+  /* phones: one swipeable strip of compact cards instead of full-height photos */
+  .campaign-gallery{padding-block:28px 30px}
+  .gallery-title{margin-bottom:18px}
+  .lookbook{display:flex; gap:8px; overflow-x:auto; overscroll-behavior-x:contain; scroll-snap-type:x mandatory;
+    scroll-padding-inline:16px; padding-inline:16px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+  .lookbook::-webkit-scrollbar{display:none}
   .lookbook .lookbook-tile,.lookbook .lookbook-lingerie,.lookbook .lookbook-satin,.lookbook .lookbook-robes,
-  .lookbook .lookbook-sets,.lookbook .lookbook-cotton,.lookbook .lookbook-lavermo{grid-column:auto; aspect-ratio:3/4; min-height:0}
-  .lookbook-tile img{object-position:var(--mobile-crop,center)}
-  .lookbook-copy{bottom:16px}
-  .lookbook-copy::before{margin-bottom:9px}
-  .lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{font-size:15px}
+  .lookbook .lookbook-sets,.lookbook .lookbook-cotton,.lookbook .lookbook-lavermo{
+    flex:0 0 clamp(132px,38vw,170px); aspect-ratio:3/4; min-height:0; scroll-snap-align:start}
+  .lookbook-tile img{object-position:var(--mobile-crop,center); opacity:.9}
+  .lookbook-copy{bottom:12px; padding:0 8px}
+  .lookbook-copy::before{width:16px; margin-bottom:7px}
+  .lookbook-name,.lookbook-lingerie .lookbook-name,.lookbook-satin .lookbook-name,.lookbook-robes .lookbook-name{font-size:14px}
+  .lookbook-count{font-size:11px; margin-top:3px}
 }
 /* ── navigation + category pages ────────────────────────────────────── */
 nav a[aria-current="page"]{color:var(--wine)}
