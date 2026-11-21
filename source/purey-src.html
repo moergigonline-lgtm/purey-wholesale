@@ -755,8 +755,9 @@ html.ai-open .ai-scrim{opacity:1; pointer-events:auto}
 .ai-ch .cv{margin-inline-start:auto; color:var(--grey)}
 .ai-thread{display:flex; flex-direction:column; gap:8px}
 .bub{max-width:86%; padding:10px 14px; border-radius:18px; font-size:14.5px; line-height:1.7; white-space:pre-wrap; word-wrap:break-word}
-.bub.bot{align-self:flex-start; background:#fff; border-start-start-radius:6px; box-shadow:0 1px 0 rgba(139,17,25,.05)}
-.bub.me{align-self:flex-end; background:var(--wine); color:#fff; border-start-end-radius:6px}
+/* RTL: the visitor's own messages sit on the right (start), Purey's replies on the left */
+.bub.bot{align-self:flex-end; background:#fff; border-start-end-radius:6px; box-shadow:0 1px 0 rgba(139,17,25,.05)}
+.bub.me{align-self:flex-start; background:var(--wine); color:#fff; border-start-start-radius:6px}
 .bub .ai-cta{margin-top:10px; text-decoration:none}
 .bub.typing{display:flex; gap:4px; padding:14px}
 .bub.typing i{width:7px; height:7px; border-radius:50%; background:#c9a3a6; animation:aiDot 1s infinite}
