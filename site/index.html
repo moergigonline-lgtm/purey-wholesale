@@ -158,12 +158,14 @@ nav a:hover{color:var(--wine)}
 }
 @media (min-width:701px){
   .campaign-satin{--desktop-crop:center top}
-  .campaign-satin picture img{translate:0 clamp(38px,5vw,82px);mask-image:linear-gradient(transparent,#000 8%)}
+  /* keep the model's head clear of the wordmark and nav at tablet widths */
+  .campaign-satin picture img{translate:0 clamp(80px,12vw,120px);mask-image:linear-gradient(transparent,#000 8%)}
   .campaign-satin{--campaign-wall:#150505}
 }
 @media (min-width:921px){
   /* Full-size satin hero: show the whole 3:2 photo below the wordmark/nav instead of shifting it down and cropping the model. */
-  .campaign-satin{--hero-top:clamp(110px,11vw,170px);min-height:calc(66.667vw + var(--hero-top))}
+  /* the photo starts low enough that her head always sits below the nav (header grows ~15vw) */
+  .campaign-satin{--hero-top:calc(9vw + 40px);min-height:calc(66.667vw + var(--hero-top))}
   .campaign-satin picture{top:var(--hero-top);height:auto;bottom:0}
   .campaign-satin picture img{position:absolute;inset:0;width:100%;height:100%;translate:none;object-position:center top;mask-image:linear-gradient(transparent,#000 10%)}
 }
@@ -1856,26 +1858,6 @@ dialog.sheet.editorial-drawer{
         <div class="campaign-copy">
           <h1 class="campaign-title" id="purey-campaign">أفضل كولكشن في ليبيا</h1>
           <a class="campaign-action" href="#cats"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح كل التشكيلات</span></a>
-        </div>
-      </section>
-      <section class="campaign campaign-noir" aria-labelledby="lingerie-campaign">
-        <picture>
-          <source media="(max-width: 700px)" srcset="img/purey-noir-mobile-480.webp 480w, img/purey-noir-mobile-800.webp 800w" sizes="100vw">
-          <img src="img/purey-noir-wide-1440.webp" srcset="img/purey-noir-wide-800.webp 800w, img/purey-noir-wide-1440.webp 1440w" sizes="100vw" alt="عارضة في قميص نوم من الستان الأسود والدانتيل قرب عمود حجري" loading="lazy" decoding="async">
-        </picture>
-        <div class="campaign-copy">
-          <h2 class="campaign-title" id="lingerie-campaign">لانجري بيوري</h2>
-          <a class="campaign-action" href="lingerie.html"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح اللانجري</span></a>
-        </div>
-      </section>
-      <section class="campaign campaign-bridal" aria-labelledby="bridal-campaign">
-        <picture>
-          <source media="(max-width: 700px)" srcset="img/purey-bridal-mobile-480.webp 480w, img/purey-bridal-mobile-800.webp 800w" sizes="100vw">
-          <img src="img/purey-bridal-wide-1440.webp" srcset="img/purey-bridal-wide-800.webp 800w, img/purey-bridal-wide-1440.webp 1440w" sizes="100vw" alt="عارضة ترتدي روب حرير عاجي متحرك في ضوء الشمس" loading="lazy" decoding="async">
-        </picture>
-        <div class="campaign-copy">
-          <h2 class="campaign-title" id="bridal-campaign">أرواب وعرائسي</h2>
-          <a class="campaign-action" href="robes.html"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح العرائسي</span></a>
         </div>
       </section>
     </div>
