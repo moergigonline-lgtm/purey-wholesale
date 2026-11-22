@@ -1105,25 +1105,43 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 .track{direction:ltr}
 .track > *{direction:rtl}
 
-/* rewards: two cards, one line each, one action each */
+/* rewards: the stacked cards beside two short offers (one line, one link each) */
 .rewards{padding-block:clamp(56px,7vw,104px)}
-.rewards-inner{max-width:760px;margin:0 auto;padding-inline:var(--pad,20px);text-align:center}
-.rewards-heading{font:400 clamp(38px,4.4vw,60px)/1.1 var(--f-serif);margin:0 0 clamp(28px,3.4vw,44px)}
-.reward-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,3vw,40px)}
-.reward{display:flex;flex-direction:column;align-items:center;color:#fff;text-decoration:none}
-.reward-img{position:relative;display:block;width:min(100%,250px);aspect-ratio:526/764;overflow:hidden;border-radius:12px;
-  box-shadow:0 24px 44px -22px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.rewards-inner{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;gap:clamp(32px,6vw,96px);
+  max-width:1040px;margin:0 auto;padding-inline:var(--pad,20px)}
+.reward-deck{position:relative;width:min(100%,400px);aspect-ratio:1/1.02;justify-self:center}
+.deck-card{position:absolute;width:58%;transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.deck-card .reward-img{position:relative;display:block;width:100%;aspect-ratio:526/764;overflow:hidden;border-radius:12px;
+  box-shadow:0 26px 50px -24px rgba(0,0,0,.7)}
 .reward-img img{position:absolute;max-width:none}
 .reward-img .rc-cashback{width:106.819%;height:111.271%;left:-4.546%;top:-3.408%}
 .reward-img .rc-gift{width:106.084%;height:109.163%;left:-3.422%;top:-4.843%}
-.reward-name{margin-top:18px;font:400 clamp(22px,2.2vw,28px)/1.2 var(--f-serif)}
+.deck-gift{right:2%;top:0;transform:rotate(6deg);z-index:1}
+.deck-cash{left:2%;top:16%;transform:rotate(-6deg);z-index:2}
+.rewards-inner:has([data-card="gift"]:is(:hover,:focus-visible)) .deck-gift,.deck-gift:hover{transform:translate(6px,-10px) rotate(8deg);z-index:3}
+.rewards-inner:has([data-card="cash"]:is(:hover,:focus-visible)) .deck-cash,.deck-cash:hover{transform:translate(-6px,-10px) rotate(-8deg)}
+.reward-copy{text-align:start}
+.rewards-heading{font:400 clamp(38px,4.4vw,60px)/1.1 var(--f-serif);margin:0 0 clamp(18px,2.4vw,28px)}
+.reward-list{list-style:none;margin:0;padding:0;border-top:1px solid rgba(255,255,255,.2)}
+.reward-list li{border-bottom:1px solid rgba(255,255,255,.2)}
+.reward-row{display:grid;grid-template-columns:1fr auto;grid-template-areas:"name go" "sub go";align-items:center;column-gap:16px;
+  padding:18px 0;color:#fff;text-decoration:none}
+.reward-name{grid-area:name;font:400 clamp(24px,2.3vw,30px)/1.2 var(--f-serif)}
 .reward-name bdi{white-space:nowrap}
-.reward-sub{margin-top:4px;font:300 13px/1.5 var(--f-sans);color:rgba(255,255,255,.72)}
-.reward-go{margin-top:12px;font:500 14px/1 var(--f-sans);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.reward-sub{grid-area:sub;margin-top:3px;font:300 13.5px/1.5 var(--f-sans);color:rgba(255,255,255,.72)}
+.reward-go{grid-area:go;font:500 14px/1 var(--f-sans);white-space:nowrap;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
 .reward-go::after{content:" ←"}
-.reward:hover .reward-img,.reward:focus-visible .reward-img{transform:translateY(-6px)}
-.reward:focus-visible{outline:2px solid #fff;outline-offset:6px;border-radius:12px}
-@media(max-width:420px){.reward-name{font-size:21px}.reward-sub{font-size:12px}.reward-go{font-size:13px}}
+.reward-row:hover .reward-go{text-decoration-thickness:2px}
+.reward-row:focus-visible{outline:2px solid #fff;outline-offset:4px}
+@media(max-width:760px){
+  .rewards-inner{grid-template-columns:minmax(0,1fr);gap:28px}
+  .reward-deck{width:min(78%,300px)}
+  .reward-copy{text-align:center}
+  .reward-row{grid-template-columns:1fr;grid-template-areas:"name" "sub" "go";justify-items:center;padding:16px 0}
+  .reward-go{margin-top:10px;font-size:13.5px}
+  .reward-name{font-size:25px}
+}
+@media(prefers-reduced-motion:reduce){.deck-card{transition:none}}
 
 /* ── chat: clean white card in the Trimology manner ── */
 .ai-panel{background:#fff;border:1px solid #ece7e8;border-radius:18px;
@@ -1354,20 +1372,22 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
     <!-- WALLET OFFERS -->
     <section class="rewards in" id="rewards" aria-labelledby="rewards-title">
       <div class="rewards-inner">
-        <h2 class="rewards-heading" id="rewards-title">مكافآت بيوري</h2>
-        <div class="reward-grid">
-          <a class="reward" href="https://take.cards/Y9Uv5" target="_blank" rel="noopener">
-            <span class="reward-img"><img src="img/purey-cashback-card.png" alt="" width="564" height="849" loading="lazy" decoding="async" class="rc-cashback"></span>
-            <span class="reward-name"><bdi>3%</bdi> كاش باك</span>
-            <span class="reward-sub">على كل طلب من بيوري</span>
-            <span class="reward-go">احصلي على البطاقة</span>
-          </a>
-          <a class="reward" href="https://take.cards/rKZHk" target="_blank" rel="noopener">
-            <span class="reward-img"><img src="img/purey-gift-offer-card.png" alt="" width="558" height="834" loading="lazy" decoding="async" class="rc-gift"></span>
-            <span class="reward-name">10 دستات + 3 هدية</span>
-            <span class="reward-sub">لفترة محدودة · مرة وحدة</span>
-            <span class="reward-go">احصلي على الكوبون</span>
-          </a>
+        <div class="reward-deck" aria-hidden="true">
+          <a class="deck-card deck-gift" href="https://take.cards/rKZHk" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/purey-gift-offer-card.png" alt="" width="558" height="834" loading="lazy" decoding="async" class="rc-gift"></span></a>
+          <a class="deck-card deck-cash" href="https://take.cards/Y9Uv5" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/purey-cashback-card.png" alt="" width="564" height="849" loading="lazy" decoding="async" class="rc-cashback"></span></a>
+        </div>
+        <div class="reward-copy">
+          <h2 class="rewards-heading" id="rewards-title">مكافآت بيوري</h2>
+          <ul class="reward-list">
+            <li><a class="reward-row" href="https://take.cards/Y9Uv5" target="_blank" rel="noopener" data-card="cash">
+              <span class="reward-name"><bdi>3%</bdi> كاش باك</span>
+              <span class="reward-sub">على كل طلب من بيوري</span>
+              <span class="reward-go">احصلي على البطاقة</span></a></li>
+            <li><a class="reward-row" href="https://take.cards/rKZHk" target="_blank" rel="noopener" data-card="gift">
+              <span class="reward-name">10 دستات + 3 هدية</span>
+              <span class="reward-sub">لفترة محدودة · مرة وحدة</span>
+              <span class="reward-go">احصلي على الكوبون</span></a></li>
+          </ul>
         </div>
       </div>
     </section>
