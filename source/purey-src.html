@@ -1245,6 +1245,11 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 
 /* phones: lift the PUREY model a little higher in the hero (zoom from the bottom edge so nothing opens up below) */
 @media(max-width:700px){.campaign-split .look-purey img{transform:translateY(-6%) scale(1.06);transform-origin:center bottom}}
+
+/* reward cards: the card art shown whole with its own (tighter) corners; no frame crop, shadow follows the card */
+.deck-card .reward-img{overflow:visible;border-radius:0;box-shadow:none;background:none;aspect-ratio:auto}
+.deck-card .reward-img img{position:static;display:block;width:100%;height:auto;max-width:none;left:auto;top:auto;
+  border-radius:0;filter:drop-shadow(0 22px 30px rgba(0,0,0,.45))}
 </style>
 
 <div class="page" dir="rtl" lang="ar">
@@ -1418,8 +1423,8 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
     <section class="rewards in" id="rewards" aria-labelledby="rewards-title">
       <div class="rewards-inner">
         <div class="reward-deck" aria-hidden="true">
-          <a class="deck-card deck-gift" href="https://take.cards/rKZHk" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/purey-gift-offer-card.png" alt="" width="558" height="834" loading="lazy" decoding="async" class="rc-gift"></span></a>
-          <a class="deck-card deck-cash" href="https://take.cards/Y9Uv5" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/purey-cashback-card.png" alt="" width="564" height="849" loading="lazy" decoding="async" class="rc-cashback"></span></a>
+          <a class="deck-card deck-gift" href="https://take.cards/rKZHk" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/reward-card-gift.png" alt="" width="515" height="759" loading="lazy" decoding="async"></span></a>
+          <a class="deck-card deck-cash" href="https://take.cards/Y9Uv5" target="_blank" rel="noopener" tabindex="-1"><span class="reward-img"><img src="img/reward-card-cashback.png" alt="" width="533" height="750" loading="lazy" decoding="async"></span></a>
         </div>
         <div class="reward-copy">
           <h2 class="rewards-heading" id="rewards-title">مكافآت بيوري</h2>
