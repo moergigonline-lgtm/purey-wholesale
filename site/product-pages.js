@@ -373,6 +373,7 @@ document.querySelectorAll('.car').forEach(c=>{
       best.replaceChildren(...bestSets[b]);
     }
     function loadLavermoLook() {
+      if (!matchMedia('(max-width:700px)').matches) return; // desktop keeps the blended split, nothing to load
       document.querySelectorAll('.look-lavermo [data-srcset], .look-lavermo [data-src]').forEach(el => {
         if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }
         if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }

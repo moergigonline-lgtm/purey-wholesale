@@ -1975,6 +1975,11 @@ html.ai-open .ai-scrim{visibility:visible;transition-delay:0s}
 .campaign-split .look-lavermo img:not([src]){visibility:hidden}
 html[data-brand="lavermo"] .campaign-split .look-lavermo{opacity:1}
 .campaign-split .look-lavermo img{object-position:center 24%}
+/* desktop: the two looks are one blended photograph (Lavermo left, Purey right); no crossfade layer */
+@media(min-width:701px){
+  .campaign-split .look-lavermo{display:none}
+  .campaign-split .look-purey img{object-position:center 18%}
+}
 /* desktop: hero fits the screen under the header so the title and button are always visible */
 @media(min-width:701px){.campaign-split{min-height:max(520px,min(58vw,calc(100svh - 130px)))}}
 @media(max-width:700px){
@@ -2144,6 +2149,13 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   /* soft shade from the right edge instead of the bottom, so the copy reads without darkening the model */
   .campaign-split::after{inset:0 0 0 auto;width:55%;height:auto;background:linear-gradient(to left,rgba(20,6,10,.62),rgba(20,6,10,.25) 55%,transparent)}
 }
+/* split hero (desktop): copy centred at the foot, over the seam between the two looks, clear of both faces */
+@media(min-width:701px){
+  .campaign-split{align-items:end;justify-items:center;padding-inline:20px;padding-bottom:clamp(28px,3.4vw,56px)}
+  .campaign-split .campaign-copy{justify-self:center;width:auto;max-width:min(92vw,720px)}
+  .campaign-split .campaign-title{font-size:clamp(30px,2.8vw,44px);text-shadow:0 2px 24px rgba(0,0,0,.5)}
+  .campaign-split::after{inset:auto 0 0 0;width:auto;height:46%;background:linear-gradient(to top,rgba(20,6,10,.8),rgba(20,6,10,.3) 55%,transparent)}
+}
 
 /* chat: the order card (what's in the basket + three ways to send it) */
 .chat-basket{align-self:stretch;margin-top:4px;padding:12px 12px 14px;border:1px solid #ece6e8;border-radius:14px;background:#fff}
@@ -2273,6 +2285,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
       <section class="campaign campaign-split" aria-labelledby="purey-campaign">
         <!-- PUREY look -->
         <picture class="look-purey">
+          <source media="(min-width: 701px)" srcset="img/hero-split-1000.webp 1000w, img/hero-split-1600.webp 1600w" sizes="100vw">
           <source media="(max-width: 700px)" srcset="img/purey-satin-mobile-480.webp 480w, img/purey-satin-mobile-800.webp 800w" sizes="100vw">
           <img src="img/purey-satin-wide-1440.webp" srcset="img/purey-satin-wide-800.webp 800w, img/purey-satin-wide-1440.webp 1440w" sizes="100vw" width="1440" height="960" alt="عارضة بقميص نوم ستان عنابي من بيوري على أريكة مخملية" fetchpriority="high">
         </picture>
@@ -2955,6 +2968,7 @@ document.querySelectorAll('.car').forEach(c=>{
       best.replaceChildren(...bestSets[b]);
     }
     function loadLavermoLook() {
+      if (!matchMedia('(max-width:700px)').matches) return; // desktop keeps the blended split, nothing to load
       document.querySelectorAll('.look-lavermo [data-srcset], .look-lavermo [data-src]').forEach(el => {
         if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }
         if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
