@@ -60,7 +60,7 @@
   }
   function safeReply(reply){
     // Remote text is never a source of quoted prices, quantities or commercial promises.
-    if(typeof reply!=='string'||!reply.trim()||/[$€£]/.test(reply)||/[0-9٠-٩۰-۹][0-9٠-٩۰-۹.,\s]*(?:د\.?ل|دينار|lyd|usd|dollar|dinar)/i.test(reply)||/سعر|اسعار|ثمن|دينار|دولار|خصم|تخفيض|price|cost|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
+    if(typeof reply!=='string'||!reply.trim()||/^[\s0-9٠-٩۰-۹.,:+\-]+$/.test(reply)||/[$€£]/.test(reply)||/[0-9٠-٩۰-۹][0-9٠-٩۰-۹.,\s]*(?:د\.?ل|دينار|lyd|usd|dollar|dinar)/i.test(reply)||/سعر|اسعار|ثمن|مبلغ|مجموع|اجمالي|حساب|دينار|دولار|خصم|تخفيض|price|cost|amount|total|lyd|usd|dinar|dollar|pound|euro|hundred|thousand|مائه|مئه|مائة|مئة|عشرين|خمسين/i.test(norm(reply)))return null;
     if(/اثاث|كنب|furniture|reservation|booking|حجز|تم.*(?:تاكيد|تسجيل|ارسال).*طلب|متوفر (?:حاليا|الان|دايما)|مضمون|نضمن/.test(norm(reply)))return null;
     // The backend sometimes points to a team-contact button/form this site doesn't have: swap that sentence for the real WhatsApp channel.
     const lines=reply.trim().split(/\n+|(?<=[.؟!])\s+/),fake=/نبي نتواصل مع الفريق|الفورم|inquiry form|نموذج|(?:^|\s)ال?زر(?:\s|$)|button/i;

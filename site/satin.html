@@ -695,7 +695,7 @@ dialog.sheet.editorial-drawer{
 .lavermo-limited{
   position:absolute; z-index:1; top:clamp(24px,3.3vw,46px); right:clamp(-51px,-3.5vw,-37px);
   display:grid; place-items:center; width:clamp(158px,19vw,227px); min-height:clamp(25px,3vw,34px);
-  background:#efd3b7; color:#65213e; transform:rotate(45deg);
+  background:var(--wine); color:#fff; transform:rotate(45deg);
   font:600 clamp(12px,1.3vw,16px)/1 var(--f-sans); white-space:nowrap;
 }
 .lavermo-mark{display:block; width:clamp(183px,28vw,335px); height:auto}
@@ -897,7 +897,7 @@ dialog.sheet::backdrop{background:rgba(40,16,20,.42)}
   align-items:center;gap:clamp(28px,5vw,80px);
 }
 .about-art{margin:0;min-width:0}
-.about-img{aspect-ratio:1/1.04;background:#e4d3c4;overflow:hidden}
+.about-img{aspect-ratio:1/1.04;background:#fff;overflow:hidden}
 .about-img img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 22%}
 .atelier-caption{font-size:11px;color:#805c62;margin-top:9px}
 .about-copy{max-width:440px}
@@ -1961,16 +1961,19 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 .reward-name{grid-area:name;font:400 clamp(24px,2.3vw,30px)/1.2 var(--f-serif)}
 .reward-name bdi{white-space:nowrap}
 .reward-sub{grid-area:sub;margin-top:3px;font:300 13.5px/1.5 var(--f-sans);color:rgba(255,255,255,.72)}
-.reward-go{grid-area:go;font:500 14px/1 var(--f-sans);white-space:nowrap;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
-.reward-go::after{content:" ←"}
-.reward-row:hover .reward-go{text-decoration-thickness:2px}
+/* a real button per offer: white pill, wine text, arrow; fills wine-dark on hover */
+.reward-go{grid-area:go;display:inline-flex;align-items:center;justify-content:center;gap:10px;height:44px;padding:0 20px;
+  border-radius:999px;background:#fff;color:var(--wine);font:500 14.5px/1 var(--f-sans);white-space:nowrap;
+  border:1px solid #fff;transition:background-color .18s,color .18s,border-color .18s}
+.reward-go::after{content:"←";font-weight:400}
+.reward-row:hover .reward-go,.reward-row:focus-visible .reward-go{background:transparent;color:#fff}
 .reward-row:focus-visible{outline:2px solid #fff;outline-offset:4px}
 @media(max-width:760px){
   .rewards-inner{grid-template-columns:minmax(0,1fr);gap:28px}
   .reward-deck{width:min(78%,300px)}
   .reward-copy{text-align:center}
   .reward-row{grid-template-columns:1fr;grid-template-areas:"name" "sub" "go";justify-items:center;padding:16px 0}
-  .reward-go{margin-top:10px;font-size:13.5px}
+  .reward-go{margin-top:12px;height:44px;font-size:14px;padding:0 22px}
   .reward-name{font-size:25px}
 }
 @media(prefers-reduced-motion:reduce){.deck-card{transition:none}}
@@ -2279,7 +2282,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
         <span class="av" aria-hidden="true"><img src="img/logo-icon.png" alt=""></span>
         <div class="ai-id">
           <h3>مساعد بيـوري</h3>
-          <div class="sub"><i class="live" aria-hidden="true"></i>يجاوبك الآن · جملة فقط للتجار</div>
+          <div class="sub"><i class="live" aria-hidden="true"></i>يجاوبكم الآن · جملة فقط للتجار</div>
         </div>
         <a class="ai-x ai-wa" href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب الفريق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></a>
         <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -2288,7 +2291,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
     <div class="ai-body">
       <div class="ai-view chat">
         <div class="ai-thread" id="aiThread">
-          <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
+          <div class="bub bot">أهلاً بيكم 🌸 شن تبوا تعرفوا؟ الأقسام، الألوان، أو كيف تطلبوا بالجملة؟</div>
         </div>
         <div class="ai-chips" id="aiChips">
           <button type="button" data-q="شن يميّز تشكيلة Lavermo؟">شن يميّز Lavermo؟</button>
@@ -2301,10 +2304,10 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
     </div>
     <div class="ai-composer">
       <div class="ai-field">
-        <textarea id="aiText" rows="1" placeholder="اكتب سؤالك…" aria-label="اكتب سؤالك"></textarea>
+        <textarea id="aiText" rows="1" placeholder="اكتبوا سؤالكم…" aria-label="اكتبوا سؤالكم"></textarea>
         <button class="ai-send" id="aiSend" type="button" aria-label="إرسال"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
       </div>
-      <div class="ai-foot">يجاوبك مساعد بيـوري · وإذا احتجت الفريق نوصّلك واتساب</div>
+      <div class="ai-foot">يجاوبكم مساعد بيـوري · وإذا احتجتوا الفريق نوصّلوكم واتساب</div>
     </div>
   </div>
 </div>
@@ -2734,6 +2737,6 @@ document.querySelectorAll('.car').forEach(c=>{
 })();
 
 </script>
-<script defer src="purey-chat.js?v=53c80219d7b1"></script>
+<script defer src="purey-chat.js?v=b5cd68a43e8b"></script>
 </body>
 </html>
