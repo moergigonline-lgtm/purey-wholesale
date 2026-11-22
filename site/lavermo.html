@@ -2033,6 +2033,14 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 /* --head-h is the measured header + brand tabs height (set by script; 150px until then) */
 @media(min-width:701px){.campaign-split{min-height:max(460px,min(58vw,calc(100svh - var(--head-h,150px))));padding-bottom:clamp(40px,4.5vw,64px)}}
 @media(max-width:700px){.campaign-split{min-height:max(460px,calc(100svh - var(--head-h,150px)));padding-bottom:clamp(76px,11svh,104px)}}
+/* desktop: title and buttons sit in the empty space to the right of the model (RTL start = right) */
+@media(min-width:921px){
+  .campaign-split{align-items:center;justify-items:start;padding-inline:clamp(28px,6vw,140px);padding-bottom:0}
+  .campaign-split .campaign-copy{justify-self:start;width:min(36vw,520px);justify-items:center;text-align:center}
+  .campaign-split .campaign-title{font-size:clamp(34px,3.2vw,50px)}
+  /* soft shade from the right edge instead of the bottom, so the copy reads without darkening the model */
+  .campaign-split::after{inset:0 0 0 auto;width:55%;height:auto;background:linear-gradient(to left,rgba(20,6,10,.62),rgba(20,6,10,.25) 55%,transparent)}
+}
 
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
