@@ -2088,6 +2088,16 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   .campaign-split picture img{object-position:center center}
 }
 
+/* butterfly footer: the Purey butterfly leads the footer above the PUREY wordmark, on every page;
+   the faint watermark on the catalogue band is dropped so the butterfly appears once */
+.purey-footer-mark{display:flex;flex-direction:column;align-items:center;font:inherit;line-height:1;white-space:normal}
+.purey-footer-mark{overflow:hidden}
+/* oversized butterfly, the footer's only mark (no PUREY text) */
+.purey-footer-mark .footer-fly{display:block;width:min(96vw,1180px);height:auto;opacity:.24;margin:clamp(4px,1vw,16px) auto 0}
+.purey-footer-mark:hover .footer-fly{opacity:.32}
+.band-mark{display:none}
+@media(prefers-reduced-motion:no-preference){.purey-footer-mark .footer-fly{transition:opacity .3s ease}}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
