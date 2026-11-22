@@ -319,7 +319,19 @@ dialog.sheet.editorial-drawer{
 }
 .product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
 .product-info > *{margin:0}
-.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-info h1{font:600 clamp(28px,3vw,44px)/1.25 var(--f-sans);text-wrap:balance}
+/* qty + add to order travel together; on phones they stay pinned to the bottom of the screen */
+.product-buy{display:grid;gap:12px}
+@media (max-width:700px){
+  .product-buy{position:sticky;bottom:0;z-index:30;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;
+    margin-inline:calc(var(--pad,16px) * -1);padding:10px var(--pad,16px) max(10px,env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid #eee;box-shadow:0 -10px 24px -18px rgba(17,17,17,.35)}
+  .product-buy .qty > span{display:none}
+  .product-buy .product-add{width:100%}
+  /* the AI and basket buttons sit above the pinned bar instead of covering it */
+  .page:has(.product-buy) ~ .ai .ai-launch,body:has(.product-buy) .ai-launch{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  body:has(.product-buy) #bagFloat{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+}
 .product-kicker{color:var(--wine);font-weight:600}
 .product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
 .product-info .qty{justify-content:flex-start}
@@ -327,7 +339,7 @@ dialog.sheet.editorial-drawer{
 .product-feedback{color:var(--wine);min-height:1.6em}
 .product-related{padding-block-end:clamp(36px,7vw,90px)}
 .related-product{display:grid;gap:8px;font-weight:600}
-.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#fff}
 @media (max-width:700px){
   .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .catalog-controls .search{grid-column:1/-1}
@@ -827,12 +839,12 @@ for (const c of CATS) {
           <a class="product-kicker" href="${c.slug}.html">${c.ar}</a>
           <h1 id="productTitle">${name}</h1>
           <p class="pc-meta">رمز القطعة <bdi>${p.id.toUpperCase()}</bdi></p>
-          <p class="product-note">للبيع بالجملة. فريق بيوري يأكدلك السعر والمقاسات المتوفرة على واتساب.</p>
-          <div class="qty"><span id="productQtyLabel">الكمية بالقطعة</span><div class="step" role="group" aria-labelledby="productQtyLabel">
+          <p class="product-note">للبيع بالجملة. فريق بيوري يأكدلكم السعر والمقاسات المتوفرة على واتساب.</p>
+          <div class="product-buy"><div class="qty"><span id="productQtyLabel">الكمية بالقطعة</span><div class="step" role="group" aria-labelledby="productQtyLabel">
             <button id="productMinus" type="button" aria-label="قلّل الكمية">−</button><output id="productQty" aria-labelledby="productQtyLabel">6</output><button id="productPlus" type="button" aria-label="زِد الكمية">+</button>
           </div></div>
-          <button class="btn solid product-add" id="productAdd" type="button">أضف للطلب</button>
-          <a class="btn line product-ask" href="https://wa.me/218919282214?text=${inquiry}" target="_blank" rel="noopener">استفسر على واتساب</a>
+          <button class="btn solid product-add" id="productAdd" type="button">أضف للطلب</button></div>
+          <a class="btn line product-ask" href="https://wa.me/218919282214?text=${inquiry}" target="_blank" rel="noopener">استفسروا على واتساب</a>
           <p class="product-feedback" id="productFeedback" role="status"></p>
         </div>
       </section>

@@ -502,7 +502,19 @@ dialog.sheet.editorial-drawer{
 }
 .product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
 .product-info > *{margin:0}
-.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-info h1{font:600 clamp(28px,3vw,44px)/1.25 var(--f-sans);text-wrap:balance}
+/* qty + add to order travel together; on phones they stay pinned to the bottom of the screen */
+.product-buy{display:grid;gap:12px}
+@media (max-width:700px){
+  .product-buy{position:sticky;bottom:0;z-index:30;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;
+    margin-inline:calc(var(--pad,16px) * -1);padding:10px var(--pad,16px) max(10px,env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid #eee;box-shadow:0 -10px 24px -18px rgba(17,17,17,.35)}
+  .product-buy .qty > span{display:none}
+  .product-buy .product-add{width:100%}
+  /* the AI and basket buttons sit above the pinned bar instead of covering it */
+  .page:has(.product-buy) ~ .ai .ai-launch,body:has(.product-buy) .ai-launch{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  body:has(.product-buy) #bagFloat{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+}
 .product-kicker{color:var(--wine);font-weight:600}
 .product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
 .product-info .qty{justify-content:flex-start}
@@ -510,7 +522,7 @@ dialog.sheet.editorial-drawer{
 .product-feedback{color:var(--wine);min-height:1.6em}
 .product-related{padding-block-end:clamp(36px,7vw,90px)}
 .related-product{display:grid;gap:8px;font-weight:600}
-.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#fff}
 @media (max-width:700px){
   .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .catalog-controls .search{grid-column:1/-1}
@@ -1301,7 +1313,19 @@ dialog.sheet.editorial-drawer{
 }
 .product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
 .product-info > *{margin:0}
-.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-info h1{font:600 clamp(28px,3vw,44px)/1.25 var(--f-sans);text-wrap:balance}
+/* qty + add to order travel together; on phones they stay pinned to the bottom of the screen */
+.product-buy{display:grid;gap:12px}
+@media (max-width:700px){
+  .product-buy{position:sticky;bottom:0;z-index:30;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;
+    margin-inline:calc(var(--pad,16px) * -1);padding:10px var(--pad,16px) max(10px,env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid #eee;box-shadow:0 -10px 24px -18px rgba(17,17,17,.35)}
+  .product-buy .qty > span{display:none}
+  .product-buy .product-add{width:100%}
+  /* the AI and basket buttons sit above the pinned bar instead of covering it */
+  .page:has(.product-buy) ~ .ai .ai-launch,body:has(.product-buy) .ai-launch{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  body:has(.product-buy) #bagFloat{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+}
 .product-kicker{color:var(--wine);font-weight:600}
 .product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
 .product-info .qty{justify-content:flex-start}
@@ -1309,7 +1333,7 @@ dialog.sheet.editorial-drawer{
 .product-feedback{color:var(--wine);min-height:1.6em}
 .product-related{padding-block-end:clamp(36px,7vw,90px)}
 .related-product{display:grid;gap:8px;font-weight:600}
-.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#fff}
 @media (max-width:700px){
   .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .catalog-controls .search{grid-column:1/-1}
@@ -1780,7 +1804,19 @@ dialog.sheet.editorial-drawer{
 }
 .product-info{padding-block:clamp(10px,3vw,40px);display:grid;gap:16px}
 .product-info > *{margin:0}
-.product-info h1{font:600 clamp(32px,4.4vw,62px)/1.22 var(--f-sans);text-wrap:balance}
+.product-info h1{font:600 clamp(28px,3vw,44px)/1.25 var(--f-sans);text-wrap:balance}
+/* qty + add to order travel together; on phones they stay pinned to the bottom of the screen */
+.product-buy{display:grid;gap:12px}
+@media (max-width:700px){
+  .product-buy{position:sticky;bottom:0;z-index:30;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:10px;
+    margin-inline:calc(var(--pad,16px) * -1);padding:10px var(--pad,16px) max(10px,env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid #eee;box-shadow:0 -10px 24px -18px rgba(17,17,17,.35)}
+  .product-buy .qty > span{display:none}
+  .product-buy .product-add{width:100%}
+  /* the AI and basket buttons sit above the pinned bar instead of covering it */
+  .page:has(.product-buy) ~ .ai .ai-launch,body:has(.product-buy) .ai-launch{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+  body:has(.product-buy) #bagFloat{bottom:calc(104px + env(safe-area-inset-bottom,0px))}
+}
 .product-kicker{color:var(--wine);font-weight:600}
 .product-note{max-width:47ch;color:var(--ink-2);line-height:1.8}
 .product-info .qty{justify-content:flex-start}
@@ -1788,7 +1824,7 @@ dialog.sheet.editorial-drawer{
 .product-feedback{color:var(--wine);min-height:1.6em}
 .product-related{padding-block-end:clamp(36px,7vw,90px)}
 .related-product{display:grid;gap:8px;font-weight:600}
-.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#f8f3f5;mix-blend-mode:multiply}
+.related-product img{width:100%;aspect-ratio:4/5;object-fit:contain;background:#fff}
 @media (max-width:700px){
   .catalog-controls{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
   .catalog-controls .search{grid-column:1/-1}
@@ -2247,7 +2283,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
         <div class="qv-cat" id="qvCat"></div>
         <h2 id="qvName"></h2>
         <div class="qv-code" id="qvCode"></div>
-        <p class="qv-note">بيع جملة فقط. السعر يتحدد حسب الكمية، والفريق يأكدلك السعر والتوفر والمقاسات على واتساب بعد ما توصلنا طلبيتك.</p>
+        <p class="qv-note">بيع جملة فقط. السعر يتحدد حسب الكمية، والفريق يأكدلكم السعر والتوفر والمقاسات على واتساب بعد ما توصلنا طلبيتكم.</p>
         <div class="qty"><label for="qvQty">الكمية (قطعة)</label>
           <div class="step"><button type="button" id="qvMinus" aria-label="أقل">−</button><output id="qvQty">6</output><button type="button" id="qvPlus" aria-label="أكثر">+</button></div>
         </div>
