@@ -61,7 +61,8 @@ nav a:hover{color:var(--wine)}
 @media (max-width:760px){ .top{grid-template-columns:auto 1fr} .tagline{display:none} }
 
 /* Three contiguous campaign photographs, each with its own mobile framing. */
-.page{--hero-pink:#a20c4d}
+/* one footer/band colour on every page */
+.page{--hero-pink:#550f25}
 .page:has(.site-head--campaign){--hero-pink:#550f25}
 .campaigns{background:#39101c}
 .campaign{
@@ -1905,6 +1906,118 @@ dialog.sheet.editorial-drawer{
 html.ai-open .ai-scrim{visibility:visible;transition-delay:0s}
 @media(prefers-reduced-motion:reduce){.ai-panel,.ai-launch{transition:opacity .15s}}
 
+/* ════ 2026-11-22 pass: hero looks, swipe direction, rewards, chat ════ */
+
+/* hero: one full photograph per brand, crossfading on the tab switch */
+.campaign-split picture{position:absolute;inset:0;z-index:-2}
+.campaign-split picture img{object-position:center 22%}
+.campaign-split .look-lavermo{opacity:0;transition:opacity .7s ease}
+.campaign-split .look-lavermo img:not([src]){visibility:hidden}
+html[data-brand="lavermo"] .campaign-split .look-lavermo{opacity:1}
+.campaign-split .look-lavermo img{object-position:center 24%}
+/* desktop: hero fits the screen under the header so the title and button are always visible */
+@media(min-width:701px){.campaign-split{min-height:max(520px,min(58vw,calc(100svh - 130px)))}}
+@media(max-width:700px){
+  /* fill the screen under the header so the photo never looks cropped short */
+  .campaign-split{min-height:max(620px,calc(100svh - 140px))}
+  .campaign-split .look-purey img{object-position:62% 12%}
+  .campaign-split .look-lavermo img{object-position:30% 10%}
+}
+
+/* Lavermo mode: the collections band turns black so the switch is felt below the hero too */
+.campaign-gallery{transition:background-color .5s ease}
+html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
+.lookbook-tile img{transition:opacity .35s ease, transform 1.2s cubic-bezier(.2,.7,.2,1)}
+
+/* every sideways strip starts on the left and swipes right-to-left (finger moves left) */
+@media(max-width:760px){
+  .best,.lookbook,.tabs,.purey-ask-prompts{direction:ltr}
+  .best > *,.lookbook > *,.tabs > *,.purey-ask-prompts > *{direction:rtl}
+}
+.track{direction:ltr}
+.track > *{direction:rtl}
+
+/* rewards: two cards, one line each, one action each */
+.rewards{padding-block:clamp(56px,7vw,104px)}
+.rewards-inner{max-width:760px;margin:0 auto;padding-inline:var(--pad,20px);text-align:center}
+.rewards-heading{font:400 clamp(38px,4.4vw,60px)/1.1 var(--f-serif);margin:0 0 clamp(28px,3.4vw,44px)}
+.reward-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(14px,3vw,40px)}
+.reward{display:flex;flex-direction:column;align-items:center;color:#fff;text-decoration:none}
+.reward-img{position:relative;display:block;width:min(100%,250px);aspect-ratio:526/764;overflow:hidden;border-radius:12px;
+  box-shadow:0 24px 44px -22px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.reward-img img{position:absolute;max-width:none}
+.reward-img .rc-cashback{width:106.819%;height:111.271%;left:-4.546%;top:-3.408%}
+.reward-img .rc-gift{width:106.084%;height:109.163%;left:-3.422%;top:-4.843%}
+.reward-name{margin-top:18px;font:400 clamp(22px,2.2vw,28px)/1.2 var(--f-serif)}
+.reward-name bdi{white-space:nowrap}
+.reward-sub{margin-top:4px;font:300 13px/1.5 var(--f-sans);color:rgba(255,255,255,.72)}
+.reward-go{margin-top:12px;font:500 14px/1 var(--f-sans);text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.reward-go::after{content:" ←"}
+.reward:hover .reward-img,.reward:focus-visible .reward-img{transform:translateY(-6px)}
+.reward:focus-visible{outline:2px solid #fff;outline-offset:6px;border-radius:12px}
+@media(max-width:420px){.reward-name{font-size:21px}.reward-sub{font-size:12px}.reward-go{font-size:13px}}
+
+/* ── chat: clean white card in the Trimology manner ── */
+.ai-panel{background:#fff;border:1px solid #ece7e8;border-radius:18px;
+  box-shadow:0 30px 80px -30px rgba(40,10,16,.35),0 2px 8px -4px rgba(40,10,16,.08)}
+.ai-head{position:relative;background:#fff;color:var(--ink);padding:16px 16px 14px;flex:none}
+.ai-head::after{content:"";position:absolute;inset-inline:16px;bottom:0;height:1px;background:linear-gradient(90deg,transparent,#e6dfe1,transparent)}
+.ai-hrow{gap:10px}
+.ai-hrow .av{width:38px;height:38px;background:#f8eef0;border-radius:50%}
+.ai-hrow .av img{width:26px}
+.ai-id{min-width:0}
+.ai-hrow h3{font:500 16px/1.25 var(--f-serif);font-size:19px;color:var(--ink)}
+.ai-hrow .sub{font:400 12px/1.3 var(--f-sans);color:#6f6a6b;opacity:1;gap:6px;margin-top:3px}
+.ai-hrow .sub .live{width:6px;height:6px;border-radius:50%;background:#43a865;box-shadow:0 0 0 3px rgba(67,168,101,.16);flex:none}
+.ai-x,.ai-x:hover{width:34px;height:34px;min-height:34px;padding:0;background:none;color:#7a7475;border:0;border-radius:50%}
+.ai-x:hover{background:#f4f0f1;color:var(--ink)}
+.ai-x svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ai-wa{margin-inline-start:auto}
+.ai-wa + .ai-x{margin-inline-start:0}
+.ai-body{background:#fff;padding:18px 16px 8px}
+.ai-thread{gap:10px}
+.bub{font:300 14.5px/1.8 var(--f-sans);padding:10px 14px;border-radius:16px;animation:bubIn .38s cubic-bezier(.2,.8,.2,1) both}
+@keyframes bubIn{from{opacity:0;transform:translateY(6px)}}
+.bub.bot{background:#f6f3f4;border:1px solid #ece6e8;color:var(--ink);box-shadow:none;border-start-end-radius:5px}
+.bub.me{background:var(--wine);color:#fff;font-weight:400;border-start-start-radius:5px}
+.bub.typing{display:flex;gap:5px;align-items:center;padding:14px 16px;width:fit-content}
+.bub.typing i{width:6px;height:6px;border-radius:50%;background:#a99fa2;animation:aiBlink 1.2s infinite}
+.bub.typing i:nth-child(2){animation-delay:.16s}.bub.typing i:nth-child(3){animation-delay:.32s}
+@keyframes aiBlink{0%,60%,100%{opacity:.3}30%{opacity:1}}
+/* quick-action pills: text centred on one line, same height everywhere */
+.ai-chips{gap:8px;margin-top:14px}
+:is(.ai-chips,.purey-ask-prompts) button{display:inline-flex;align-items:center;justify-content:center;
+  height:38px;min-height:38px;padding:0 15px;line-height:1;white-space:nowrap;vertical-align:middle;
+  font:400 13.5px/1 var(--f-sans);color:var(--ink);background:#fff;border:1px solid #e3dcde;border-radius:999px;
+  transition:border-color .15s,background-color .15s,color .15s}
+:is(.ai-chips,.purey-ask-prompts) button:hover{border-color:var(--wine);color:var(--wine);background:#fff}
+.purey-ask-prompts button{height:42px;min-height:42px;font-size:14px;padding:0 18px}
+.ai-feature{background:#fff;border:1px solid #e3dcde;color:var(--wine);border-radius:12px}
+.ai-composer{position:relative;flex:none;background:#fff;border-top:0;padding:8px 12px 12px}
+.ai-composer::before{content:"";position:absolute;top:-22px;inset-inline:0;height:22px;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,0),#fff)}
+.ai-field,.ai-field:focus-within{display:flex;align-items:flex-end;gap:6px;background:#f6f3f4;border:1px solid #e9e3e5;border-radius:22px;
+  padding:4px 4px 4px 4px;padding-inline-start:14px;box-shadow:none;transition:border-color .15s,box-shadow .15s,background-color .15s}
+.ai-field:focus-within{background:#fff;border-color:rgba(139,17,25,.45);box-shadow:0 0 0 3px rgba(139,17,25,.08)}
+.ai-field textarea{font:400 16px/1.45 var(--f-sans);padding:8px 0;max-height:96px}
+.ai-send{width:36px;height:36px;min-height:36px;background:#e8e2e4;color:#fff}
+.ai-send[data-ready]{background:var(--wine)}
+.ai-foot{font-size:11px;color:#8a8486;margin-top:8px}
+.ai-scrim{background:rgba(20,6,10,.5)}
+@media(max-width:520px){
+  /* phone: full-width sheet sized to the visible area, so the keyboard never shoves it off screen */
+  .ai-panel{top:auto;bottom:0;left:0;right:0;width:100%;border-radius:20px 20px 0 0;border-bottom:0;
+    height:min(82svh,620px);max-height:none;transform:translateY(24px)}
+  .ai-panel[data-open]{transform:none}
+  html.kb-open .ai-panel{top:var(--vvtop,0px);bottom:auto;height:var(--vvh,100%);max-height:none;border-radius:0}
+  .ai-composer{padding-bottom:max(12px,env(safe-area-inset-bottom))}
+}
+
+/* ask section: one tidy box that opens the chat sheet */
+.purey-ask-form{border:1px solid #e3dcde;box-shadow:0 18px 40px -30px rgba(85,15,37,.5);padding:6px;padding-inline-start:8px}
+.purey-ask-form:focus-within{outline:0;border-color:rgba(139,17,25,.45);box-shadow:0 0 0 3px rgba(139,17,25,.08)}
+.purey-ask-form input{font-size:16px}
+.purey-ask-form button{width:46px;height:46px;min-height:46px;padding:0}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
@@ -2128,10 +2241,10 @@ html.ai-open .ai-scrim{visibility:visible;transition-delay:0s}
   <div class="ai-panel" id="aiPanel" data-view="chat" role="dialog" aria-label="مساعد بيـوري">
     <div class="ai-head">
       <div class="ai-hrow">
-        <span class="av" aria-hidden="true"><img src="img/logo-icon-white.png" alt=""></span>
-        <div>
+        <span class="av" aria-hidden="true"><img src="img/logo-icon.png" alt=""></span>
+        <div class="ai-id">
           <h3>مساعد بيـوري</h3>
-          <div class="sub"><span class="ai-tag" lang="en">AI</span>يجاوبك الآن · جملة فقط للتجار</div>
+          <div class="sub"><i class="live" aria-hidden="true"></i>يجاوبك الآن · جملة فقط للتجار</div>
         </div>
         <a class="ai-x ai-wa" href="https://wa.me/218919282214" target="_blank" rel="noopener" aria-label="واتساب الفريق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg></a>
         <button class="ai-x" id="aiClose" type="button" aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
@@ -2162,12 +2275,12 @@ html.ai-open .ai-scrim{visibility:visible;transition-delay:0s}
 </div>
 
 <script>
-// Product carousels. RTL: the left arrow moves toward later items.
+// Product carousels. Tracks run left-to-right (direction:ltr), so 'next' scrolls right.
 document.querySelectorAll('.car').forEach(c=>{
   const t=c.querySelector('.track');
   const step=()=>{const card=t.querySelector('.pc'); return card ? card.getBoundingClientRect().width+20 : 300;};
-  c.querySelector('.nx').addEventListener('click',()=>t.scrollBy({left:-step(), behavior:'smooth'}));
-  c.querySelector('.pv').addEventListener('click',()=>t.scrollBy({left:step(), behavior:'smooth'}));
+  c.querySelector('.nx').addEventListener('click',()=>t.scrollBy({left:step(), behavior:'smooth'}));
+  c.querySelector('.pv').addEventListener('click',()=>t.scrollBy({left:-step(), behavior:'smooth'}));
 });
 // ── Header: condense on scroll, phone menu ──────────────────────────
 (function(){
@@ -2514,6 +2627,14 @@ document.querySelectorAll('.car').forEach(c=>{
       });
       best.replaceChildren(...bestSets[b]);
     }
+    function loadLavermoLook() {
+      document.querySelectorAll('.look-lavermo [data-srcset], .look-lavermo [data-src]').forEach(el => {
+        if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }
+        if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
+      });
+    }
+    // warm the Lavermo hero after load so the switch is instant
+    addEventListener('load', () => setTimeout(loadLavermoLook, 1200));
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
@@ -2524,6 +2645,15 @@ document.querySelectorAll('.car').forEach(c=>{
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
         const tile = remember(document.querySelector('.lookbook-' + slug), 'href');
         if (tile) tile.href = keep.get(tile) + (lav ? '?brand=lavermo' : '');
+      }
+      // Lavermo gets its own photographs: hero look and dark product stills on the collection cards
+      if (lav) loadLavermoLook();
+      for (const slug of [...Object.keys(SLUG), 'lavermo']) {
+        const img = document.querySelector('.lookbook-' + slug + ' img');
+        if (!img) continue;
+        if (!img.dataset.pureySrc) { img.dataset.pureySrc = img.getAttribute('src'); img.dataset.pureySrcset = img.getAttribute('srcset') || ''; }
+        img.srcset = lav ? 'img/lavermo-col-' + slug + '-480.webp 480w, img/lavermo-col-' + slug + '-800.webp 800w' : img.dataset.pureySrcset;
+        img.src = lav ? 'img/lavermo-col-' + slug + '-800.webp' : img.dataset.pureySrc;
       }
       const sub = remember(document.querySelector('.gallery-sub'), 'textContent');
       if (sub) sub.textContent = lav ? DATA.filter(p => p.brand === 'lavermo').length + ' موديل من علامتنا الخاصة Lavermo، بإصدار محدود.' : keep.get(sub);
@@ -2569,6 +2699,6 @@ document.querySelectorAll('.car').forEach(c=>{
 })();
 
 </script>
-<script defer src="purey-chat.js?v=9e8f6b229720"></script>
+<script defer src="purey-chat.js?v=53c80219d7b1"></script>
 </body>
 </html>

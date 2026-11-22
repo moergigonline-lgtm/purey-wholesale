@@ -1,10 +1,10 @@
 
-// Product carousels. RTL: the left arrow moves toward later items.
+// Product carousels. Tracks run left-to-right (direction:ltr), so 'next' scrolls right.
 document.querySelectorAll('.car').forEach(c=>{
   const t=c.querySelector('.track');
   const step=()=>{const card=t.querySelector('.pc'); return card ? card.getBoundingClientRect().width+20 : 300;};
-  c.querySelector('.nx').addEventListener('click',()=>t.scrollBy({left:-step(), behavior:'smooth'}));
-  c.querySelector('.pv').addEventListener('click',()=>t.scrollBy({left:step(), behavior:'smooth'}));
+  c.querySelector('.nx').addEventListener('click',()=>t.scrollBy({left:step(), behavior:'smooth'}));
+  c.querySelector('.pv').addEventListener('click',()=>t.scrollBy({left:-step(), behavior:'smooth'}));
 });
 // ── Header: condense on scroll, phone menu ──────────────────────────
 (function(){
@@ -351,6 +351,14 @@ document.querySelectorAll('.car').forEach(c=>{
       });
       best.replaceChildren(...bestSets[b]);
     }
+    function loadLavermoLook() {
+      document.querySelectorAll('.look-lavermo [data-srcset], .look-lavermo [data-src]').forEach(el => {
+        if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }
+        if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
+      });
+    }
+    // warm the Lavermo hero after load so the switch is instant
+    addEventListener('load', () => setTimeout(loadLavermoLook, 1200));
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
@@ -361,6 +369,15 @@ document.querySelectorAll('.car').forEach(c=>{
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
         const tile = remember(document.querySelector('.lookbook-' + slug), 'href');
         if (tile) tile.href = keep.get(tile) + (lav ? '?brand=lavermo' : '');
+      }
+      // Lavermo gets its own photographs: hero look and dark product stills on the collection cards
+      if (lav) loadLavermoLook();
+      for (const slug of [...Object.keys(SLUG), 'lavermo']) {
+        const img = document.querySelector('.lookbook-' + slug + ' img');
+        if (!img) continue;
+        if (!img.dataset.pureySrc) { img.dataset.pureySrc = img.getAttribute('src'); img.dataset.pureySrcset = img.getAttribute('srcset') || ''; }
+        img.srcset = lav ? 'img/lavermo-col-' + slug + '-480.webp 480w, img/lavermo-col-' + slug + '-800.webp 800w' : img.dataset.pureySrcset;
+        img.src = lav ? 'img/lavermo-col-' + slug + '-800.webp' : img.dataset.pureySrc;
       }
       const sub = remember(document.querySelector('.gallery-sub'), 'textContent');
       if (sub) sub.textContent = lav ? DATA.filter(p => p.brand === 'lavermo').length + ' موديل من علامتنا الخاصة Lavermo، بإصدار محدود.' : keep.get(sub);

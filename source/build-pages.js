@@ -576,6 +576,14 @@ script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
       });
       best.replaceChildren(...bestSets[b]);
     }
+    function loadLavermoLook() {
+      document.querySelectorAll('.look-lavermo [data-srcset], .look-lavermo [data-src]').forEach(el => {
+        if (el.dataset.srcset) { el.srcset = el.dataset.srcset; delete el.dataset.srcset; }
+        if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
+      });
+    }
+    // warm the Lavermo hero after load so the switch is instant
+    addEventListener('load', () => setTimeout(loadLavermoLook, 1200));
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
@@ -586,6 +594,15 @@ script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
         if (n) n.textContent = lav ? lavCount(k) + ' موديل من Lavermo' : keep.get(n);
         const tile = remember(document.querySelector('.lookbook-' + slug), 'href');
         if (tile) tile.href = keep.get(tile) + (lav ? '?brand=lavermo' : '');
+      }
+      // Lavermo gets its own photographs: hero look and dark product stills on the collection cards
+      if (lav) loadLavermoLook();
+      for (const slug of [...Object.keys(SLUG), 'lavermo']) {
+        const img = document.querySelector('.lookbook-' + slug + ' img');
+        if (!img) continue;
+        if (!img.dataset.pureySrc) { img.dataset.pureySrc = img.getAttribute('src'); img.dataset.pureySrcset = img.getAttribute('srcset') || ''; }
+        img.srcset = lav ? 'img/lavermo-col-' + slug + '-480.webp 480w, img/lavermo-col-' + slug + '-800.webp 800w' : img.dataset.pureySrcset;
+        img.src = lav ? 'img/lavermo-col-' + slug + '-800.webp' : img.dataset.pureySrc;
       }
       const sub = remember(document.querySelector('.gallery-sub'), 'textContent');
       if (sub) sub.textContent = lav ? DATA.filter(p => p.brand === 'lavermo').length + ' موديل من علامتنا الخاصة Lavermo، بإصدار محدود.' : keep.get(sub);
@@ -661,18 +678,13 @@ const askSection = `
       <div class="purey-ask-inner">
         <h2 id="ask-purey-title">اسألوا بيوري</h2>
         <p>من أول تشكيلة لطلب محلكم الجاي، نعاونوا في اختيار الموديلات والمقاسات ونورّوكم الصور.</p>
-        <div class="purey-inline-chat" id="pureyInlineChat" hidden>
-          <div class="ai-thread" id="pureyInlineThread" role="log" aria-live="polite" aria-relevant="additions" aria-label="المحادثة مع مساعد بيوري">
-            <div class="bub bot">أهلاً بيك 🌸 شن تبي تعرف؟ الأقسام، الألوان، أو كيف تطلب بالجملة؟</div>
-          </div>
-        </div>
         <div class="purey-ask-prompts">
           <button type="button" data-ask-purey="شن يميّز Lavermo؟">شن يميّز Lavermo؟</button>
           <button type="button" data-ask-purey="قداش قطعة في الدستا؟">قداش قطعة في الدستا؟</button>
           <button type="button" data-ask-purey="وريني اختيارات من الأكثر طلباً">ورّونا اختياراتكم</button>
         </div>
         <form class="purey-ask-form" id="pureyAskForm">
-          <input id="pureyAskText" type="text" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="pureyInlineThread" required>
+          <input id="pureyAskText" type="text" placeholder="شن يميّز Lavermo؟" aria-label="سؤالكم لمساعد بيوري" aria-controls="aiPanel" autocomplete="off" enterkeyhint="send">
           <button type="submit" aria-label="إرسال السؤال"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5.5 11.5 12 5l6.5 6.5"/></svg></button>
         </form>
         <span class="purey-ask-note">مساعد بيوري · جملة للتجار وأصحاب المحلات</span>
@@ -825,7 +837,8 @@ for (const c of CATS) {
         <h2 class="ttl" id="productRelated">من نفس التشكيلة</h2>
         <div class="others">${suggestions}</div>
       </section>
-    </div>`;
+    </div>
+${band}`;
     fs.writeFileSync(path.join(OUT, 'product-' + p.id + '.html'), page({
       title: name + ' | بيـوري', desc: name + ' بالجملة من بيـوري، طرابلس.',
       active: c.slug, main, full: true, product: true,

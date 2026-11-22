@@ -75,16 +75,23 @@
   const $=id=>document.getElementById(id),panel=$('aiPanel');if(!panel)return;
   const data=root.PUREY_CATALOG||JSON.parse($('catalog-data').textContent);
   const thread=$('aiThread'),body=panel.querySelector('.ai-body'),text=$('aiText'),send=$('aiSend');
-  const inline=$('pureyInlineChat'),inlineThread=$('pureyInlineThread'),form=$('pureyAskForm'),inlineText=$('pureyAskText'),inlineSend=form?.querySelector('button[type="submit"]');
-  const threads=[thread,inlineThread].filter(Boolean);
+  const form=$('pureyAskForm'),inlineText=$('pureyAskText'),inlineSend=form?.querySelector('button[type="submit"]');
+  const threads=[thread];
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches,phone=()=>matchMedia('(max-width:520px)').matches;
+  // iOS keeps position:fixed on the layout viewport; size the sheet to the visible area instead
+  const vv=root.visualViewport;
+  function syncViewport(){const r=document.documentElement;if(!vv)return;r.style.setProperty('--vvh',vv.height+'px');r.style.setProperty('--vvtop',vv.offsetTop+'px');r.classList.toggle('kb-open',vv.height<root.innerHeight-60);}
+  if(vv){vv.addEventListener('resize',syncViewport);vv.addEventListener('scroll',syncViewport);}syncViewport();
+  // freeze the page behind the phone sheet so focusing the field never scrolls it away
+  let lockY=0,locked=false;
+  function lockPage(on){const b=document.body;if(on===locked)return;if(on){lockY=root.scrollY;Object.assign(b.style,{position:'fixed',top:-lockY+'px',left:'0',right:'0',width:'100%'});}else{Object.assign(b.style,{position:'',top:'',left:'',right:'',width:''});root.scrollTo(0,lockY);}locked=on;}
   const state={category:null,brand:false,last:[]};let busy=false;
   let session;try{session=sessionStorage.getItem('purey.thread');if(!session){session=crypto.randomUUID();sessionStorage.setItem('purey.thread',session);}}catch{session='purey-'+Date.now();}
-  function scroll(){body.scrollTop=body.scrollHeight;if(inline)inline.scrollTop=inline.scrollHeight;}
+  function scroll(){body.scrollTop=body.scrollHeight;}
   function append(el){const nodes=threads.map(t=>{const node=el.cloneNode(true);t.append(node);return node;});scroll();return nodes;}
   function bubble(value,who){const el=document.createElement('div');el.className='bub '+who;el.textContent=value;const nodes=append(el);return {remove(){nodes.forEach(n=>n.remove());},setAttribute(k,v){nodes.forEach(n=>n.setAttribute(k,v));}};}
-  function activateInline(){if(inline){inline.hidden=false;inlineThread.setAttribute('aria-live','polite');thread.setAttribute('aria-live','off');}}
-  function open(on){panel.toggleAttribute('data-open',on);panel.inert=!on;$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);thread.setAttribute('aria-live',on?'polite':'off');if(inlineThread)inlineThread.setAttribute('aria-live',on?'off':'polite');if(on){view('chat');scroll();setTimeout(()=>(matchMedia('(hover:hover) and (pointer:fine)').matches?text:$('aiClose')).focus({preventScroll:true}),60);}}
-  function view(v){panel.dataset.view=v;if(v==='chat')setTimeout(()=>text.focus(),80);}
+  function open(on){panel.toggleAttribute('data-open',on);panel.inert=!on;$('aiLaunch').setAttribute('aria-expanded',String(on));document.documentElement.classList.toggle('ai-open',on);thread.setAttribute('aria-live',on?'polite':'off');lockPage(on&&phone());syncViewport();if(on){panel.dataset.view='chat';scroll();setTimeout(()=>(fine?text:$('aiClose')).focus({preventScroll:true}),60);}}
+  function view(v){panel.dataset.view=v;if(v==='chat'&&fine)setTimeout(()=>text.focus({preventScroll:true}),80);}
   function link(label,href){const a=document.createElement('a');a.className='ai-feature';a.href=href;a.textContent=label;append(a);}
   function productCards(products,label){
     if(!products.length)return;
@@ -100,7 +107,7 @@
   function recommendations(q){const result=selectProducts(data,q,state);productCards(result.picked,'من التشكيلة');if(result.extra)productCards([result.extra],'ويكمل معاها');return result.picked.length;}
   async function ask(q){
     q=q.trim();if(!q||busy)return;busy=true;send.disabled=true;if(inlineSend)inlineSend.disabled=true;threads.forEach(t=>t.setAttribute('aria-busy','true'));bubble(q,'me');
-    const typing=bubble('نجهزولكم الرد…','bot');typing.setAttribute('role','status');
+    const dots=document.createElement('div');dots.className='bub bot typing';dots.setAttribute('role','status');dots.setAttribute('aria-label','نجهزولكم الرد…');dots.innerHTML='<i></i><i></i><i></i>';thread.append(dots);scroll();const typing={remove(){dots.remove();}};
     try{
       const confirmed=known(q),wantProducts=productQuestion(q)||bestQuestion(q)||brandQuestion(q)||/\b[cosulv]\d{2,3}\b/i.test(q);
       let reply=confirmed;
@@ -126,6 +133,8 @@
   document.addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.hasAttribute('data-open')){open(false);$('aiLaunch').focus();}});
   const askSection=document.getElementById('ask-purey');
   if(askSection&&'IntersectionObserver' in root)new IntersectionObserver(e=>document.documentElement.classList.toggle('ask-visible',e[0].isIntersecting),{threshold:.15}).observe(askSection);
-  if(form)form.addEventListener('submit',e=>{e.preventDefault();if(!inlineText.value.trim()||busy)return;activateInline();ask(inlineText.value);inlineText.value='';inlineText.focus();});
-  document.querySelectorAll('[data-ask-purey]').forEach(button=>button.addEventListener('click',()=>{if(busy)return;activateInline();ask(button.dataset.askPurey);}));
+  // the home-page ask box hands the question to the chat sheet instead of growing a thread in the page
+  function handOff(q){q=String(q||'').trim();if(!q||busy)return;inlineText&&inlineText.blur();open(true);ask(q);}
+  if(form)form.addEventListener('submit',e=>{e.preventDefault();const q=inlineText.value;inlineText.value='';handOff(q);});
+  document.querySelectorAll('[data-ask-purey]').forEach(button=>button.addEventListener('click',()=>handOff(button.dataset.askPurey)));
 })(typeof window!=='undefined'?window:globalThis);
