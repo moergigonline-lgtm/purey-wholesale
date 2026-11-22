@@ -355,6 +355,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -1166,6 +1188,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -1657,6 +1701,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}

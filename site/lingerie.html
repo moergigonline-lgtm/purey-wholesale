@@ -365,6 +365,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -1176,6 +1198,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -1667,6 +1711,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -2179,21 +2245,20 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
     </div>
   </header>
   <dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
-    <button class="x" type="button" data-close aria-label="إغلاق">✕</button>
-    <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey"></div>
+    <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey" width="293" height="240"><button class="md-x" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <ul class="md-list">
-        <li><a class="plain" href="index.html">الرئيسية</a></li>
-        <li><a href="cotton.html"><img src="img/lookbook-edit-cotton-480.webp" alt="" loading="lazy" style="object-position:center"><span class="tx">بجامات قطني<small>Cotton · 119</small></span></a></li>
-        <li><a href="satin.html"><img src="img/lookbook-edit-satin-480.webp" alt="" loading="lazy" style="object-position:center"><span class="tx">بجامات ستان<small>Satin · 58</small></span></a></li>
-        <li><a href="robes.html"><img src="img/home-edit-robes-480.webp" alt="" loading="lazy" style="object-position:center"><span class="tx">أرواب وعرائسي<small>Robes · Bridal · 87</small></span></a></li>
-        <li><a href="lingerie.html" aria-current="page"><img src="img/lookbook-edit-lingerie-480.webp" alt="" loading="lazy" style="object-position:center"><span class="tx">لانجري<small>Lingerie · 59</small></span></a></li>
-        <li><a href="sets.html"><img src="img/lookbook-edit-sets-480.webp" alt="" loading="lazy" style="object-position:center"><span class="tx">طواقم داخلي<small>Sets · 120</small></span></a></li>
-        <li><a href="lavermo.html"><img class="md-lavermo" src="img/lavermo-lockup.webp" alt="" loading="lazy"><span class="tx"><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a></li>
-        <li><a class="plain" href="#contact">تواصل معنا</a></li>
+        <li><a href="index.html"><span class="tx">الرئيسية</span></a></li>
+        <li><a href="cotton.html"><span class="tx">بجامات قطني</span><small>119 موديل</small></a></li>
+        <li><a href="satin.html"><span class="tx">بجامات ستان</span><small>58 موديل</small></a></li>
+        <li><a href="robes.html"><span class="tx">أرواب وعرائسي</span><small>87 موديل</small></a></li>
+        <li><a href="lingerie.html" aria-current="page"><span class="tx">لانجري</span><small>59 موديل</small></a></li>
+        <li><a href="sets.html"><span class="tx">طواقم داخلي</span><small>120 موديل</small></a></li>
+        <li><a class="md-lav" href="lavermo.html"><span class="tx"><bdi lang="en">Lavermo</bdi></span><small>إصدار محدود</small></a></li>
+        <li><a href="#contact"><span class="tx">تواصل معنا</span></a></li>
     </ul>
     <div class="md-foot">
-      <a class="btn solid" href="https://wa.me/218919282214" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg> اطلب على واتساب</a>
-      <a class="btn line" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك <bdi dir="ltr">@purey116</bdi></a>
+      <a class="btn solid" href="https://wa.me/218919282214" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.6a8.6 8.6 0 0 1-12.7 7.5L3.5 20.3l1.3-4.1A8.6 8.6 0 1 1 20.5 11.6Z"/><path d="M9 8.6c.3 2.6 2 4.4 4.6 5.2l1.2-1.2 1.8.8-.4 1.6c-3.8.4-7.6-3.3-7.4-7.2l1.6-.4.8 1.8Z"/></svg> اطلبوا على واتساب</a>
+      <a class="md-tt" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك&nbsp;<bdi dir="ltr">@purey116</bdi></a>
     </div>
   </dialog>
 
@@ -2439,7 +2504,7 @@ document.querySelectorAll('.car').forEach(c=>{
   document.addEventListener('pointerdown', e => {
     if (!trigger.contains(e.target) && !panel.contains(e.target)) setOpen(false);
   });
-  const openCollections = m.querySelector('[data-menu-collections]');
+  const openCollections = m && m.querySelector('[data-menu-collections]');
   const back = m.querySelector('[data-menu-back]');
   const mainView = m.querySelector('[data-menu-view="main"]');
   const collectionView = m.querySelector('[data-menu-view="collections"]');
@@ -2449,9 +2514,11 @@ document.querySelectorAll('.car').forEach(c=>{
     back.hidden = !open;
     openCollections.setAttribute('aria-expanded', String(open));
   };
-  openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
-  back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
-  m.addEventListener('close', () => showCollections(false));
+  if (openCollections) {
+    openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
+    back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
+    m.addEventListener('close', () => showCollections(false));
+  }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !panel.hidden) {
       setOpen(false);

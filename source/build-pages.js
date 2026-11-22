@@ -182,6 +182,28 @@ dialog.sheet.editorial-drawer{
   .campaign-wordmark{font-size:clamp(34px,10.6vw,52px)}
 }
 .menu-d{position:fixed; inset-block:0; right:0; left:auto; margin:0; width:min(360px,88vw); max-width:88vw; height:100dvh; max-height:100dvh; border-radius:24px 0 0 24px; display:flex; flex-direction:column}
+/* menu: a small white floating panel (Trimology style): clean text rows, soft hover, one WhatsApp action */
+dialog.sheet.menu-d{inset:auto;top:max(10px,env(safe-area-inset-top));right:10px;left:auto;bottom:auto;width:min(340px,calc(100vw - 20px));
+  height:auto;max-height:calc(100dvh - 20px);padding:8px;border-radius:16px;background:#fff;color:var(--ink);
+  border:1px solid #ece6e8;box-shadow:0 24px 60px -24px rgba(40,10,16,.45),0 2px 8px -4px rgba(40,10,16,.12);overflow:auto}
+dialog.sheet.menu-d::backdrop{background:rgba(20,6,10,.35);backdrop-filter:none}
+.menu-d .md-head{display:flex;align-items:center;justify-content:space-between;padding:6px 8px 10px 6px;border-bottom:1px solid #f0eaec}
+.menu-d .md-head img{height:38px;width:auto}
+.menu-d .md-x{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:50%;background:none;color:#7a7475;cursor:pointer}
+.menu-d .md-x:hover{background:#f6f3f4;color:var(--ink)}
+.menu-d .md-x svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round}
+.menu-d .md-list{padding:6px 0;overflow:visible}
+.menu-d .md-list a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:0 12px;border:0;border-radius:10px;
+  font:500 16.5px/1.2 var(--f-sans);color:var(--ink);transition:background-color .15s,color .15s}
+.menu-d .md-list a:hover,.menu-d .md-list a:focus-visible{background:#f6f3f4}
+.menu-d .md-list a[aria-current="page"]{color:var(--wine);background:#fbf3f4}
+.menu-d .md-list small{font:400 12.5px/1 var(--f-sans);color:#8a8486;white-space:nowrap}
+.menu-d .md-lav .tx bdi{font:italic 500 1.18em/1 var(--f-latin-script)}
+.menu-d .md-foot{display:grid;gap:6px;padding:10px 4px 4px;border-top:1px solid #f0eaec}
+.menu-d .md-foot .btn{min-height:46px;width:100%;justify-content:center}
+.menu-d .md-tt{display:flex;justify-content:center;min-height:40px;align-items:center;font:400 13.5px var(--f-sans);color:#6f6a6b}
+@media(prefers-reduced-motion:no-preference){dialog.sheet.menu-d[open]{animation:mdIn .22s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes mdIn{from{opacity:0;transform:translateY(-8px) scale(.98)}}}
 .menu-d:not([open]){display:none}
 .md-head{display:flex; align-items:center; padding:16px 20px; border-bottom:1px solid rgba(17,17,17,.08)}
 .md-head img{height:44px; width:auto}
@@ -378,10 +400,10 @@ function headerFor(active) {
   `;
   const mega = campaign ? `<div class="mega-panel" id="collectionNav" hidden>${collectionTiles}</div>` : '';
   const drawer = [
-    `<li><a class="plain" href="index.html"${cur('home')}>الرئيسية</a></li>`,
-    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><img src="${campaign ? `img/home-edit-${c.slug}-480.webp` : `img/${COLLECTION_IMG[c.slug]}-480.webp`}" alt="" loading="lazy" style="object-position:center"><span class="tx">${c.ar}<small>${c.en} · ${count[c.k]}</small></span></a></li>`),
-    `<li><a href="lavermo.html"${cur('lavermo')}><img ${campaign ? 'src="img/home-edit-lavermo-480.webp"' : 'class="md-lavermo" src="img/lavermo-lockup.webp"'} alt="" loading="lazy"><span class="tx"><bdi lang="en">Lavermo</bdi><small>إصدار محدود</small></span></a></li>`,
-    `<li><a class="plain" href="#contact">تواصل معنا</a></li>`,
+    `<li><a href="index.html"${cur('home')}><span class="tx">الرئيسية</span></a></li>`,
+    ...CATS.map((c) => `<li><a href="${c.slug}.html"${cur(c.slug)}><span class="tx">${c.ar}</span><small>${count[c.k]} موديل</small></a></li>`),
+    `<li><a class="md-lav" href="lavermo.html"${cur('lavermo')}><span class="tx"><bdi lang="en">Lavermo</bdi></span><small>إصدار محدود</small></a></li>`,
+    `<li><a href="#contact"><span class="tx">تواصل معنا</span></a></li>`,
   ].join('\n        ');
   return `  <a class="announce" href="https://wa.me/218919282214" target="_blank" rel="noopener">جملة فقط للتجار وأصحاب المحلات · اطلب على واتساب <bdi dir="ltr">0919282214</bdi></a>
   <header class="site-head${active === 'home' ? ' site-head--campaign' : ''}" id="siteHead">
@@ -408,29 +430,16 @@ function headerFor(active) {
       </div>
     </div>${campaign ? '\n' + brandTabs() : ''}
   </header>
-  ${campaign ? `<dialog class="sheet editorial-drawer" id="menuD" aria-label="القائمة">
-    <div class="drawer-controls">
-      <button type="button" data-menu-back hidden>رجوع</button>
-      <button type="button" data-close>إغلاق</button>
-    </div>
-    <nav class="drawer-main" data-menu-view="main" aria-label="القائمة الرئيسية">
-      <a href="index.html" aria-current="page">الرئيسية</a>
-      <button type="button" data-menu-collections aria-expanded="false" aria-controls="drawerCollections">التشكيلات</button>
-      <a href="lavermo.html"><bdi lang="en">Lavermo</bdi></a>
-      <a href="#contact">تواصل معنا</a>
-    </nav>
-    <nav class="drawer-collections" id="drawerCollections" data-menu-view="collections" aria-label="التشكيلات" hidden>${collectionTiles}</nav>
-  </dialog>` : `<dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
-    <button class="x" type="button" data-close aria-label="إغلاق">✕</button>
-    <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey"></div>
+  <dialog class="sheet menu-d" id="menuD" aria-label="القائمة">
+    <div class="md-head"><img src="img/logo-mark.png" alt="بيـوري Purey" width="293" height="240"><button class="md-x" type="button" data-close aria-label="إغلاق"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
     <ul class="md-list">
         ${drawer}
     </ul>
     <div class="md-foot">
-      <a class="btn solid" href="https://wa.me/218919282214" target="_blank" rel="noopener">${ICO.wa} اطلب على واتساب</a>
-      <a class="btn line" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك <bdi dir="ltr">@purey116</bdi></a>
+      <a class="btn solid" href="https://wa.me/218919282214" target="_blank" rel="noopener">${ICO.wa} اطلبوا على واتساب</a>
+      <a class="md-tt" href="https://www.tiktok.com/@purey116" target="_blank" rel="noopener">تيك توك&nbsp;<bdi dir="ltr">@purey116</bdi></a>
     </div>
-  </dialog>`}
+  </dialog>
 `;
 }
 function navFor(active) {
@@ -479,7 +488,7 @@ script = rep(script, '// ── Catalogue + order basket', `// ── Header: co
   document.addEventListener('pointerdown', e => {
     if (!trigger.contains(e.target) && !panel.contains(e.target)) setOpen(false);
   });
-  const openCollections = m.querySelector('[data-menu-collections]');
+  const openCollections = m && m.querySelector('[data-menu-collections]');
   const back = m.querySelector('[data-menu-back]');
   const mainView = m.querySelector('[data-menu-view="main"]');
   const collectionView = m.querySelector('[data-menu-view="collections"]');
@@ -489,9 +498,11 @@ script = rep(script, '// ── Catalogue + order basket', `// ── Header: co
     back.hidden = !open;
     openCollections.setAttribute('aria-expanded', String(open));
   };
-  openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
-  back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
-  m.addEventListener('close', () => showCollections(false));
+  if (openCollections) {
+    openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
+    back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
+    m.addEventListener('close', () => showCollections(false));
+  }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !panel.hidden) {
       setOpen(false);

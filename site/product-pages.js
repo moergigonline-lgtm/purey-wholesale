@@ -38,7 +38,7 @@ document.querySelectorAll('.car').forEach(c=>{
   document.addEventListener('pointerdown', e => {
     if (!trigger.contains(e.target) && !panel.contains(e.target)) setOpen(false);
   });
-  const openCollections = m.querySelector('[data-menu-collections]');
+  const openCollections = m && m.querySelector('[data-menu-collections]');
   const back = m.querySelector('[data-menu-back]');
   const mainView = m.querySelector('[data-menu-view="main"]');
   const collectionView = m.querySelector('[data-menu-view="collections"]');
@@ -48,9 +48,11 @@ document.querySelectorAll('.car').forEach(c=>{
     back.hidden = !open;
     openCollections.setAttribute('aria-expanded', String(open));
   };
-  openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
-  back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
-  m.addEventListener('close', () => showCollections(false));
+  if (openCollections) {
+    openCollections.addEventListener('click', () => { showCollections(true); back.focus(); });
+    back.addEventListener('click', () => { showCollections(false); openCollections.focus(); });
+    m.addEventListener('close', () => showCollections(false));
+  }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape' && !panel.hidden) {
       setOpen(false);
