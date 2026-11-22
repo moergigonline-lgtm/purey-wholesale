@@ -357,8 +357,6 @@ document.querySelectorAll('.car').forEach(c=>{
         if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
       });
     }
-    // warm the Lavermo hero after load so the switch is instant
-    addEventListener('load', () => setTimeout(loadLavermoLook, 1200));
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
@@ -390,6 +388,8 @@ document.querySelectorAll('.car').forEach(c=>{
       if (grid) filter();
     }
     const pick = b => { BRAND = b; try { localStorage.setItem('purey.brand', b); } catch {} applyBrand(); };
+    // the Lavermo photograph downloads only when someone heads for its tab (hover, focus or touch)
+    tabs.filter(t => t.dataset.brand === 'lavermo').forEach(t => ['pointerenter','focus','touchstart'].forEach(e => t.addEventListener(e, loadLavermoLook, { once: true, passive: true })));
     tabs.forEach(t => {
       t.addEventListener('click', () => pick(t.dataset.brand));
       t.addEventListener('keydown', e => {

@@ -582,8 +582,6 @@ script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
         if (el.dataset.src) { el.src = el.dataset.src; delete el.dataset.src; }
       });
     }
-    // warm the Lavermo hero after load so the switch is instant
-    addEventListener('load', () => setTimeout(loadLavermoLook, 1200));
     function applyBrand() {
       const lav = BRAND === 'lavermo';
       document.documentElement.dataset.brand = BRAND;
@@ -615,6 +613,8 @@ script = rep(script, `  const start = SLUG[(location.hash || '').slice(3)];
       if (grid) filter();
     }
     const pick = b => { BRAND = b; try { localStorage.setItem('purey.brand', b); } catch {} applyBrand(); };
+    // the Lavermo photograph downloads only when someone heads for its tab (hover, focus or touch)
+    tabs.filter(t => t.dataset.brand === 'lavermo').forEach(t => ['pointerenter','focus','touchstart'].forEach(e => t.addEventListener(e, loadLavermoLook, { once: true, passive: true })));
     tabs.forEach(t => {
       t.addEventListener('click', () => pick(t.dataset.brand));
       t.addEventListener('keydown', e => {
@@ -742,15 +742,16 @@ ${brandTabs()}
     <section class="in" id="catalog" aria-label="${c.ar}">
       <div class="toolbar">
         <div class="catalog-controls">
-          <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحث بالاسم أو الرمز" aria-label="ابحث في ${c.ar}"></label>
+          <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحثوا بالاسم أو الرمز" aria-label="ابحث في ${c.ar}"></label>
           <select id="catalogColor" aria-label="اللون"><option value="">كل الألوان</option></select>
           <select id="catalogSort" aria-label="ترتيب المنتجات">
             <option value="">ترتيب المجموعة</option><option value="name">الاسم</option><option value="code">رمز القطعة</option>
           </select>
         </div>
       </div>
+      <h2 class="bt-sr">كل موديلات ${c.ar}</h2>
       <div class="grid" id="grid" data-cat="${c.k}"></div>
-      <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف — جرّب كلمة ثانية.</p>
+      <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف، جرّبوا كلمة ثانية.</p>
       <div class="more-row">
         <span class="shown" id="shown" role="status"></span>
         <button class="pill" id="more" type="button">عرض المزيد</button>
@@ -789,12 +790,13 @@ fs.writeFileSync(path.join(OUT, 'lavermo.html'), page({
     </div>
     <section class="in" id="catalog" aria-label="تشكيلة Lavermo">
       <div class="toolbar"><div class="catalog-controls">
-        <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحث بالاسم أو الرمز" aria-label="ابحث في Lavermo"></label>
+        <label class="search">${SEARCH_ICO}<input id="q" type="search" placeholder="ابحثوا بالاسم أو الرمز" aria-label="ابحث في Lavermo"></label>
         <select id="catalogColor" aria-label="اللون"><option value="">كل الألوان</option></select>
         <select id="catalogSort" aria-label="ترتيب المنتجات"><option value="">ترتيب المجموعة</option><option value="name">الاسم</option><option value="code">رمز القطعة</option></select>
       </div></div>
+      <h2 class="bt-sr">كل موديلات Lavermo</h2>
       <div class="grid" id="grid" data-cat="lavermo"></div>
-      <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف — جرّب كلمة ثانية.</p>
+      <p class="empty" id="empty" hidden>ما لقيناش قطع بهالوصف، جرّبوا كلمة ثانية.</p>
       <div class="more-row"><span class="shown" id="shown" role="status"></span><button class="pill" id="more" type="button">عرض المزيد</button></div>
     </section>
 ${dataScript}
