@@ -2056,6 +2056,12 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 .chat-basket-actions .cb-primary{background:var(--wine);border-color:var(--wine);color:#fff}
 .chat-basket-actions :is(button,a):hover{border-color:var(--wine)}
 .chat-basket-actions .cb-primary:hover{background:var(--wine-dark,#6f0d14)}
+/* desktop: show the whole 3:2 photograph (no band crop); the copy is vertically centred beside the
+   model, so the buttons still sit within the first screen (~header + 33vw). */
+@media(min-width:921px){
+  .campaign-split{min-height:calc(100vw / 1.5);padding-block:clamp(120px,15vw,260px) 0;align-items:start}
+  .campaign-split picture img{object-position:center center}
+}
 
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
