@@ -253,6 +253,24 @@ document.querySelectorAll('.car').forEach(c=>{
     return ['مرحباً بيـوري، أبي أطلب جملة:', '', ...lines, '', 'المجموع: ' + pieces() + ' قطعة · ' + ids.length + ' صنف', ...extra].join(String.fromCharCode(10));
   }
   $('sendWa').addEventListener('click', () => { if (Object.keys(bag).length) window.open(WA + encodeURIComponent(waText()), '_blank', 'noopener'); });
+  const orderWaText = (order, no) => ['مرحباً بيـوري، هذا طلب جملة' + (no ? ' رقم ' + no : '') + ':', '',
+    ...order.items.map((it, i) => (i + 1) + ') ' + it.n + ' — ' + it.qty + ' قطعة (رمز ' + it.id.toUpperCase() + ')'), '',
+    'المجموع: ' + order.total + ' قطعة · ' + order.items.length + ' صنف',
+    ...[['الاسم', order.customer.name], ['اسم المحل', order.customer.shop], ['الهاتف', order.customer.phone], ['المدينة', order.customer.city], ['ملاحظات', order.customer.note]]
+      .filter(([, v]) => v).map(([k, v]) => k + ': ' + v)].join(String.fromCharCode(10));
+
+  // Public basket API, used by the shopping chat to add pieces, show the order and hand off to the form.
+  window.PureyBag = {
+    items: () => Object.entries(bag).map(([id, qty]) => ({...BY[id], qty})),
+    pieces: () => pieces(),
+    has: id => !!BY[String(id).toLowerCase()],
+    add: (id, qty) => { id = String(id).toLowerCase(); if (!BY[id]) return false; setQty(id, (bag[id] || 0) + Math.max(1, qty|0), false); return true; },
+    remove: id => { id = String(id).toLowerCase(); if (!bag[id]) return false; setQty(id, 0); return true; },
+    clear: () => { Object.keys(bag).forEach(id => setQty(id, 0)); },
+    open: () => openBag(),
+    pdf: () => printOrder(orderSnapshot(orderRef)),
+    waLink: () => WA + encodeURIComponent(waText()),
+  };
 
   const toWestern = s => s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   const phoneOk = v => { const d = toWestern(v).replace(/\D/g, '').replace(/^00/, ''); return /^0?9[1-5]\d{7}$/.test(d) || /^2189[1-5]\d{7}$/.test(d) || (d.length >= 10 && d.length <= 15 && !d.startsWith('0')); };
@@ -285,6 +303,7 @@ document.querySelectorAll('.car').forEach(c=>{
     if (data && data.ok && data.order_no) {
       receipt = {...submitted, ref:String(data.order_no)};
       $('doneNo').textContent = data.order_no;
+      $('doneWa').href = WA + encodeURIComponent(orderWaText(receipt, data.order_no));
       bag = {}; save(); grid && grid.querySelectorAll('.pc').forEach(el => refreshCard(el.dataset.id)); renderBag();
       orderRef = uuid(); store('purey.orderRef', orderRef);
       form.hidden = true; $('bagList').hidden = true; $('bagEmpty').hidden = true; $('bagDone').hidden = false;

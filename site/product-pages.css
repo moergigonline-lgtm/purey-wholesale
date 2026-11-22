@@ -2032,6 +2032,20 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   .campaign-split::after{inset:0 0 0 auto;width:55%;height:auto;background:linear-gradient(to left,rgba(20,6,10,.62),rgba(20,6,10,.25) 55%,transparent)}
 }
 
+/* chat: the order card (what's in the basket + three ways to send it) */
+.chat-basket{align-self:stretch;margin-top:4px;padding:12px 12px 14px;border:1px solid #ece6e8;border-radius:14px;background:#fff}
+.chat-basket p{margin:0;font:500 13.5px/1.5 var(--f-sans);color:var(--ink)}
+.chat-basket ul{list-style:none;margin:10px 0 12px;padding:0;display:grid;gap:8px}
+.chat-basket li{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:10px;font:400 13px/1.4 var(--f-sans);color:var(--ink)}
+.chat-basket li img{width:36px;height:44px;object-fit:contain;background:#f6f3f4;border-radius:6px}
+.chat-basket li b{font-weight:500;color:var(--wine);white-space:nowrap}
+.chat-basket-actions{display:grid;gap:8px}
+.chat-basket-actions :is(button,a){display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:999px;
+  font:500 14px/1.2 var(--f-sans);text-decoration:none;cursor:pointer;border:1px solid #e3dcde;background:#fff;color:var(--ink)}
+.chat-basket-actions .cb-primary{background:var(--wine);border-color:var(--wine);color:#fff}
+.chat-basket-actions :is(button,a):hover{border-color:var(--wine)}
+.chat-basket-actions .cb-primary:hover{background:var(--wine-dark,#6f0d14)}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;

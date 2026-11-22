@@ -2042,6 +2042,20 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   .campaign-split::after{inset:0 0 0 auto;width:55%;height:auto;background:linear-gradient(to left,rgba(20,6,10,.62),rgba(20,6,10,.25) 55%,transparent)}
 }
 
+/* chat: the order card (what's in the basket + three ways to send it) */
+.chat-basket{align-self:stretch;margin-top:4px;padding:12px 12px 14px;border:1px solid #ece6e8;border-radius:14px;background:#fff}
+.chat-basket p{margin:0;font:500 13.5px/1.5 var(--f-sans);color:var(--ink)}
+.chat-basket ul{list-style:none;margin:10px 0 12px;padding:0;display:grid;gap:8px}
+.chat-basket li{display:grid;grid-template-columns:36px 1fr auto;align-items:center;gap:10px;font:400 13px/1.4 var(--f-sans);color:var(--ink)}
+.chat-basket li img{width:36px;height:44px;object-fit:contain;background:#f6f3f4;border-radius:6px}
+.chat-basket li b{font-weight:500;color:var(--wine);white-space:nowrap}
+.chat-basket-actions{display:grid;gap:8px}
+.chat-basket-actions :is(button,a){display:flex;align-items:center;justify-content:center;min-height:44px;padding:0 14px;border-radius:999px;
+  font:500 14px/1.2 var(--f-sans);text-decoration:none;cursor:pointer;border:1px solid #e3dcde;background:#fff;color:var(--ink)}
+.chat-basket-actions .cb-primary{background:var(--wine);border-color:var(--wine);color:#fff}
+.chat-basket-actions :is(button,a):hover{border-color:var(--wine)}
+.chat-basket-actions .cb-primary:hover{background:var(--wine-dark,#6f0d14)}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
@@ -2246,7 +2260,8 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
       <h3>وصلنا طلبك</h3>
       <p>رقم الطلب</p>
       <b class="ono" id="doneNo" dir="ltr"></b>
-      <p id="doneTxt">إدارة بيـوري حتتواصل معاك على رقمك قريباً لتأكيد السعر والتوفر.</p>
+      <p id="doneTxt">إدارة بيـوري حتتواصل معاكم على رقمكم قريباً لتأكيد السعر والتوفر. وعشان يوصل الطلب أسرع، ابعتوا نسخته على واتساب.</p>
+      <a class="btn solid" id="doneWa" target="_blank" rel="noopener">ابعتوا نسخة الطلب على واتساب</a>
       <button class="btn line" type="button" id="receiptPdf">احفظ الطلب PDF</button>
       <button class="btn line" type="button" data-close>متابعة التصفح</button>
     </div>
@@ -2560,6 +2575,24 @@ document.querySelectorAll('.car').forEach(c=>{
     return ['مرحباً بيـوري، أبي أطلب جملة:', '', ...lines, '', 'المجموع: ' + pieces() + ' قطعة · ' + ids.length + ' صنف', ...extra].join(String.fromCharCode(10));
   }
   $('sendWa').addEventListener('click', () => { if (Object.keys(bag).length) window.open(WA + encodeURIComponent(waText()), '_blank', 'noopener'); });
+  const orderWaText = (order, no) => ['مرحباً بيـوري، هذا طلب جملة' + (no ? ' رقم ' + no : '') + ':', '',
+    ...order.items.map((it, i) => (i + 1) + ') ' + it.n + ' — ' + it.qty + ' قطعة (رمز ' + it.id.toUpperCase() + ')'), '',
+    'المجموع: ' + order.total + ' قطعة · ' + order.items.length + ' صنف',
+    ...[['الاسم', order.customer.name], ['اسم المحل', order.customer.shop], ['الهاتف', order.customer.phone], ['المدينة', order.customer.city], ['ملاحظات', order.customer.note]]
+      .filter(([, v]) => v).map(([k, v]) => k + ': ' + v)].join(String.fromCharCode(10));
+
+  // Public basket API, used by the shopping chat to add pieces, show the order and hand off to the form.
+  window.PureyBag = {
+    items: () => Object.entries(bag).map(([id, qty]) => ({...BY[id], qty})),
+    pieces: () => pieces(),
+    has: id => !!BY[String(id).toLowerCase()],
+    add: (id, qty) => { id = String(id).toLowerCase(); if (!BY[id]) return false; setQty(id, (bag[id] || 0) + Math.max(1, qty|0), false); return true; },
+    remove: id => { id = String(id).toLowerCase(); if (!bag[id]) return false; setQty(id, 0); return true; },
+    clear: () => { Object.keys(bag).forEach(id => setQty(id, 0)); },
+    open: () => openBag(),
+    pdf: () => printOrder(orderSnapshot(orderRef)),
+    waLink: () => WA + encodeURIComponent(waText()),
+  };
 
   const toWestern = s => s.replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
   const phoneOk = v => { const d = toWestern(v).replace(/\D/g, '').replace(/^00/, ''); return /^0?9[1-5]\d{7}$/.test(d) || /^2189[1-5]\d{7}$/.test(d) || (d.length >= 10 && d.length <= 15 && !d.startsWith('0')); };
@@ -2592,6 +2625,7 @@ document.querySelectorAll('.car').forEach(c=>{
     if (data && data.ok && data.order_no) {
       receipt = {...submitted, ref:String(data.order_no)};
       $('doneNo').textContent = data.order_no;
+      $('doneWa').href = WA + encodeURIComponent(orderWaText(receipt, data.order_no));
       bag = {}; save(); grid && grid.querySelectorAll('.pc').forEach(el => refreshCard(el.dataset.id)); renderBag();
       orderRef = uuid(); store('purey.orderRef', orderRef);
       form.hidden = true; $('bagList').hidden = true; $('bagEmpty').hidden = true; $('bagDone').hidden = false;
@@ -2730,6 +2764,6 @@ document.querySelectorAll('.car').forEach(c=>{
 })();
 
 </script>
-<script defer src="purey-chat.js?v=b5cd68a43e8b"></script>
+<script defer src="purey-chat.js?v=0a674030b61f"></script>
 </body>
 </html>
