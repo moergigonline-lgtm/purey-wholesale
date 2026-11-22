@@ -1233,12 +1233,18 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 /* butterfly footer: the Purey butterfly leads the footer above the PUREY wordmark, on every page;
    the faint watermark on the catalogue band is dropped so the butterfly appears once */
 .purey-footer-mark{display:flex;flex-direction:column;align-items:center;font:inherit;line-height:1;white-space:normal}
-.purey-footer-mark{overflow:hidden}
-/* oversized butterfly, the footer's only mark (no PUREY text) */
-.purey-footer-mark .footer-fly{display:block;width:min(96vw,1180px);height:auto;opacity:.24;margin:clamp(4px,1vw,16px) auto 0}
-.purey-footer-mark:hover .footer-fly{opacity:.32}
-.band-mark{display:none}
+/* the catalogue band (with the oversized real-logo watermark) is the footer's face; the old text mark is gone */
+.purey-footer-mark{display:none}
+.band-mark{opacity:.14}
+/* reward offers: proper buttons, one size, clearly tappable */
+.reward-go{height:48px;min-height:48px;min-width:min(100%,240px);padding:0 26px;font:500 15px/1 var(--f-sans);
+  box-shadow:0 10px 24px -14px rgba(0,0,0,.55)}
+.reward-row[data-card="gift"] .reward-go{background:transparent;color:#fff;border-color:rgba(255,255,255,.75);box-shadow:none}
+.reward-row[data-card="gift"]:hover .reward-go{background:#fff;color:var(--wine);border-color:#fff}
 @media(prefers-reduced-motion:no-preference){.purey-footer-mark .footer-fly{transition:opacity .3s ease}}
+
+/* phones: lift the PUREY model a little higher in the hero (zoom from the bottom edge so nothing opens up below) */
+@media(max-width:700px){.campaign-split .look-purey img{transform:translateY(-6%) scale(1.06);transform-origin:center bottom}}
 </style>
 
 <div class="page" dir="rtl" lang="ar">
@@ -1423,8 +1429,8 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
               <span class="reward-sub">على كل طلب من بيوري</span>
               <span class="reward-go">احصلوا على البطاقة</span></a></li>
             <li><a class="reward-row" href="https://take.cards/rKZHk" target="_blank" rel="noopener" data-card="gift">
-              <span class="reward-name">10 دستات + 3 هدية</span>
-              <span class="reward-sub">لفترة محدودة · مرة وحدة</span>
+              <span class="reward-name">10 دستات + 3 قطع هدية</span>
+              <span class="reward-sub">اشتروا أكثر من 10 دستات وخذوا 3 قطع هدية · لفترة محدودة</span>
               <span class="reward-go">احصلوا على الكوبون</span></a></li>
           </ul>
         </div>
@@ -1433,7 +1439,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 
     <!-- BAND -->
     <section class="band" aria-label="اطلب الكتالوج">
-      <img class="band-mark" src="img/logo-alt-white.png" alt="" aria-hidden="true" loading="lazy">
+      <img class="band-mark" src="img/logo-real-white.png" alt="" aria-hidden="true" width="1110" height="1032" loading="lazy" decoding="async">
       <div class="in band-in">
         <div>
           <h3>اطلب كتالوج الجملة</h3>
@@ -1460,7 +1466,7 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   <!-- FOOTER -->
   <footer class="purey-footer" id="contact">
     <div class="in purey-footer-inner">
-      <a class="purey-footer-mark" href="index.html" dir="ltr" lang="en" aria-label="Purey home"><img class="footer-fly" src="img/footer-butterfly.png" alt="" width="560" height="330" loading="lazy" decoding="async"></a>
+      <a class="purey-footer-mark" href="index.html" dir="ltr" lang="en" aria-label="Purey home"></a>
       <nav class="purey-footer-nav" aria-label="القائمة السفلية" lang="ar" dir="rtl">
         <!-- FOOTER COLLECTION LINKS -->
         <a href="index.html#about">علامتنا الخاصة</a>
