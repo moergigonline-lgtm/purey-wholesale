@@ -2021,6 +2021,20 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 .reward-go{margin-top:14px}
 @media(max-width:760px){.reward-row{align-items:center}}
 
+/* hero option F: white primary (browse) + outlined secondary (WhatsApp order), side by side */
+.campaign-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.campaign-split .campaign-action,.campaign-wa{min-height:48px;height:48px;padding:0 24px;font:500 15px/1 var(--f-sans)}
+.campaign-wa{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;color:#fff;white-space:nowrap;
+  border:1px solid rgba(255,255,255,.72);background:rgba(20,6,10,.18);transition:background-color .18s,color .18s,border-color .18s}
+.campaign-wa:hover,.campaign-wa:focus-visible{background:#fff;color:var(--wine);border-color:#fff}
+.campaign-wa:focus-visible{outline:2px solid #fff;outline-offset:3px}
+@media(max-width:420px){.campaign-split .campaign-action,.campaign-wa{height:46px;min-height:46px;padding:0 18px;font-size:14.5px}}
+@media(max-width:350px){.campaign-split .campaign-action,.campaign-wa{padding:0 14px;font-size:13.5px}}
+/* the title and both hero buttons always land on the first screen */
+/* --head-h is the measured header + brand tabs height (set by script; 150px until then) */
+@media(min-width:701px){.campaign-split{min-height:max(460px,min(58vw,calc(100svh - var(--head-h,150px))));padding-bottom:clamp(40px,4.5vw,64px)}}
+@media(max-width:700px){.campaign-split{min-height:max(460px,calc(100svh - var(--head-h,150px)));padding-bottom:clamp(76px,11svh,104px)}}
+
 .brand-tabs{display:grid;grid-template-columns:1fr 1fr;width:100%;background:#fff;border-block:1px solid #e7e7e7}
 .brand-tab{position:relative;display:grid;place-items:center;min-height:clamp(54px,5.2vw,72px);margin:0;padding:0 12px;
   border:0;background:#f2f2f2;color:#9a9a9a;cursor:pointer;font:inherit;transition:background-color .25s,color .25s;
@@ -2117,7 +2131,10 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
         </picture>
         <div class="campaign-copy">
           <h1 class="campaign-title" id="purey-campaign">أفضل كولكشن في ليبيا</h1>
-          <a class="campaign-action" href="#cats"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح كل التشكيلات</span></a>
+          <div class="campaign-actions">
+            <a class="campaign-action" href="#cats"><img class="campaign-butterfly" src="img/logo-icon.png" alt="" width="293" height="179"><span class="campaign-action-label">تصفّح التشكيلات</span></a>
+            <a class="campaign-wa" href="https://wa.me/218919282214" target="_blank" rel="noopener">اطلبوا على واتساب</a>
+          </div>
         </div>
       </section>
     </div>
@@ -2404,6 +2421,12 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
   </div>
 </div>
 
+<script>
+// Hero fits the first screen: measure everything above it (announce bar, header, brand tabs).
+(function(){const hero=document.querySelector('.campaign-split');if(!hero)return;
+  const set=()=>{const top=hero.getBoundingClientRect().top+scrollY;document.documentElement.style.setProperty('--head-h',Math.round(top)+'px');};
+  set();addEventListener('load',set);addEventListener('resize',set);if(document.fonts)document.fonts.ready.then(set);})();
+</script>
 <script>
 // Product carousels. Tracks run left-to-right (direction:ltr), so 'next' scrolls right.
 document.querySelectorAll('.car').forEach(c=>{

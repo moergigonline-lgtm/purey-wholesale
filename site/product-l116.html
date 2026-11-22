@@ -236,6 +236,12 @@
   </div>
 </div>
 
+<script>
+// Hero fits the first screen: measure everything above it (announce bar, header, brand tabs).
+(function(){const hero=document.querySelector('.campaign-split');if(!hero)return;
+  const set=()=>{const top=hero.getBoundingClientRect().top+scrollY;document.documentElement.style.setProperty('--head-h',Math.round(top)+'px');};
+  set();addEventListener('load',set);addEventListener('resize',set);if(document.fonts)document.fonts.ready.then(set);})();
+</script>
 <script src="product-catalog.js"></script><script src="product-pages.js"></script><script defer src="purey-chat.js?v=b5cd68a43e8b"></script>
 </body>
 </html>
