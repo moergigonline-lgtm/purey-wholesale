@@ -725,7 +725,8 @@ fs.copyFileSync(path.join(path.dirname(SRC), 'purey-chat.js'),path.join(OUT,'pur
 // home (the artifact wraps it in a document itself)
 fs.writeFileSync(path.join(OUT, 'index.html'), page({
   title: 'بيـوري Purey', desc: 'بيـوري — جملة بجامات قطني وستان، ارواب وعرائيسي، لانجري وطواقم داخلي. طرابلس، شارع الرشيد.',
-  active: 'home', main: homeTop + about + askSection + dataScript + band, full: false,
+  // rewards sit straight above the catalogue band and footer so the plum runs as one block
+  active: 'home', main: homeTop + about.slice(0, about.indexOf('    <!-- WALLET OFFERS -->')) + askSection + about.slice(about.indexOf('    <!-- WALLET OFFERS -->')) + dataScript + band, full: false,
 }));
 
 for (const c of CATS) {

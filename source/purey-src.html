@@ -1174,6 +1174,19 @@ html[data-brand="lavermo"] .campaign-gallery{--nb:#0d0809;background:#0d0809}
 .page .site-head :is(.h-icons a,.h-icons button,.menu-btn){min-width:44px;min-height:44px;margin:-7px}
 .page .crumbs a{display:inline-block;padding-block:14px;margin-block:-14px}
 :is(.ai-chips,.purey-ask-prompts) button{height:44px;min-height:44px}
+
+/* phones, PUREY mode: the collections strip is white (no red band); Lavermo mode stays black */
+@media(max-width:760px){
+  html:not([data-brand="lavermo"]) .campaign-gallery{--nb:#fff;background:#fff;color:var(--ink);border-top:1px solid #eee}
+  html:not([data-brand="lavermo"]) :is(.gallery-title,.gallery-links a,.lookbook-tile){color:var(--ink)}
+  html:not([data-brand="lavermo"]) .gallery-sub{color:var(--ink-2)}
+  html:not([data-brand="lavermo"]) .lookbook-count{color:var(--grey)}
+}
+
+/* rewards: each offer reads top to bottom (name, note, button) so nothing wraps beside a button */
+.reward-row{display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:20px 0}
+.reward-go{margin-top:14px}
+@media(max-width:760px){.reward-row{align-items:center}}
 </style>
 
 <div class="page" dir="rtl" lang="ar">
