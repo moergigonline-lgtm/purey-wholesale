@@ -295,7 +295,7 @@ document.querySelectorAll('.car').forEach(c=>{
       const ctrl = new AbortController(); const bail = setTimeout(() => ctrl.abort(), 25000);
       const res = await fetch(ORDER_ENDPOINT, { method: 'POST', headers: {'Content-Type': 'application/json'}, signal: ctrl.signal,
         body: JSON.stringify({ site: ORDER_SITE, ref: orderRef, website: $('oWebsite').value,
-          customer: { name, phone: toWestern(phone), city, note: $('oNote').value.trim() },
+          customer: { name, shop: $('oShop').value.trim(), phone: toWestern(phone), city, note: $('oNote').value.trim() },
           items: submitted.items.map(item => ({ code: item.id.toUpperCase(), qty: item.qty })) }) });
       clearTimeout(bail); status = res.status; data = await res.json().catch(() => null);
     } catch { /* offline / blocked — handled below */ }
